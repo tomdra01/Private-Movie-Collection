@@ -10,11 +10,11 @@ public class Movie {
 
     private double rating;
 
-    private File fileLink;
+    private String fileLink;
 
-    private String lastView;
+    private double lastView;
 
-    public Movie(){
+    public Movie(int id, String title, double rating){
 
     }
 
