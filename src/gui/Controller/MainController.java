@@ -8,8 +8,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -34,8 +36,26 @@ public class MainController implements Initializable {
     private ChoiceBox<String> categoryField;
     @FXML
     private Label categoryText;
+    @FXML
+    private TextField sourceField;
 
     private String[] categories = {"Horror", "Action", "Romantic", "Comedy", "Thriller", "Drama", "Detective", "Adventure"};
+
+    private File selectedMovie;
+    public void chooseButtonAction(ActionEvent actionEvent) {
+
+
+        FileChooser.ExtensionFilter ex1 = new FileChooser.ExtensionFilter("Mp4 Files", "*.mp4");
+        FileChooser.ExtensionFilter ex2 = new FileChooser.ExtensionFilter("Mpeg4 Files", "*.mpeg-4");
+        FileChooser.ExtensionFilter ex3 = new FileChooser.ExtensionFilter("All Files", "*.*");
+
+        Stage stage = new Stage();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(ex1, ex2, ex3);
+        selectedMovie = fileChooser.showOpenDialog(stage);
+        sourceField.setText(String.valueOf(selectedMovie));
+    }
+
 
     public void clickAdd() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/View/AddWindow.fxml"));
@@ -54,7 +74,7 @@ public class MainController implements Initializable {
 
     public void clickSave()  {
         LocalDate dateOfRelease = releaseField.getValue();
-        System.out.println(titleField.getText()+ratingField.getText()+dateOfRelease+categoryField.getValue());
+        System.out.println(titleField.getText()+ratingField.getText()+dateOfRelease+categoryField.getValue()+sourceField.getText());
         Stage stage = (Stage) addMoviePane.getScene().getWindow();
         stage.close();
     }

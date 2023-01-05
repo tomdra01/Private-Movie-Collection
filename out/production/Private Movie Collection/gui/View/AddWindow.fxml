@@ -73,8 +73,8 @@
             <TextField fx:id="ratingField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <TextField fx:id="ratingField1" layoutY="13.0" prefHeight="26.0" prefWidth="110.0" />
-                  <Button layoutX="110.0" layoutY="13.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="38.0" text="Open">
+                  <TextField fx:id="sourceField" layoutY="13.0" prefHeight="26.0" prefWidth="110.0" />
+                  <Button fx:id="chooseButton" layoutX="110.0" layoutY="13.0" mnemonicParsing="false" onAction="#chooseButtonAction" prefHeight="26.0" prefWidth="38.0" text="Open">
                      <font>
                         <Font size="10.0" />
                      </font>
