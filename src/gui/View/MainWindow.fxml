@@ -1,13 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #B0C4DE;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.MainController">
    <children>
+      <Pane layoutX="300.0" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #B0C4DE #B0C4DE;">
+         <children>
+            <Button fx:id="exit" layoutX="559.0" layoutY="1.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="41.0" style="-fx-background-color: #B0C4DE #B0C4DE;" text="✗">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Pane>
       <VBox prefHeight="600.0" prefWidth="300.0" style="-fx-background-color: #191970;">
          <effect>
             <DropShadow />
@@ -51,11 +76,6 @@
                </effect>
             </Button>
          </children></VBox>
-      <Button fx:id="exit" layoutX="869.0" layoutY="1.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="31.0" style="-fx-background-color: #B0C4DE #B0C4DE;" text="✗">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
       <GridPane layoutX="348.0" layoutY="75.0" prefHeight="450.0" prefWidth="500.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -69,6 +89,7 @@
               <columns>
                 <TableColumn prefWidth="150.0" text="Title" />
                 <TableColumn text="Rating" />
+                  <TableColumn prefWidth="120.0" text="Release" />
               </columns>
             </TableView>
             <Pane prefHeight="200.0" prefWidth="200.0">

@@ -20,15 +20,14 @@ public class MainController implements Initializable {
     @FXML
     private Button addButton;
 
-    @FXML
     public void clickAdd() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/View/AddWindow.fxml"));
         Scene scene = new Scene(loader.load());
         Stage stageAddMovie = new Stage();
         stageAddMovie.setTitle("Add Movie");
         stageAddMovie.setScene(scene);
-        stageAddMovie.show();
         stageAddMovie.setResizable(false);
+        stageAddMovie.show();
     }
 
     @Override

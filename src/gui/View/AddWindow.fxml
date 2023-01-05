@@ -1,8 +1,139 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="350.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.MainController">
-
+<AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.MainController">
+   <children>
+      <Pane layoutX="150.0" prefHeight="50.0" prefWidth="350.0" style="-fx-background-color: #B0C4DE #B0C4DE;">
+         <effect>
+            <DropShadow />
+         </effect>
+      </Pane>
+      <VBox prefHeight="400.0" prefWidth="150.0" style="-fx-background-color: #191970 #191970;">
+         <effect>
+            <DropShadow />
+         </effect>
+         <children>
+            <Pane prefHeight="50.0" prefWidth="150.0" />
+            <Label text="ADD MOVIE" textFill="WHITE" translateX="20.0">
+               <font>
+                  <Font name="Futura Medium" size="19.0" />
+               </font>
+               <effect>
+                  <DropShadow height="10.0" radius="4.5" width="10.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Label>
+            <Pane prefHeight="325.0" prefWidth="150.0">
+               <children>
+                  <Button layoutX="14.0" layoutY="286.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="46.0" text="Cancel">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="90.0" layoutY="286.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="46.0" text="Save">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+      <GridPane layoutX="156.0" layoutY="70.0" prefHeight="260.0" prefWidth="309.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="230.0" minWidth="10.0" prefWidth="163.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="281.0" minWidth="10.0" prefWidth="146.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TextField fx:id="titleField" GridPane.columnIndex="1" />
+            <TextField fx:id="ratingField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="70.0" layoutY="24.0" text="Title">
+                     <font>
+                        <Font name="Futura Medium" size="13.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+               <children>
+                  <Label layoutX="63.0" layoutY="24.0" text="Rating">
+                     <font>
+                        <Font name="Futura Medium" size="13.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+               <children>
+                  <Label layoutX="59.0" layoutY="24.0" text="Release">
+                     <font>
+                        <Font name="Futura Medium" size="13.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
+               <children>
+                  <Label layoutX="54.0" layoutY="24.0" text="Category">
+                     <font>
+                        <Font name="Futura Medium" size="13.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <DatePicker fx:id="releaseField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <SplitMenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="110.0" text="Choose" GridPane.columnIndex="1" GridPane.rowIndex="3">
+              <items>
+                <MenuItem mnemonicParsing="false">
+                     <graphic>
+                        <CheckBox mnemonicParsing="false" text="Action" />
+                     </graphic>
+                  </MenuItem>
+                <MenuItem mnemonicParsing="false">
+                     <graphic>
+                        <CheckBox mnemonicParsing="false" text="Drama" />
+                     </graphic>
+                  </MenuItem>
+              </items>
+            </SplitMenuButton>
+         </children>
+      </GridPane>
+      <Label layoutX="195.0" layoutY="350.0" text="Selected categories:">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="categoryText" layoutX="325.0" layoutY="350.0" prefHeight="17.0" prefWidth="146.0" text="None">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+   </children>
 </AnchorPane>
