@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -17,7 +15,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.MainController">
+<AnchorPane fx:id="addMoviePane" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.MainController">
    <children>
       <Pane layoutX="150.0" prefHeight="50.0" prefWidth="350.0" style="-fx-background-color: #B0C4DE #B0C4DE;">
          <effect>
@@ -44,12 +42,12 @@
             </Label>
             <Pane prefHeight="325.0" prefWidth="150.0">
                <children>
-                  <Button layoutX="14.0" layoutY="286.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="46.0" text="Cancel">
+                  <Button fx:id="cancelButton" layoutX="14.0" layoutY="286.0" mnemonicParsing="false" onAction="#clickCancel" prefHeight="25.0" prefWidth="46.0" text="Cancel">
                      <font>
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <Button layoutX="90.0" layoutY="286.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="46.0" text="Save">
+                  <Button fx:id="saveButton" layoutX="90.0" layoutY="286.0" mnemonicParsing="false" onAction="#clickSave" prefHeight="25.0" prefWidth="46.0" text="Save">
                      <font>
                         <Font size="10.0" />
                      </font>
@@ -109,20 +107,7 @@
                </children>
             </Pane>
             <DatePicker fx:id="releaseField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <SplitMenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="110.0" text="Choose" GridPane.columnIndex="1" GridPane.rowIndex="3">
-              <items>
-                <MenuItem mnemonicParsing="false">
-                     <graphic>
-                        <CheckBox mnemonicParsing="false" text="Action" />
-                     </graphic>
-                  </MenuItem>
-                <MenuItem mnemonicParsing="false">
-                     <graphic>
-                        <CheckBox mnemonicParsing="false" text="Drama" />
-                     </graphic>
-                  </MenuItem>
-              </items>
-            </SplitMenuButton>
+            <ChoiceBox fx:id="categoryField" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <Label layoutX="195.0" layoutY="350.0" text="Selected categories:">
