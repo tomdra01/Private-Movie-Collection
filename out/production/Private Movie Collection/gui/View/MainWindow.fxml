@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #B0C4DE;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.MainController">
+   <children>
+      <VBox prefHeight="600.0" prefWidth="300.0" style="-fx-background-color: #191970;">
+         <effect>
+            <DropShadow />
+         </effect>
+         <children>
+            <Pane prefHeight="50.0" prefWidth="598.0" style="-fx-background-color: #4169E1;">
+               <effect>
+                  <InnerShadow />
+               </effect>
+               <children>
+                  <Label alignment="BASELINE_CENTER" layoutX="51.0" layoutY="16.0" text="PRIVATE MOVIE COLLECTION" textFill="#110094">
+                     <font>
+                        <Font name="Futura Medium" size="14.0" />
+                     </font>
+                     <effect>
+                        <DropShadow height="5.0" radius="2.0" width="5.0" />
+                     </effect>
+                  </Label>
+               </children>
+            </Pane>
+            <Button fx:id="addButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #191970;" text="Add" textFill="WHITE">
+               <padding>
+                  <Insets left="100.0" />
+               </padding>
+               <font>
+                  <Font name="Futura Medium" size="14.0" />
+               </font>
+               <effect>
+                  <InnerShadow height="10.0" radius="4.5" width="10.0" />
+               </effect>
+            </Button>
+            <Button fx:id="removeButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #191970;" text="Remove" textFill="WHITE">
+               <padding>
+                  <Insets left="100.0" />
+               </padding>
+               <font>
+                  <Font name="Futura Medium" size="14.0" />
+               </font>
+               <effect>
+                  <InnerShadow height="10.0" radius="4.5" width="10.0" />
+               </effect>
+            </Button>
+         </children></VBox>
+      <Button fx:id="exit" layoutX="869.0" layoutY="1.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="31.0" style="-fx-background-color: #B0C4DE #B0C4DE;" text="✗">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <GridPane layoutX="348.0" layoutY="75.0" prefHeight="450.0" prefWidth="500.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="239.0" minHeight="10.0" prefHeight="72.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="428.0" minHeight="10.0" prefHeight="428.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TableView prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #DCDCDC;" GridPane.rowIndex="1">
+              <columns>
+                <TableColumn prefWidth="150.0" text="Title" />
+                <TableColumn text="Rating" />
+              </columns>
+            </TableView>
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <TextField layoutX="70.0" layoutY="11.0" />
+                  <Label layoutX="21.0" layoutY="15.0" text="Search:" />
+                  <SplitMenuButton layoutX="405.0" layoutY="11.0" mnemonicParsing="false" style="-fx-background-color: #DCDCDC #DCDCDC;" text="Filter">
+                    <items>
+                      <MenuItem mnemonicParsing="false">
+                           <graphic>
+                              <CheckBox mnemonicParsing="false" text="Action" />
+                           </graphic>
+                        </MenuItem>
+                      <MenuItem mnemonicParsing="false">
+                           <graphic>
+                              <CheckBox mnemonicParsing="false" text="Drama" />
+                           </graphic>
+                        </MenuItem>
+                    </items>
+                  </SplitMenuButton>
+               </children>
+            </Pane>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
