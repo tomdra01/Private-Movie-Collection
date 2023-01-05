@@ -63,6 +63,7 @@ public class MainController implements Initializable {
         String selectedCategory = categoryField.getValue();
         System.out.println("category set: "+selectedCategory);
     }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if(this.exit!=null) exit.setOnAction(event -> Platform.exit());
