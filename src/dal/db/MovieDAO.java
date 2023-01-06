@@ -52,4 +52,19 @@ public class MovieDAO {
         System.out.println(allMovies);
 
     }
+
+    public Movie createMovie(int id, String name, double rating, String fileLink, double lastView) throws SQLException{
+        try(Connection connection = databaseConnector.getConnection()) {
+            String insert = "'" +id + "'" + "," + "'" +name + "'" + "," + "'" +rating + "'" + "," +fileLink + "," + "'" +lastView + "'";
+            String sql = "INSERT INTO Movie (id, name, rating, filelink, lastview) VALUES (" + insert + ")";
+
+            Statement statement = connection.createStatement();
+            statement.execute(sql,Statement.RETURN_GENERATED_KEYS);
+
+            ResultSet keys = statement.getGeneratedKeys();
+            keys.next();
+            //int id = keys.getInt(1);
+            return new Movie(id, name, rating, fileLink, lastView);
+        }
+    }
 }
