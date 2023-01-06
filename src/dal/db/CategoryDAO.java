@@ -1,6 +1,8 @@
 package dal.db;
 
 import be.Category;
+import be.Movie;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.DatabaseConnector;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -10,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryDAO {
-
     private DatabaseConnector databaseConnector;
 
     public CategoryDAO()
@@ -23,7 +24,6 @@ public class CategoryDAO {
         try (Connection connection = databaseConnector.getConnection())
         {
             String sql = "SELECT * FROM Category;";
-
             Statement statement = connection.createStatement();
 
             if (statement.execute(sql))
@@ -44,10 +44,22 @@ public class CategoryDAO {
 
     public static void main(String[] args) throws SQLException {
         CategoryDAO categoryDAO = new CategoryDAO();
-
+        //categoryDAO.createCategory(11, "Action");
         List<Category> allCategories = categoryDAO.getAllCategories();
-
         System.out.println(allCategories);
+    }
 
+    public Category createCategory(int id, String name) throws SQLException {
+        try(Connection connection = databaseConnector.getConnection()) {
+            String insert = "'" +id + "'" + "," + "'" +name + "'";
+            String sql = "INSERT INTO Category (id, name) VALUES (" + insert + ")";
+
+            Statement statement = connection.createStatement();
+            statement.execute(sql, Statement.RETURN_GENERATED_KEYS);
+
+            ResultSet keys = statement.getGeneratedKeys();
+            keys.next();
+            return new Category(id, name);
+        }
     }
 }

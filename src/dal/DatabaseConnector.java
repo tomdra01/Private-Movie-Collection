@@ -26,7 +26,6 @@ public class DatabaseConnector {
         Connection connection = dataBaseConnection.getConnection();
 
         System.out.println("Try to open " + !connection.isClosed());
-
         connection.close();
     }
 }
