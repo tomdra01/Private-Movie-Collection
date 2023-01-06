@@ -1,4 +1,4 @@
-package dal.db;
+package dal;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class DatabaseConnector {
-
     private SQLServerDataSource dataSource;
 
     public DatabaseConnector(){

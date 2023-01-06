@@ -21,9 +21,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.MainController">
    <children>
-      <Pane layoutX="300.0" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #B0C4DE #B0C4DE;">
+      <Pane layoutX="300.0" layoutY="-17.0" prefHeight="67.0" prefWidth="600.0" style="-fx-background-color: #B0C4DE #B0C4DE; -fx-background-radius: 10;">
          <children>
-            <Button fx:id="exit" layoutX="559.0" layoutY="1.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="41.0" style="-fx-background-color: #B0C4DE #B0C4DE;" text="✗">
+            <Button fx:id="exit" layoutX="558.0" layoutY="16.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="41.0" style="-fx-background-color: #B0C4DE #B0C4DE;" text="✗">
                <font>
                   <Font size="14.0" />
                </font>
@@ -40,7 +40,7 @@
          <children>
             <Pane prefHeight="50.0" prefWidth="598.0" style="-fx-background-color: #4169E1;">
                <effect>
-                  <InnerShadow />
+                  <InnerShadow height="20.0" radius="9.5" width="20.0" />
                </effect>
                <children>
                   <Label alignment="BASELINE_CENTER" layoutX="51.0" layoutY="16.0" text="PRIVATE MOVIE COLLECTION" textFill="#110094">
@@ -85,7 +85,7 @@
           <RowConstraints maxHeight="428.0" minHeight="10.0" prefHeight="428.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TableView prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #DCDCDC;" GridPane.rowIndex="1">
+            <TableView fx:id="movieTable" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: #DCDCDC; -fx-background-radius: 10;" GridPane.rowIndex="1">
               <columns>
                 <TableColumn prefWidth="150.0" text="Title" />
                 <TableColumn text="Rating" />
@@ -94,9 +94,9 @@
             </TableView>
             <Pane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <TextField layoutX="70.0" layoutY="11.0" />
-                  <Label layoutX="21.0" layoutY="15.0" text="Search:" />
-                  <SplitMenuButton layoutX="405.0" layoutY="11.0" mnemonicParsing="false" style="-fx-background-color: #DCDCDC #DCDCDC;" text="Filter">
+                  <TextField layoutX="70.0" layoutY="1.0" />
+                  <Label layoutX="21.0" layoutY="5.0" text="Search:" />
+                  <SplitMenuButton layoutX="405.0" layoutY="1.0" mnemonicParsing="false" style="-fx-background-color: #DCDCDC #DCDCDC;" text="Filter">
                     <items>
                       <MenuItem mnemonicParsing="false">
                            <graphic>

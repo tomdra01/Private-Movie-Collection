@@ -1,8 +1,7 @@
 package dal.db;
 
 import be.Movie;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
-
+import dal.DatabaseConnector;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,9 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class MovieDAO {
-
     private DatabaseConnector databaseConnector;
 
     public MovieDAO()
@@ -36,8 +33,10 @@ public class MovieDAO {
                         int id = resultSet.getInt("id");
                         String name = resultSet.getString("name");
                         double rating = resultSet.getDouble("rating");
+                        String fileLink = resultSet.getString("fileLink");
+                        double lastView = resultSet.getDouble("lastView");
 
-                        Movie movie = new Movie(id,name,rating);
+                        Movie movie = new Movie(id, name, rating, fileLink, lastView);
                         allMovies.add(movie);
                     }
                 }
@@ -53,5 +52,4 @@ public class MovieDAO {
         System.out.println(allMovies);
 
     }
-
 }

@@ -19,6 +19,8 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
     @FXML
+    private TableView movieTable;
+    @FXML
     private Button exit;
     @FXML
     private AnchorPane addMoviePane;
@@ -74,7 +76,7 @@ public class MainController implements Initializable {
 
     public void clickSave()  {
         LocalDate dateOfRelease = releaseField.getValue();
-        System.out.println(titleField.getText()+ratingField.getText()+dateOfRelease+categoryField.getValue()+sourceField.getText());
+        System.out.println(titleField.getText()+"\n" +ratingField.getText() +"\n" +dateOfRelease +"\n" +categoryField.getValue() +"\n" +sourceField.getText());
         Stage stage = (Stage) addMoviePane.getScene().getWindow();
         stage.close();
     }
