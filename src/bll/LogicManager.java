@@ -11,8 +11,12 @@ public class LogicManager {
     private MovieDAO movieDAO = new MovieDAO();
     private CategoryDAO categoryDAO = new CategoryDAO();
 
-    public Movie createMovie (String name, double rating, String fileLink, int release, double lastView) throws SQLException {
-        return movieDAO.createMovie(name, rating, fileLink, release, lastView);
+    public Movie createMovie (int id, String name, double rating, String fileLink, int release, double lastView) throws SQLException {
+        return movieDAO.createMovie(id, name, rating, fileLink, release, lastView);
+    }
+
+    public void deleteMovie(int id) {
+        movieDAO.deleteMovie(id);
     }
 
     public List<Movie> getAllMovies() throws SQLException {

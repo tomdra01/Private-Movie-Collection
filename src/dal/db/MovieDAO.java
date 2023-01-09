@@ -17,10 +17,10 @@ public class MovieDAO {
 
     public List<Movie> getAllMovies() throws SQLException {
         ArrayList<Movie> allMovies = new  ArrayList<>();
-        try (Connection connection = databaseConnector.getConnection())
+        try (Connection con = databaseConnector.getConnection())
             {
                 String sql = "SELECT * FROM Movie;";
-                Statement statement = connection.createStatement();
+                Statement statement = con.createStatement();
 
                 if (statement.execute(sql))
                 {
@@ -48,14 +48,28 @@ public class MovieDAO {
         System.out.println(allMovies);
     }
 
-    public Movie createMovie(String name, double rating, String fileLink, int release, double lastView) throws SQLException{
-        try(Connection connection = databaseConnector.getConnection()) {
-            String insert = "'" +name +"'" +"," +"'" +rating +"'" +"," +fileLink +"," +"'" +release +"'" +"," +"'" +lastView +"'";
-            String sql = "INSERT INTO Movie (name, rating, fileLink, release, lastView) VALUES (" + insert + ")";
+    public Movie createMovie(int id, String name, double rating, String fileLink, int release, double lastView) throws SQLException{
+        try(Connection con = databaseConnector.getConnection()) {
+            String insert = "'" +id +"'" +"," +"'" +name +"'" +"," +"'" +rating +"'" +"," +fileLink +"," +"'" +release +"'" +"," +"'" +lastView +"'";
+            String sql = "INSERT INTO Movie (id, name, rating, fileLink, release, lastView) VALUES (" + insert + ")";
 
-            Statement statement = connection.createStatement();
+            Statement statement = con.createStatement();
             statement.execute(sql,Statement.RETURN_GENERATED_KEYS);
-            return new Movie(name, rating, fileLink, release, lastView);
+
+            return new Movie(id, name, rating, fileLink, release, lastView);
+        }
+    }
+
+    public void deleteMovie(int id) {
+        String sql = "DELETE FROM Movie WHERE id= ?";
+
+        try (Connection con = databaseConnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

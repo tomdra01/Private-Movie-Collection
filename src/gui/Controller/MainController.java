@@ -1,6 +1,7 @@
 package gui.Controller;
 
 import be.Movie;
+import dal.db.MovieDAO;
 import gui.Model.MainModel;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -63,6 +65,10 @@ public class MainController implements Initializable {
     private File selectedMovie;
     private MainModel model;
 
+    public void setModel(MainModel model) {
+        this.model = model;
+    }
+
     /**
      * Handles all the buttons in the Application
      */
@@ -98,7 +104,8 @@ public class MainController implements Initializable {
             saveButton.setOnAction(event -> {
                 System.out.println(titleField.getText() + "\n" + ratingField.getText() + "\n" + sourceField.getText() + "\n" + yearSpinner.getValue() + "\n" + categoryField.getValue() + "\n");
                 try {
-                    model.createMovie(titleField.getText(), Double.parseDouble(ratingField.getText()), null, yearSpinner.getValue(), 0);
+
+                    model.createMovie(randomId(), titleField.getText(), Double.parseDouble(ratingField.getText()), null, yearSpinner.getValue(), 0);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
@@ -107,10 +114,28 @@ public class MainController implements Initializable {
             });
         }
 
+        //Remove button
+        if (removeButton!=null) {
+            removeButton.setOnAction(event -> {
+                int selectedMovieId = movieTable.getSelectionModel().getSelectedItem().getId();
+                Movie selectedItem = movieTable.getSelectionModel().getSelectedItem();
+                model.deleteMovie(selectedMovieId);
+                movieTable.getItems().remove(selectedItem);
+            });
+        }
+
         //Cancel button
         if (cancelButton!=null) { cancelButton.setOnAction(event -> {
                 Stage stage = (Stage) addMoviePane.getScene().getWindow();
                 stage.close();});}
+    }
+
+    public int randomId(){
+        Random rand = new Random();
+        int min = 1;
+        int max = 999;
+        int id = rand.nextInt(max - min + 1) + min;
+        return id;
     }
 
     public void getCategory(ActionEvent event){
@@ -131,6 +156,7 @@ public class MainController implements Initializable {
             movieTable.setItems(model.getMovies());
             titleColumn.setCellValueFactory((new PropertyValueFactory<>("name")));
             ratingColumn.setCellValueFactory((new PropertyValueFactory<>("rating")));
+            releaseColumn.setCellValueFactory(new  PropertyValueFactory<>("release"));
             lastViewColumn.setCellValueFactory((new PropertyValueFactory<>("lastView")));
         }
 

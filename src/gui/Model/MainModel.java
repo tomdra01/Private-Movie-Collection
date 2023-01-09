@@ -28,10 +28,14 @@ public class MainModel {
         categories.addAll(bll.getAllCategories());
     }
 
-    public Movie createMovie(String name, double rating, String fileLink, int release, double lastView) throws SQLException {
-        Movie movie = bll.createMovie(name, rating, fileLink, release, lastView);
+    public Movie createMovie(int id, String name, double rating, String fileLink, int release, double lastView) throws SQLException {
+        Movie movie = bll.createMovie(id, name, rating, fileLink, release, lastView);
         movies.add(movie);
         return movie;
+    }
+
+    public void deleteMovie(int id) {
+        bll.deleteMovie(id);
     }
 
     public Category createCategory(int id, String name) throws SQLException {
