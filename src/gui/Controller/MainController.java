@@ -54,7 +54,7 @@ public class MainController implements Initializable {
     @FXML
     private TextField sourceField;
     @FXML
-    private DatePicker releaseField;
+    private Spinner<Integer> yearSpinner = new Spinner<>(1900, 2100, 2020);
     private LocalDate releaseDate;
     @FXML
     private ChoiceBox<String> categoryField;
@@ -96,8 +96,7 @@ public class MainController implements Initializable {
         //Save button
         if (saveButton!=null) {
             saveButton.setOnAction(event -> {
-                releaseDate = releaseField.getValue();
-                System.out.println(titleField.getText() + "\n" + ratingField.getText() + "\n" + sourceField.getText() + "\n" + releaseDate + "\n" + categoryField.getValue() + "\n");
+                System.out.println(titleField.getText() + "\n" + ratingField.getText() + "\n" + sourceField.getText() + "\n" + yearSpinner.getValue() + "\n" + categoryField.getValue() + "\n");
                 try {
                     model.createMovie(titleField.getText(), Double.parseDouble(ratingField.getText()), null, 25);
                 } catch (SQLException e) {
@@ -123,6 +122,8 @@ public class MainController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         model = new MainModel();
         buttonHandler();
+
+        yearSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1900, 2100, 2023, 1));
 
         try {model.fetchAllMovies();} catch (SQLException e) {throw new RuntimeException(e);}
 

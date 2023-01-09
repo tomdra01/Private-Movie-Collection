@@ -2,8 +2,8 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -101,8 +101,8 @@
                   <Font name="Futura Medium" size="13.0" />
                </font>
             </Label>
-            <DatePicker fx:id="releaseField" promptText="date" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <ChoiceBox fx:id="categoryField" prefHeight="26.0" prefWidth="110.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Spinner fx:id="yearSpinner" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <Label layoutX="190.0" layoutY="347.0" text="Selected categories:">
