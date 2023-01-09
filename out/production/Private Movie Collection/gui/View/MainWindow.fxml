@@ -11,6 +11,8 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -21,9 +23,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.MainController">
    <children>
-      <Pane layoutX="300.0" layoutY="-17.0" prefHeight="67.0" prefWidth="600.0" style="-fx-background-color: #B0C4DE #B0C4DE; -fx-background-radius: 10;">
+      <Pane layoutX="300.0" layoutY="-17.0" prefHeight="67.0" prefWidth="600.0" style="-fx-background-color: #A9A9A9 #A9A9A9;">
          <children>
-            <Button fx:id="exit" layoutX="558.0" layoutY="16.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="41.0" style="-fx-background-color: #B0C4DE #B0C4DE;" text="✗">
+            <Button fx:id="exit" layoutX="556.0" layoutY="14.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="41.0" style="-fx-background-color: #A9A9A9 #A9A9A9 #A9A9A9 #A9A9A9;" text="✗">
                <font>
                   <Font size="14.0" />
                </font>
@@ -33,27 +35,27 @@
             <DropShadow />
          </effect>
       </Pane>
-      <VBox prefHeight="600.0" prefWidth="300.0" style="-fx-background-color: #191970;">
+      <VBox prefHeight="600.0" prefWidth="300.0" style="-fx-background-color: #696969;">
          <effect>
             <DropShadow />
          </effect>
          <children>
-            <Pane prefHeight="50.0" prefWidth="598.0" style="-fx-background-color: #4169E1;">
+            <Pane prefHeight="50.0" prefWidth="598.0" style="-fx-background-color: #808080 #808080;">
                <effect>
-                  <InnerShadow height="20.0" radius="9.5" width="20.0" />
+                  <InnerShadow height="10.0" radius="4.5" width="10.0" />
                </effect>
                <children>
-                  <Label alignment="BASELINE_CENTER" layoutX="51.0" layoutY="16.0" text="PRIVATE MOVIE COLLECTION" textFill="#110094">
+                  <Label alignment="BASELINE_CENTER" layoutX="24.0" layoutY="13.0" text="PRIVATE MOVIE COLLECTION" textFill="WHITE">
                      <font>
-                        <Font name="Futura Medium" size="14.0" />
+                        <Font name="Futura Medium" size="18.0" />
                      </font>
                      <effect>
-                        <DropShadow height="5.0" radius="2.0" width="5.0" />
+                        <DropShadow height="0.0" radius="2.0" width="10.0" />
                      </effect>
                   </Label>
                </children>
             </Pane>
-            <Button fx:id="addButton" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#clickAdd" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #191970;" text="Add" textFill="WHITE">
+            <Button fx:id="addButton" alignment="BASELINE_LEFT" defaultButton="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #808080;" text="Add" textFill="WHITE">
                <padding>
                   <Insets left="100.0" />
                </padding>
@@ -63,8 +65,15 @@
                <effect>
                   <InnerShadow height="10.0" radius="4.5" width="10.0" />
                </effect>
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
+                     <image>
+                        <Image url="@../../../../../Desktop/addIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            <Button fx:id="removeButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #191970;" text="Remove" textFill="WHITE">
+            <Button fx:id="removeButton" alignment="BASELINE_LEFT" defaultButton="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #808080 #808080;" text="Remove" textFill="WHITE">
                <padding>
                   <Insets left="100.0" />
                </padding>
@@ -74,6 +83,13 @@
                <effect>
                   <InnerShadow height="10.0" radius="4.5" width="10.0" />
                </effect>
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
+                     <image>
+                        <Image url="@../../../../../Desktop/removeIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
          </children></VBox>
       <GridPane layoutX="348.0" layoutY="75.0" prefHeight="450.0" prefWidth="500.0">
@@ -85,17 +101,18 @@
           <RowConstraints maxHeight="428.0" minHeight="10.0" prefHeight="428.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TableView fx:id="movieTable" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: #DCDCDC; -fx-background-radius: 10;" GridPane.rowIndex="1">
+            <TableView fx:id="movieTable" maxWidth="500.0" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: #DCDCDC; -fx-background-radius: 10;" GridPane.rowIndex="1">
               <columns>
-                <TableColumn prefWidth="150.0" text="Title" />
-                <TableColumn text="Rating" />
-                  <TableColumn prefWidth="120.0" text="Release" />
+                <TableColumn fx:id="titleColumn" maxWidth="140.0" prefWidth="140.0" resizable="false" text="Title" />
+                <TableColumn fx:id="ratingColumn" maxWidth="80.0" resizable="false" text="Rating" />
+                  <TableColumn fx:id="releaseColumn" maxWidth="140.0" prefWidth="140.0" resizable="false" text="Release" />
+                  <TableColumn fx:id="lastViewColumn" maxWidth="140.0" prefWidth="140.0" resizable="false" text="Last Viewed" />
               </columns>
             </TableView>
             <Pane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <TextField layoutX="70.0" layoutY="1.0" />
-                  <Label layoutX="21.0" layoutY="5.0" text="Search:" />
+                  <TextField layoutX="60.0" layoutY="1.0" />
+                  <Label layoutX="11.0" layoutY="5.0" text="Search:" />
                   <SplitMenuButton layoutX="405.0" layoutY="1.0" mnemonicParsing="false" style="-fx-background-color: #DCDCDC #DCDCDC;" text="Filter">
                     <items>
                       <MenuItem mnemonicParsing="false">
@@ -110,6 +127,11 @@
                         </MenuItem>
                     </items>
                   </SplitMenuButton>
+                  <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="379.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../Downloads/icons8-list-48.png" />
+                     </image>
+                  </ImageView>
                </children>
             </Pane>
          </children>

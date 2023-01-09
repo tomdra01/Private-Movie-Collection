@@ -2,10 +2,8 @@ package dal.db;
 
 import be.Movie;
 import dal.DatabaseConnector;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,22 +43,18 @@ public class MovieDAO {
 
     public static void main(String[] args) throws SQLException {
         MovieDAO movieDAO = new MovieDAO();
-        movieDAO.createMovie(20,"Spider man", 8.6, null, 10.5);
         List<Movie> allMovies = movieDAO.getAllMovies();
         System.out.println(allMovies);
     }
 
-    public Movie createMovie(int id, String name, double rating, String fileLink, double lastView) throws SQLException{
+    public Movie createMovie(String name, double rating, String fileLink, double lastView) throws SQLException{
         try(Connection connection = databaseConnector.getConnection()) {
-            String insert = "'" +id + "'" + "," + "'" +name + "'" + "," + "'" +rating + "'" + "," +fileLink + "," + "'" +lastView + "'";
-            String sql = "INSERT INTO Movie (id, name, rating, fileLink, lastView) VALUES (" + insert + ")";
+            String insert = "'" +name + "'" + "," + "'" +rating + "'" + "," +fileLink + "," + "'" +lastView + "'";
+            String sql = "INSERT INTO Movie (name, rating, fileLink, lastView) VALUES (" + insert + ")";
 
             Statement statement = connection.createStatement();
-            statement.execute(sql, Statement.RETURN_GENERATED_KEYS);
-
-            ResultSet keys = statement.getGeneratedKeys();
-            keys.next();
-            return new Movie(id, name, rating, fileLink, lastView);
+            statement.execute(sql,Statement.RETURN_GENERATED_KEYS);
+            return new Movie(name, rating, fileLink, lastView);
         }
     }
 }

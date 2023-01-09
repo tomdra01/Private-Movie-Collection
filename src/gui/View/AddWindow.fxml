@@ -12,17 +12,16 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="addMoviePane" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.MainController">
    <children>
-      <Pane layoutX="150.0" layoutY="-10.0" prefHeight="60.0" prefWidth="350.0" style="-fx-background-color: #B0C4DE #B0C4DE; -fx-background-radius: 10;">
+      <Pane layoutX="140.0" layoutY="-10.0" prefHeight="60.0" prefWidth="360.0" style="-fx-background-color: #A9A9A9 #A9A9A9 #A9A9A9 #A9A9A9; -fx-background-radius: 10;">
          <effect>
             <DropShadow />
          </effect>
       </Pane>
-      <VBox prefHeight="400.0" prefWidth="150.0" style="-fx-background-color: #191970 #191970;">
+      <VBox prefHeight="400.0" prefWidth="150.0" style="-fx-background-color: #696969 #696969;">
          <effect>
             <DropShadow />
          </effect>
@@ -30,24 +29,20 @@
             <Pane prefHeight="50.0" prefWidth="150.0" />
             <Label text="ADD MOVIE" textFill="WHITE" translateX="20.0">
                <font>
-                  <Font name="Futura Medium" size="19.0" />
+                  <Font name="Futura Medium" size="18.0" />
                </font>
                <effect>
-                  <DropShadow height="10.0" radius="4.5" width="10.0">
-                     <color>
-                        <Color red="1.0" green="1.0" blue="1.0" />
-                     </color>
-                  </DropShadow>
+                  <DropShadow height="5.0" radius="3.25" width="10.0" />
                </effect>
             </Label>
             <Pane prefHeight="325.0" prefWidth="150.0">
                <children>
-                  <Button layoutX="14.0" layoutY="286.0" mnemonicParsing="false" onAction="#clickCancel" prefHeight="25.0" prefWidth="46.0" style="-fx-background-color: #DCDCDC #DCDCDC;" text="Cancel">
+                  <Button fx:id="cancelButton" cancelButton="true" layoutX="14.0" layoutY="286.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="46.0" style="-fx-background-color: #DCDCDC #DCDCDC;" text="Cancel">
                      <font>
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <Button layoutX="90.0" layoutY="286.0" mnemonicParsing="false" onAction="#clickSave" prefHeight="25.0" prefWidth="46.0" style="-fx-background-color: #DCDCDC #DCDCDC;" text="Save">
+                  <Button fx:id="saveButton" defaultButton="true" layoutX="90.0" layoutY="286.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="46.0" style="-fx-background-color: #DCDCDC #DCDCDC;" text="Save">
                      <font>
                         <Font size="10.0" />
                      </font>
@@ -74,7 +69,7 @@
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
                   <TextField fx:id="sourceField" layoutY="13.0" prefHeight="26.0" prefWidth="110.0" />
-                  <Button fx:id="chooseButton" layoutX="110.0" layoutY="13.0" mnemonicParsing="false" onAction="#chooseButtonAction" prefHeight="26.0" prefWidth="38.0" text="Open">
+                  <Button fx:id="openButton" layoutX="110.0" layoutY="13.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="38.0" text="Open">
                      <font>
                         <Font size="10.0" />
                      </font>
@@ -106,7 +101,7 @@
                   <Font name="Futura Medium" size="13.0" />
                </font>
             </Label>
-            <DatePicker fx:id="releaseField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <DatePicker fx:id="releaseField" promptText="date" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <ChoiceBox fx:id="categoryField" prefHeight="26.0" prefWidth="110.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>

@@ -1,5 +1,7 @@
 package gui.Controller;
 
+import be.Movie;
+import gui.Model.MainModel;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,78 +9,109 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
     @FXML
-    private TableView movieTable;
+    private TableView<Movie> movieTable;
     @FXML
-    private Button exit;
+    private TableColumn<Movie, String> titleColumn;
     @FXML
-    private AnchorPane addMoviePane;
+    private TableColumn<Movie, String> ratingColumn;
+    @FXML
+    private TableColumn<Movie, String> releaseColumn;
+    @FXML
+    private TableColumn<Movie, String> lastViewColumn;
+
+    @FXML
+    private Button addButton;
     @FXML
     private Button removeButton;
     @FXML
-    private Button addButton;
+    private Button exit;
+    @FXML
+    private Button saveButton;
+    @FXML
+    private Button cancelButton;
+    @FXML
+    private Button openButton;
+    @FXML
+    private AnchorPane addMoviePane;
+
     @FXML
     private TextField titleField;
     @FXML
     private TextField ratingField;
     @FXML
+    private TextField sourceField;
+    @FXML
     private DatePicker releaseField;
+    private LocalDate releaseDate;
     @FXML
     private ChoiceBox<String> categoryField;
     @FXML
     private Label categoryText;
-    @FXML
-    private TextField sourceField;
-
-    private String[] categories = {"Horror", "Action", "Romantic", "Comedy", "Thriller", "Drama", "Detective", "Adventure"};
-
     private File selectedMovie;
-    public void chooseButtonAction(ActionEvent actionEvent) {
+    private MainModel model;
 
+    /**
+     * Handles all the buttons in the Application
+     */
+    public void buttonHandler() {
+        //Add button
+        if (addButton!=null) { addButton.setOnAction(event -> {
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/View/AddWindow.fxml"));
+                try {
+                    Scene scene;
+                    scene = new Scene(loader.load());
+                    Stage stageAddMovie = new Stage();
+                    stageAddMovie.setTitle("Add Movie");
+                    stageAddMovie.setScene(scene);
+                    stageAddMovie.setResizable(false);
+                    stageAddMovie.show();
+                }
+                catch (IOException e) {
+                    throw new RuntimeException(e);}});
+        }
 
-        FileChooser.ExtensionFilter ex1 = new FileChooser.ExtensionFilter("Mp4 Files", "*.mp4");
-        FileChooser.ExtensionFilter ex2 = new FileChooser.ExtensionFilter("Mpeg4 Files", "*.mpeg-4");
-        FileChooser.ExtensionFilter ex3 = new FileChooser.ExtensionFilter("All Files", "*.*");
+        //Open button
+        if (openButton!=null) { openButton.setOnAction(event -> {
+                Stage stage = new Stage();
+                FileChooser fileChooser = new FileChooser();
+                FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("File types", "*.mp4", "*.MPEG-4");
+                fileChooser.getExtensionFilters().addAll(extensionFilter);
+                selectedMovie = fileChooser.showOpenDialog(stage);
+                sourceField.setText(String.valueOf(selectedMovie));});
+        }
 
-        Stage stage = new Stage();
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().addAll(ex1, ex2, ex3);
-        selectedMovie = fileChooser.showOpenDialog(stage);
-        sourceField.setText(String.valueOf(selectedMovie));
-    }
+        //Save button
+        if (saveButton!=null) {
+            saveButton.setOnAction(event -> {
+                releaseDate = releaseField.getValue();
+                System.out.println(titleField.getText() + "\n" + ratingField.getText() + "\n" + sourceField.getText() + "\n" + releaseDate + "\n" + categoryField.getValue() + "\n");
+                try {
+                    model.createMovie(titleField.getText(), Double.parseDouble(ratingField.getText()), null, 25);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                Stage stage = (Stage) addMoviePane.getScene().getWindow();
+                stage.close();
+            });
+        }
 
-
-    public void clickAdd() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/View/AddWindow.fxml"));
-        Scene scene = new Scene(loader.load());
-        Stage stageAddMovie = new Stage();
-        stageAddMovie.setTitle("Add Movie");
-        stageAddMovie.setScene(scene);
-        stageAddMovie.setResizable(false);
-        stageAddMovie.show();
-    }
-
-    public void clickCancel()  {
-        Stage stage = (Stage) addMoviePane.getScene().getWindow();
-        stage.close();
-    }
-
-    public void clickSave()  {
-        LocalDate dateOfRelease = releaseField.getValue();
-        System.out.println(titleField.getText()+"\n" +ratingField.getText() +"\n" +dateOfRelease +"\n" +categoryField.getValue() +"\n" +sourceField.getText());
-        Stage stage = (Stage) addMoviePane.getScene().getWindow();
-        stage.close();
+        //Cancel button
+        if (cancelButton!=null) { cancelButton.setOnAction(event -> {
+                Stage stage = (Stage) addMoviePane.getScene().getWindow();
+                stage.close();});}
     }
 
     public void getCategory(ActionEvent event){
@@ -88,6 +121,18 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        model = new MainModel();
+        buttonHandler();
+
+        try {model.fetchAllMovies();} catch (SQLException e) {throw new RuntimeException(e);}
+
+        if (movieTable != null) {
+            movieTable.setItems(model.getMovies());
+            titleColumn.setCellValueFactory((new PropertyValueFactory<>("name")));
+            ratingColumn.setCellValueFactory((new PropertyValueFactory<>("rating")));
+            lastViewColumn.setCellValueFactory((new PropertyValueFactory<>("lastView")));
+        }
+
         if(this.exit!=null) exit.setOnAction(event -> Platform.exit());
     }
 }

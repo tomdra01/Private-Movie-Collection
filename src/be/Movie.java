@@ -7,12 +7,22 @@ public class Movie {
     private String fileLink;
     private double lastView;
 
-    public Movie(int id, String name, double rating, String fileLink, double lastView) {
-        this.id = id;
+    /**
+     * Constructor for Movie
+     */
+    public Movie(String name, double rating, String fileLink, double lastView) {
         this.name = name;
         this.rating = rating;
         this.fileLink = fileLink;
         this.lastView = lastView;
+    }
+
+    /**
+     * Constructor for MovieDAO
+     */
+    public Movie(int id, String name, double rating, String fileLink, double lastView) {
+        this(name, rating, fileLink, lastView);
+        this.id = id;
     }
 
     public int getId() {

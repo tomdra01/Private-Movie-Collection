@@ -3,22 +3,23 @@ package gui.Model;
 import be.Category;
 import be.Movie;
 import bll.LogicManager;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainModel {
     LogicManager bll = new LogicManager();
-    private List<Movie> movies = new ArrayList<>();
-    private List<Category> categories = new ArrayList<>();
+    private ObservableList<Movie> movies = FXCollections.observableArrayList();
+    private ObservableList<Category> categories = FXCollections.observableArrayList();
 
-    public List<Movie> getMovies() {
+    public ObservableList<Movie> getMovies() {
         return movies;
     }
 
-    public List<Category> getCategories() {
+    public ObservableList<Category> getCategories() {
         return categories;
     }
+
     public void fetchAllMovies() throws SQLException {
         movies.addAll(bll.getAllMovies());
     }
@@ -27,8 +28,8 @@ public class MainModel {
         categories.addAll(bll.getAllCategories());
     }
 
-    public Movie createMovie(int id, String name, double rating, String fileLink, double lastView) throws SQLException {
-        Movie movie = bll.createMovie(id, name, rating, fileLink, lastView);
+    public Movie createMovie(String name, double rating, String fileLink, double lastView) throws SQLException {
+        Movie movie = bll.createMovie(name, rating, fileLink, lastView);
         movies.add(movie);
         return movie;
     }
