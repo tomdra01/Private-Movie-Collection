@@ -31,9 +31,10 @@ public class MovieDAO {
                         String name = resultSet.getString("name");
                         double rating = resultSet.getDouble("rating");
                         String fileLink = resultSet.getString("fileLink");
+                        int release = resultSet.getInt("release");
                         double lastView = resultSet.getDouble("lastView");
 
-                        Movie movie = new Movie(id, name, rating, fileLink, lastView);
+                        Movie movie = new Movie(id, name, rating, fileLink, release, lastView);
                         allMovies.add(movie);
                     }
                 }
@@ -47,14 +48,14 @@ public class MovieDAO {
         System.out.println(allMovies);
     }
 
-    public Movie createMovie(String name, double rating, String fileLink, double lastView) throws SQLException{
+    public Movie createMovie(String name, double rating, String fileLink, int release, double lastView) throws SQLException{
         try(Connection connection = databaseConnector.getConnection()) {
-            String insert = "'" +name + "'" + "," + "'" +rating + "'" + "," +fileLink + "," + "'" +lastView + "'";
-            String sql = "INSERT INTO Movie (name, rating, fileLink, lastView) VALUES (" + insert + ")";
+            String insert = "'" +name +"'" +"," +"'" +rating +"'" +"," +fileLink +"," +"'" +release +"'" +"," +"'" +lastView +"'";
+            String sql = "INSERT INTO Movie (name, rating, fileLink, release, lastView) VALUES (" + insert + ")";
 
             Statement statement = connection.createStatement();
             statement.execute(sql,Statement.RETURN_GENERATED_KEYS);
-            return new Movie(name, rating, fileLink, lastView);
+            return new Movie(name, rating, fileLink, release, lastView);
         }
     }
 }

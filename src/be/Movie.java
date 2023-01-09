@@ -5,23 +5,25 @@ public class Movie {
     private String name;
     private double rating;
     private String fileLink;
+    private int release;
     private double lastView;
 
     /**
      * Constructor for Movie
      */
-    public Movie(String name, double rating, String fileLink, double lastView) {
+    public Movie(String name, double rating, String fileLink, int release, double lastView) {
         this.name = name;
         this.rating = rating;
         this.fileLink = fileLink;
+        this.release = release;
         this.lastView = lastView;
     }
 
     /**
      * Constructor for MovieDAO
      */
-    public Movie(int id, String name, double rating, String fileLink, double lastView) {
-        this(name, rating, fileLink, lastView);
+    public Movie(int id, String name, double rating, String fileLink, int release, double lastView) {
+        this(name, rating, fileLink, release, lastView);
         this.id = id;
     }
 
@@ -57,6 +59,14 @@ public class Movie {
         this.fileLink = fileLink;
     }
 
+    public int getRelease() {
+        return release;
+    }
+
+    public void setRelease(int release) {
+        this.release = release;
+    }
+
     public double getLastView() {
         return lastView;
     }
@@ -72,6 +82,7 @@ public class Movie {
                 ", name='" + name + '\'' +
                 ", rating=" + rating +
                 ", fileLink='" + fileLink + '\'' +
+                ", release=" + release +
                 ", lastView=" + lastView +
                 '}';
     }

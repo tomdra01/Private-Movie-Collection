@@ -98,7 +98,7 @@ public class MainController implements Initializable {
             saveButton.setOnAction(event -> {
                 System.out.println(titleField.getText() + "\n" + ratingField.getText() + "\n" + sourceField.getText() + "\n" + yearSpinner.getValue() + "\n" + categoryField.getValue() + "\n");
                 try {
-                    model.createMovie(titleField.getText(), Double.parseDouble(ratingField.getText()), null, 25);
+                    model.createMovie(titleField.getText(), Double.parseDouble(ratingField.getText()), null, yearSpinner.getValue(), 0);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }

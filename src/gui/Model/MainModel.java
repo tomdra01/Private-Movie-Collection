@@ -28,8 +28,8 @@ public class MainModel {
         categories.addAll(bll.getAllCategories());
     }
 
-    public Movie createMovie(String name, double rating, String fileLink, double lastView) throws SQLException {
-        Movie movie = bll.createMovie(name, rating, fileLink, lastView);
+    public Movie createMovie(String name, double rating, String fileLink, int release, double lastView) throws SQLException {
+        Movie movie = bll.createMovie(name, rating, fileLink, release, lastView);
         movies.add(movie);
         return movie;
     }
