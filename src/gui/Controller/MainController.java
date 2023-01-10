@@ -62,7 +62,6 @@ public class MainController implements Initializable {
     private ChoiceBox<String> categoryField;
     @FXML
     private Label categoryText;
-    private File selectedMovie;
     private MainModel model;
 
     public void setModel(MainModel model) {
@@ -79,6 +78,8 @@ public class MainController implements Initializable {
                 try {
                     Scene scene;
                     scene = new Scene(loader.load());
+                    MainController mainController = loader.getController();
+                    mainController.setModel(model);
                     Stage stageAddMovie = new Stage();
                     stageAddMovie.setTitle("Add Movie");
                     stageAddMovie.setScene(scene);
@@ -95,7 +96,7 @@ public class MainController implements Initializable {
                 FileChooser fileChooser = new FileChooser();
                 FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("File types", "*.mp4", "*.MPEG-4");
                 fileChooser.getExtensionFilters().addAll(extensionFilter);
-                selectedMovie = fileChooser.showOpenDialog(stage);
+                File selectedMovie = fileChooser.showOpenDialog(stage);
                 sourceField.setText(String.valueOf(selectedMovie));});
         }
 
@@ -105,7 +106,7 @@ public class MainController implements Initializable {
                 System.out.println(titleField.getText() + "\n" + ratingField.getText() + "\n" + sourceField.getText() + "\n" + yearSpinner.getValue() + "\n" + categoryField.getValue() + "\n");
                 try {
 
-                    model.createMovie(randomId(), titleField.getText(), Double.parseDouble(ratingField.getText()), null, yearSpinner.getValue(), 0);
+                    model.createMovie(titleField.getText(), Double.parseDouble(ratingField.getText()), sourceField.getText(), yearSpinner.getValue(), 0);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
