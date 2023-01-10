@@ -3,7 +3,6 @@ package gui.Controller;
 import be.Movie;
 import gui.Model.MainModel;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,14 +15,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -63,6 +60,7 @@ public class MainController implements Initializable {
                     scene = new Scene(loader.load());
                     MainController mainController = loader.getController();
                     mainController.setModel(model);
+
                     Stage stageAddMovie = new Stage();
                     stageAddMovie.setTitle("Add Movie");
                     stageAddMovie.setScene(scene);
@@ -84,22 +82,27 @@ public class MainController implements Initializable {
         }
 
         //Save button
-        if (saveButton!=null) {
-            saveButton.setOnAction(event -> {
-                System.out.println(titleField.getText() + "\n" + ratingField.getText() + "\n" + sourceField.getText() + "\n" + yearSpinner.getValue() + "\n" + categoryField.getValue() + "\n");
+        if (saveButton!=null) { saveButton.setOnAction(event -> {
+            Stage stage = (Stage) saveButton.getScene().getWindow();
+            Alert a = new Alert(Alert.AlertType.NONE); // New alert
+
+            if (titleField.getText().trim().isEmpty() || ratingField.getText().trim().isEmpty() || sourceField.getText().trim().isEmpty()) {
+                a.setAlertType(Alert.AlertType.ERROR);
+                a.setContentText("Please fill in all fields");
+                a.show();
+            }
+            else {
                 try {
                     model.createMovie(titleField.getText(), Double.parseDouble(ratingField.getText()), sourceField.getText(), yearSpinner.getValue(), getCurrentDate());
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-                Stage stage = (Stage) addMoviePane.getScene().getWindow();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
                 stage.close();
-            });
+            }});
         }
 
         //Remove button
-        if (removeButton!=null) {
-            removeButton.setOnAction(event -> {
+        if (removeButton!=null) { removeButton.setOnAction(event -> {
                 int selectedMovieId = movieTable.getSelectionModel().getSelectedItem().getId();
                 Movie selectedItem = movieTable.getSelectionModel().getSelectedItem();
                 model.deleteMovie(selectedMovieId);
@@ -112,27 +115,18 @@ public class MainController implements Initializable {
                 Stage stage = (Stage) addMoviePane.getScene().getWindow();
                 stage.close();});}
 
+        //Watch button
         if (watchButton!=null) { watchButton.setOnAction(event -> {
             try {
                 Movie selectedItem = movieTable.getSelectionModel().getSelectedItem();
                 File movieFile = new File(selectedItem.getFileLink());
                 Desktop.getDesktop().open(movieFile);
-                System.out.println(getCurrentDate());
-
             } catch (IOException ex) {
                 ex.printStackTrace();}});}
     }
 
     public LocalDate getCurrentDate() {
-        LocalDate today = LocalDate.now();
-        return today;
-    }
-
-
-
-    public void getCategory(ActionEvent event){
-        String selectedCategory = categoryField.getValue();
-        System.out.println("category set: "+selectedCategory);
+        return LocalDate.now();
     }
 
     @Override
