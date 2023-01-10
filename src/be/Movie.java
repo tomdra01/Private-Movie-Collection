@@ -1,17 +1,19 @@
 package be;
 
+import java.time.LocalDate;
+
 public class Movie {
     private int id = 0;
     private String name;
     private double rating;
     private String fileLink;
     private int release;
-    private double lastView;
+    private LocalDate lastView;
 
     /**
      * Constructor for Movie
      */
-    public Movie(String name, double rating, String fileLink, int release, double lastView) {
+    public Movie(String name, double rating, String fileLink, int release, LocalDate lastView) {
         this.name = name;
         this.rating = rating;
         this.fileLink = fileLink;
@@ -22,7 +24,7 @@ public class Movie {
     /**
      * Constructor for MovieDAO
      */
-    public Movie(int id, String name, double rating, String fileLink, int release, double lastView) {
+    public Movie(int id, String name, double rating, String fileLink, int release, LocalDate lastView) {
         this(name, rating, fileLink, release, lastView);
         this.id = id;
     }
@@ -67,11 +69,11 @@ public class Movie {
         this.release = release;
     }
 
-    public double getLastView() {
+    public LocalDate getLastView() {
         return lastView;
     }
 
-    public void setLastView(double lastView) {
+    public void setLastView(LocalDate lastView) {
         this.lastView = lastView;
     }
 

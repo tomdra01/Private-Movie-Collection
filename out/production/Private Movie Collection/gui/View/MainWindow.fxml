@@ -55,6 +55,24 @@
                   </Label>
                </children>
             </Pane>
+            <Button fx:id="watchButton" alignment="BASELINE_LEFT" defaultButton="true" layoutX="10.0" layoutY="60.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #808080;" text="Watch" textFill="WHITE">
+               <padding>
+                  <Insets left="100.0" />
+               </padding>
+               <font>
+                  <Font name="Futura Medium" size="14.0" />
+               </font>
+               <effect>
+                  <InnerShadow height="10.0" radius="4.5" width="10.0" />
+               </effect>
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
+                     <image>
+                        <Image url="@../../../../../Desktop/addIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
             <Button fx:id="addButton" alignment="BASELINE_LEFT" defaultButton="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #808080;" text="Add" textFill="WHITE">
                <padding>
                   <Insets left="100.0" />

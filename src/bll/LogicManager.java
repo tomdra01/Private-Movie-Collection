@@ -5,13 +5,14 @@ import be.Movie;
 import dal.db.CategoryDAO;
 import dal.db.MovieDAO;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 public class LogicManager {
     private MovieDAO movieDAO = new MovieDAO();
     private CategoryDAO categoryDAO = new CategoryDAO();
 
-    public Movie createMovie (String name, double rating, String fileLink, int release, double lastView) throws SQLException {
+    public Movie createMovie (String name, double rating, String fileLink, int release, LocalDate lastView) throws SQLException {
         return movieDAO.createMovie(name, rating, fileLink, release, lastView);
     }
 

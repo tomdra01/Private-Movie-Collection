@@ -6,6 +6,7 @@ import bll.LogicManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class MainModel {
     LogicManager bll = new LogicManager();
@@ -28,7 +29,7 @@ public class MainModel {
         categories.addAll(bll.getAllCategories());
     }
 
-    public void createMovie(String name, double rating, String fileLink, int release, double lastView) throws SQLException {
+    public void createMovie(String name, double rating, String fileLink, int release, LocalDate lastView) throws SQLException {
         Movie movie = bll.createMovie(name, rating, fileLink, release, lastView);
         movies.add(movie);
     }

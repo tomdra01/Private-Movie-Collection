@@ -4,6 +4,7 @@ import be.Movie;
 import dal.DatabaseConnector;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class MovieDAO {
                         double rating = resultSet.getDouble("rating");
                         String fileLink = resultSet.getString("fileLink");
                         int release = resultSet.getInt("release");
-                        double lastView = resultSet.getDouble("lastView");
+                        LocalDate lastView = resultSet.getDate("lastView").toLocalDate();
 
                         Movie movie = new Movie(id, name, rating, fileLink, release, lastView);
                         allMovies.add(movie);
@@ -48,7 +49,7 @@ public class MovieDAO {
         System.out.println(allMovies);
     }
 
-    public Movie createMovie(String name, double rating, String fileLink, int release, double lastView) throws SQLException{
+    public Movie createMovie(String name, double rating, String fileLink, int release, LocalDate lastView) throws SQLException{
         try(Connection con = databaseConnector.getConnection()) {
             String psql = "INSERT INTO Movie (name, rating, fileLink, release, lastView) VALUES (?,?,?,?,?)";
             PreparedStatement statement = con.prepareStatement(psql,Statement.RETURN_GENERATED_KEYS);
@@ -56,7 +57,7 @@ public class MovieDAO {
             statement.setDouble(2,rating);
             statement.setString(3,fileLink);
             statement.setInt(4,release);
-            statement.setDouble(5,lastView);
+            statement.setDate(5, Date.valueOf(lastView));
 
             statement.execute();
             if (statement.getGeneratedKeys().next()){

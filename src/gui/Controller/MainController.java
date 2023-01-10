@@ -1,7 +1,6 @@
 package gui.Controller;
 
 import be.Movie;
-import dal.db.MovieDAO;
 import gui.Model.MainModel;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -10,54 +9,38 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Random;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
     @FXML
     private TableView<Movie> movieTable;
     @FXML
-    private TableColumn<Movie, String> titleColumn;
-    @FXML
-    private TableColumn<Movie, String> ratingColumn;
-    @FXML
-    private TableColumn<Movie, String> releaseColumn;
-    @FXML
-    private TableColumn<Movie, String> lastViewColumn;
+    private TableColumn<Movie, String> titleColumn, ratingColumn, releaseColumn, lastViewColumn;
 
     @FXML
-    private Button addButton;
-    @FXML
-    private Button removeButton;
-    @FXML
-    private Button exit;
-    @FXML
-    private Button saveButton;
-    @FXML
-    private Button cancelButton;
-    @FXML
-    private Button openButton;
+    private Button addButton, watchButton, removeButton, exit, saveButton, cancelButton, openButton;
     @FXML
     private AnchorPane addMoviePane;
 
     @FXML
-    private TextField titleField;
-    @FXML
-    private TextField ratingField;
-    @FXML
-    private TextField sourceField;
+    private TextField titleField, ratingField, sourceField;
     @FXML
     private Spinner<Integer> yearSpinner = new Spinner<>(1900, 2100, 2020);
-    private LocalDate releaseDate;
     @FXML
     private ChoiceBox<String> categoryField;
     @FXML
@@ -105,8 +88,7 @@ public class MainController implements Initializable {
             saveButton.setOnAction(event -> {
                 System.out.println(titleField.getText() + "\n" + ratingField.getText() + "\n" + sourceField.getText() + "\n" + yearSpinner.getValue() + "\n" + categoryField.getValue() + "\n");
                 try {
-
-                    model.createMovie(titleField.getText(), Double.parseDouble(ratingField.getText()), sourceField.getText(), yearSpinner.getValue(), 0);
+                    model.createMovie(titleField.getText(), Double.parseDouble(ratingField.getText()), sourceField.getText(), yearSpinner.getValue(), getCurrentDate());
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
@@ -129,15 +111,24 @@ public class MainController implements Initializable {
         if (cancelButton!=null) { cancelButton.setOnAction(event -> {
                 Stage stage = (Stage) addMoviePane.getScene().getWindow();
                 stage.close();});}
+
+        if (watchButton!=null) { watchButton.setOnAction(event -> {
+            try {
+                Movie selectedItem = movieTable.getSelectionModel().getSelectedItem();
+                File movieFile = new File(selectedItem.getFileLink());
+                Desktop.getDesktop().open(movieFile);
+                System.out.println(getCurrentDate());
+
+            } catch (IOException ex) {
+                ex.printStackTrace();}});}
     }
 
-    public int randomId(){
-        Random rand = new Random();
-        int min = 1;
-        int max = 999;
-        int id = rand.nextInt(max - min + 1) + min;
-        return id;
+    public LocalDate getCurrentDate() {
+        LocalDate today = LocalDate.now();
+        return today;
     }
+
+
 
     public void getCategory(ActionEvent event){
         String selectedCategory = categoryField.getValue();
