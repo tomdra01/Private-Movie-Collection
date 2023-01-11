@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.CategoryController">
+<AnchorPane fx:id="categoryPane" prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.CategoryController">
     <children>
       <HBox layoutX="150.0" layoutY="50.0" prefHeight="349.0" prefWidth="350.0">
          <children>
@@ -50,12 +50,7 @@
                 </Label>
                 <Pane prefHeight="325.0" prefWidth="150.0">
                     <children>
-                        <Button fx:id="cancelButton" cancelButton="true" layoutX="14.0" layoutY="286.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="46.0" style="-fx-background-color: #DCDCDC #DCDCDC;" text="Cancel">
-                            <font>
-                                <Font size="10.0" />
-                            </font>
-                        </Button>
-                        <Button fx:id="saveButton" defaultButton="true" layoutX="90.0" layoutY="286.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="46.0" style="-fx-background-color: #DCDCDC #DCDCDC;" text="Save">
+                        <Button fx:id="closeButton" cancelButton="true" layoutX="14.0" layoutY="286.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="46.0" style="-fx-background-color: #DCDCDC #DCDCDC;" text="Close">
                             <font>
                                 <Font size="10.0" />
                             </font>

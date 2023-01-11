@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.CheckComboBox?>
 
-<AnchorPane fx:id="" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.AddMovieController">
+<AnchorPane fx:id="addMoviePane" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.AddMovieController">
    <children>
       <Pane layoutX="150.0" prefHeight="50.0" prefWidth="350.0" style="-fx-background-color: #A9A9A9 #A9A9A9 #A9A9A9 #A9A9A9;">
          <effect>

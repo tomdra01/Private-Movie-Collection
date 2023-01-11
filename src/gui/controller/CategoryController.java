@@ -7,6 +7,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -17,7 +20,9 @@ public class CategoryController implements Initializable {
     @FXML
     private TextField nameField;
     @FXML
-    private Button saveButton, cancelButton, newButton, deleteButton;
+    private Button closeButton, newButton, deleteButton;
+    @FXML
+    private AnchorPane categoryPane;
     private MainModel model;
     public void setModel(MainModel model) {
         this.model = model;
@@ -43,6 +48,13 @@ public class CategoryController implements Initializable {
         });
 
         }
+
+        if (closeButton!=null) {
+            closeButton.setOnAction(event -> {
+                Stage stage = (Stage) categoryPane.getScene().getWindow();
+                stage.close();});}
+
+
     }
 
     @Override
