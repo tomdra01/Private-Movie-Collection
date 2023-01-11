@@ -4,10 +4,8 @@ import be.Category;
 import be.Movie;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.DatabaseConnector;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,22 +42,35 @@ public class CategoryDAO {
 
     public static void main(String[] args) throws SQLException {
         CategoryDAO categoryDAO = new CategoryDAO();
-        //categoryDAO.createCategory(11, "Action");
         List<Category> allCategories = categoryDAO.getAllCategories();
         System.out.println(allCategories);
     }
 
-    public Category createCategory(int id, String name) throws SQLException {
-        try(Connection connection = databaseConnector.getConnection()) {
-            String insert = "'" +id + "'" + "," + "'" +name + "'";
-            String sql = "INSERT INTO Category (id, name) VALUES (" + insert + ")";
+    public Category createCategory(String name) throws SQLException {
+        try (Connection con = databaseConnector.getConnection()) {
+            String psql = "INSERT INTO Category (name) VALUES (?)";
+            PreparedStatement statement = con.prepareStatement(psql, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, name);
 
-            Statement statement = connection.createStatement();
-            statement.execute(sql, Statement.RETURN_GENERATED_KEYS);
+            statement.execute();
+            if (statement.getGeneratedKeys().next()) {
+                int id = statement.getGeneratedKeys().getInt(1);
+                return new Category(id, name);
+            }
+        }
+        throw new RuntimeException("Id not set");
+    }
 
-            ResultSet keys = statement.getGeneratedKeys();
-            keys.next();
-            return new Category(id, name);
+    public void deleteCategory(int id) {
+        String sql = "DELETE FROM Category WHERE id = ?";
+
+        try (Connection con = databaseConnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

@@ -2,7 +2,6 @@ package dal.db;
 
 import be.Movie;
 import dal.DatabaseConnector;
-
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -70,7 +69,7 @@ public class MovieDAO {
     }
 
     public void deleteMovie(int id) {
-        String sql = "DELETE FROM Movie WHERE id= ?";
+        String sql = "DELETE FROM Movie WHERE id = ?";
 
         try (Connection con = databaseConnector.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {

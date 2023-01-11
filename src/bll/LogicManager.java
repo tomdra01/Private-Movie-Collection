@@ -24,8 +24,12 @@ public class LogicManager {
         return movieDAO.getAllMovies();
     }
 
-    public Category createCategory (int id, String name) throws SQLException {
-        return categoryDAO.createCategory(id, name);
+    public Category createCategory (String name) throws SQLException {
+        return categoryDAO.createCategory(name);
+    }
+
+    public void deleteCategory(int id) {
+        categoryDAO.deleteCategory(id);
     }
 
     public List<Category> getAllCategories() throws SQLException {

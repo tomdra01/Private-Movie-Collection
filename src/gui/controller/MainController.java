@@ -86,7 +86,7 @@ public class MainController implements Initializable {
             Stage stage = (Stage) saveButton.getScene().getWindow();
             Alert a = new Alert(Alert.AlertType.NONE); // New alert
 
-            Alert a2 = new Alert(Alert.AlertType.NONE); // New alertAlert a2 = new Alert(Alert.AlertType.NONE); // New alert
+            Alert a2 = new Alert(Alert.AlertType.NONE);
 
             if (titleField.getText().trim().isEmpty() || ratingField.getText().trim().isEmpty() || sourceField.getText().trim().isEmpty()) {
                 a.setAlertType(Alert.AlertType.ERROR);

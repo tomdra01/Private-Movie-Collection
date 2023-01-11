@@ -3,30 +3,20 @@ package be;
 import java.time.LocalDate;
 
 public class Movie {
-    private int id = 0;
+    private int id;
     private String name;
     private double rating;
     private String fileLink;
     private int release;
     private LocalDate lastView;
 
-    /**
-     * Constructor for Movie
-     */
-    public Movie(String name, double rating, String fileLink, int release, LocalDate lastView) {
+    public Movie(int id, String name, double rating, String fileLink, int release, LocalDate lastView) {
+        this.id = id;
         this.name = name;
         this.rating = rating;
         this.fileLink = fileLink;
         this.release = release;
         this.lastView = lastView;
-    }
-
-    /**
-     * Constructor for MovieDAO
-     */
-    public Movie(int id, String name, double rating, String fileLink, int release, LocalDate lastView) {
-        this(name, rating, fileLink, release, lastView);
-        this.id = id;
     }
 
     public int getId() {
