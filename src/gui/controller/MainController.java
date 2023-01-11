@@ -86,10 +86,17 @@ public class MainController implements Initializable {
             Stage stage = (Stage) saveButton.getScene().getWindow();
             Alert a = new Alert(Alert.AlertType.NONE); // New alert
 
+            Alert a2 = new Alert(Alert.AlertType.NONE); // New alertAlert a2 = new Alert(Alert.AlertType.NONE); // New alert
+
             if (titleField.getText().trim().isEmpty() || ratingField.getText().trim().isEmpty() || sourceField.getText().trim().isEmpty()) {
                 a.setAlertType(Alert.AlertType.ERROR);
                 a.setContentText("Please fill in all fields");
                 a.show();
+            }
+            else if(Integer.parseInt(ratingField.getText()) > 10 || Integer.parseInt(ratingField.getText()) < 0) {
+                a2.setAlertType(Alert.AlertType.ERROR);
+                a2.setContentText("Make sure the rating is in between the range of 0-10");
+                a2.show();
             }
             else {
                 try {
