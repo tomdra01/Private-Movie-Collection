@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="addMoviePane" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.AddMovieController">
+   <children>
+      <Pane layoutX="150.0" prefHeight="50.0" prefWidth="350.0" style="-fx-background-color: #A9A9A9 #A9A9A9 #A9A9A9 #A9A9A9;">
+         <effect>
+            <DropShadow />
+         </effect>
+      </Pane>
+      <VBox prefHeight="400.0" prefWidth="150.0" style="-fx-background-color: #696969 #696969;">
+         <effect>
+            <DropShadow />
+         </effect>
+         <children>
+            <Pane prefHeight="50.0" prefWidth="150.0" />
+            <Label text="ADD MOVIE" textFill="WHITE" translateX="20.0">
+               <font>
+                  <Font name="Futura Medium" size="18.0" />
+               </font>
+               <effect>
+                  <DropShadow height="5.0" radius="3.25" width="10.0" />
+               </effect>
+            </Label>
+            <Pane prefHeight="325.0" prefWidth="150.0">
+               <children>
+                  <Button fx:id="cancelButton" cancelButton="true" layoutX="14.0" layoutY="286.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="46.0" style="-fx-background-color: #DCDCDC #DCDCDC;" text="Cancel">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="saveButton" defaultButton="true" layoutX="90.0" layoutY="286.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="46.0" style="-fx-background-color: #DCDCDC #DCDCDC;" text="Save">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+      <GridPane layoutX="156.0" layoutY="70.0" prefHeight="260.0" prefWidth="309.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="230.0" minWidth="10.0" prefWidth="163.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="281.0" minWidth="10.0" prefWidth="146.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <TextField fx:id="titleField" GridPane.columnIndex="1" />
+            <TextField fx:id="ratingField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <TextField fx:id="sourceField" layoutY="13.0" prefHeight="26.0" prefWidth="110.0" />
+                  <Button fx:id="openButton" layoutX="110.0" layoutY="13.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="38.0" text="Open">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+            <Label text="Release" translateX="60.0" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Futura Medium" size="13.0" />
+               </font>
+            </Label>
+            <Label text="Source" translateX="60.0" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Futura Medium" size="13.0" />
+               </font>
+            </Label>
+            <Label text="Title" translateX="60.0">
+               <font>
+                  <Font name="Futura Medium" size="13.0" />
+               </font>
+            </Label>
+            <Label text="Rating" translateX="60.0" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Futura Medium" size="13.0" />
+               </font>
+            </Label>
+            <Label text="Category" translateX="60.0" GridPane.rowIndex="4">
+               <font>
+                  <Font name="Futura Medium" size="13.0" />
+               </font>
+            </Label>
+            <Spinner fx:id="yearSpinner" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <children>
+                  <ChoiceBox fx:id="categoryField" layoutY="14.0" prefHeight="26.0" prefWidth="110.0" />
+                  <Button fx:id="moreButton" layoutX="108.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="38.0" text="More">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+         </children>
+      </GridPane>
+      <Label layoutX="190.0" layoutY="347.0" text="Selected categories:">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="categoryText" layoutX="319.0" layoutY="346.0" prefHeight="17.0" prefWidth="146.0" text="None">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
