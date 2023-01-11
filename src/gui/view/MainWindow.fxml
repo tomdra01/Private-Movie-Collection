@@ -21,11 +21,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.MainController">
    <children>
-      <Pane layoutX="300.0" layoutY="-17.0" prefHeight="67.0" prefWidth="600.0" style="-fx-background-color: #A9A9A9 #A9A9A9;">
+      <Pane layoutX="300.0" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #A9A9A9 #A9A9A9;">
          <children>
-            <Button fx:id="exit" layoutX="556.0" layoutY="14.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="41.0" style="-fx-background-color: #A9A9A9 #A9A9A9 #A9A9A9 #A9A9A9;" text="✗">
+            <Button fx:id="exit" layoutX="559.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="41.0" style="-fx-background-color: #A9A9A9 #A9A9A9 #A9A9A9 #A9A9A9;" text="X">
                <font>
                   <Font size="14.0" />
                </font>
@@ -68,7 +68,7 @@
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
                      <image>
-                        <Image url="@../../../../../Desktop/addIcon.png" />
+                        <Image url="@../images/WatchIcon.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -86,7 +86,7 @@
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
                      <image>
-                        <Image url="@../../../../../Desktop/addIcon.png" />
+                        <Image url="file:/Users/mackbookair/IdeaProjects/Private%20Movie%20Collection/src/gui/images/addIcon.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -104,7 +104,7 @@
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
                      <image>
-                        <Image url="@../../../../../Desktop/removeIcon.png" />
+                        <Image url="file:/Users/mackbookair/IdeaProjects/Private%20Movie%20Collection/src/gui/images/removeIcon.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -147,7 +147,7 @@
                   </SplitMenuButton>
                   <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="379.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../Downloads/icons8-list-48.png" />
+                        <Image url="file:/Users/mackbookair/IdeaProjects/Private%20Movie%20Collection/src/gui/images/filterIcon.png" />
                      </image>
                   </ImageView>
                </children>

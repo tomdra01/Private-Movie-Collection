@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="addMoviePane" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.MainController">
+<AnchorPane fx:id="addMoviePane" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.MainController">
    <children>
       <Pane layoutX="140.0" layoutY="-10.0" prefHeight="60.0" prefWidth="360.0" style="-fx-background-color: #A9A9A9 #A9A9A9 #A9A9A9 #A9A9A9; -fx-background-radius: 10;">
          <effect>

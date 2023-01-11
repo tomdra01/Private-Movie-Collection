@@ -1,7 +1,7 @@
-package gui.Controller;
+package gui.controller;
 
 import be.Movie;
-import gui.Model.MainModel;
+import gui.model.MainModel;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -54,7 +54,7 @@ public class MainController implements Initializable {
     public void buttonHandler() {
         //Add button
         if (addButton!=null) { addButton.setOnAction(event -> {
-                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/View/AddWindow.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/view/AddWindow.fxml"));
                 try {
                     Scene scene;
                     scene = new Scene(loader.load());
