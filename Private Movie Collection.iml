@@ -10,5 +10,6 @@
     <orderEntry type="library" name="FXML" level="application" />
     <orderEntry type="library" name="SQL" level="application" />
     <orderEntry type="library" name="mssql-jdbc-11.2.1.jre18" level="project" />
+    <orderEntry type="library" name="controlsfx" level="project" />
   </component>
 </module>

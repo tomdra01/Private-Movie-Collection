@@ -1,5 +1,6 @@
 package gui.controller;
 
+import be.Category;
 import dal.db.CategoryDAO;
 import gui.model.MainModel;
 import javafx.fxml.FXML;
@@ -18,18 +19,19 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import org.controlsfx.control.CheckComboBox;
 
 public class AddMovieController implements Initializable {
     @FXML
     private Button saveButton, cancelButton, openButton, moreButton;
+    @FXML
+    private CheckComboBox<Object> categoryField;
     @FXML
     private AnchorPane addMoviePane;
     @FXML
     private TextField titleField, ratingField, sourceField;
     @FXML
     private Spinner<Integer> yearSpinner = new Spinner<>(1900, 2100, 2020);
-    @FXML
-    private ChoiceBox<String> categoryField;
     @FXML
     private javafx.scene.control.Label categoryText;
     private MainModel model;
@@ -112,6 +114,14 @@ public class AddMovieController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         model = new MainModel();
         buttonHandler();
+
+        try {
+            model.fetchAllCategories();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        categoryField.getItems().addAll(model.getCategories());
 
         yearSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1900, 2100, 2023, 1));
     }
