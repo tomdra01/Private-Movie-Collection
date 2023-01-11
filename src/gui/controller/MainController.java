@@ -125,6 +125,9 @@ public class MainController implements Initializable {
                 ex.printStackTrace();}});}
     }
 
+    /**
+     * Getting the current date
+     */
     public LocalDate getCurrentDate() {
         return LocalDate.now();
     }
