@@ -110,6 +110,15 @@ public class AddMovieController implements Initializable {
         return LocalDate.now();
     }
 
+    public void getCategories() {
+        categoryField.setOnMouseExited(event -> {
+            categoryText.setText(categoryField.getCheckModel().getCheckedItems().toString());
+            if (categoryField.getCheckModel().isEmpty()) {
+                categoryText.setText("None");
+            }
+        });
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         model = new MainModel();
@@ -122,6 +131,10 @@ public class AddMovieController implements Initializable {
         }
 
         categoryField.getItems().addAll(model.getCategories());
+
+        categoryField.getItems().addAll(model.getCategories());
+        categoryField.setTitle("Select");
+        getCategories();
 
         yearSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1900, 2100, 2023, 1));
     }
