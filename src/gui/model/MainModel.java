@@ -42,8 +42,13 @@ public class MainModel {
         Category category = bll.createCategory(name);
         categories.add(category);
     }
+    public void search(String query) throws SQLException {
+        movies.clear();
+        movies.addAll(bll.searchMovie(query));
+    }
 
     public void deleteCategory(int id) {
         bll.deleteCategory(id);
     }
+
 }

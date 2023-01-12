@@ -129,7 +129,7 @@
             </TableView>
             <Pane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <TextField layoutX="60.0" layoutY="1.0" />
+                  <TextField fx:id="searchField" layoutX="60.0" layoutY="1.0" />
                   <Label layoutX="11.0" layoutY="5.0" text="Search:" />
                   <SplitMenuButton layoutX="405.0" layoutY="1.0" mnemonicParsing="false" style="-fx-background-color: #DCDCDC #DCDCDC;" text="Filter">
                     <items>

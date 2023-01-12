@@ -3,12 +3,15 @@ package gui.controller;
 import be.Movie;
 import gui.model.MainModel;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import java.awt.*;
@@ -21,12 +24,18 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
     @FXML
     private TableView<Movie> movieTable;
+
+    @FXML
+
+    private TextField searchField;
+
     @FXML
     private TableColumn<Movie, String> titleColumn, ratingColumn, releaseColumn, lastViewColumn;
 
     @FXML
     private Button addButton, watchButton, removeButton, exit;
     private MainModel model;
+
 
     public void setModel(MainModel model) {
         this.model = model;
@@ -90,5 +99,16 @@ public class MainController implements Initializable {
         }
 
         if(this.exit!=null) exit.setOnAction(event -> Platform.exit());
+
+        searchField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                try {
+                    model.search(newValue);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
     }
 }

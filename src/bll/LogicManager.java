@@ -6,6 +6,7 @@ import dal.db.CategoryDAO;
 import dal.db.MovieDAO;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LogicManager {
@@ -26,6 +27,19 @@ public class LogicManager {
 
     public Category createCategory (String name) throws SQLException {
         return categoryDAO.createCategory(name);
+    }
+
+    public List<Movie> searchMovie(String query) throws SQLException {
+        List<Movie> movies = movieDAO.getAllMovies();
+        List<Movie> filtered = new ArrayList<>();
+
+        for (Movie m : movies){
+
+            if((""+m.getName().toLowerCase()).contains(query.toLowerCase())){
+            filtered.add(m);
+            }
+        }
+        return filtered;
     }
 
     public void deleteCategory(int id) {
