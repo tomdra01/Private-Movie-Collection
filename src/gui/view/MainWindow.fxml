@@ -86,7 +86,7 @@
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
                      <image>
-                        <Image url="file:/Users/mackbookair/IdeaProjects/Private%20Movie%20Collection/src/gui/images/addIcon.png" />
+                        <Image url="@../images/addIcon.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -104,7 +104,7 @@
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
                      <image>
-                        <Image url="file:/Users/mackbookair/IdeaProjects/Private%20Movie%20Collection/src/gui/images/removeIcon.png" />
+                        <Image url="@../images/removeIcon.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -147,7 +147,7 @@
                   </SplitMenuButton>
                   <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="379.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="file:/Users/mackbookair/IdeaProjects/Private%20Movie%20Collection/src/gui/images/filterIcon.png" />
+                        <Image url="@../images/filterIcon.png" />
                      </image>
                   </ImageView>
                </children>
