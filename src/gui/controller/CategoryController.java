@@ -44,17 +44,13 @@ public class CategoryController implements Initializable {
             int selectedCategory = categoryList.getSelectionModel().getSelectedItem().getId();
             Category selectedItem = categoryList.getSelectionModel().getSelectedItem();
             model.deleteCategory(selectedCategory);
-            categoryList.getItems().remove(selectedItem);
-        });
-
+            categoryList.getItems().remove(selectedItem);});
         }
 
-        if (closeButton!=null) {
-            closeButton.setOnAction(event -> {
-                Stage stage = (Stage) categoryPane.getScene().getWindow();
-                stage.close();});}
-
-
+        //Close button
+        if (closeButton!=null) { closeButton.setOnAction(event -> {
+            Stage stage = (Stage) categoryPane.getScene().getWindow();
+            stage.close();});}
     }
 
     @Override
@@ -69,6 +65,4 @@ public class CategoryController implements Initializable {
         }
         categoryList.getItems().addAll(model.getCategories());
     }
-
-
 }

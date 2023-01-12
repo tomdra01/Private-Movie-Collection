@@ -2,10 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -20,6 +17,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.CheckComboBox?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.MainController">
    <children>
@@ -86,7 +84,7 @@
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
                      <image>
-                        <Image url="@../images/addIcon.png" />
+                        <Image url="@../images/AddIcon.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -104,7 +102,7 @@
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
                      <image>
-                        <Image url="@../images/removeIcon.png" />
+                        <Image url="@../images/RemoveIcon.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -131,25 +129,13 @@
                <children>
                   <TextField fx:id="searchField" layoutX="60.0" layoutY="1.0" />
                   <Label layoutX="11.0" layoutY="5.0" text="Search:" />
-                  <SplitMenuButton layoutX="405.0" layoutY="1.0" mnemonicParsing="false" style="-fx-background-color: #DCDCDC #DCDCDC;" text="Filter">
-                    <items>
-                      <MenuItem mnemonicParsing="false">
-                           <graphic>
-                              <CheckBox mnemonicParsing="false" text="Action" />
-                           </graphic>
-                        </MenuItem>
-                      <MenuItem mnemonicParsing="false">
-                           <graphic>
-                              <CheckBox mnemonicParsing="false" text="Drama" />
-                           </graphic>
-                        </MenuItem>
-                    </items>
-                  </SplitMenuButton>
-                  <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="379.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="389.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/filterIcon.png" />
+                        <Image url="@../images/FilterIcon.png" />
                      </image>
                   </ImageView>
+                  <Button fx:id="filterButton" ellipsisString="" layoutX="388.0" layoutY="2.0" mnemonicParsing="false" opacity="0.0" prefHeight="15.0" prefWidth="15.0" style="-fx-background-color: #F1F1F1#F1F1F1; " />
+                  <CheckComboBox fx:id="filterBox" layoutX="411.0" layoutY="2.0" prefHeight="26.0" prefWidth="75.0" title="Filter" />
                </children>
             </Pane>
          </children>

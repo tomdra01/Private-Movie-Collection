@@ -1,5 +1,6 @@
 package gui.controller;
 
+import be.Category;
 import be.Movie;
 import gui.model.MainModel;
 import javafx.application.Platform;
@@ -14,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import org.controlsfx.control.CheckComboBox;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -24,16 +26,16 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
     @FXML
     private TableView<Movie> movieTable;
-
-    @FXML
-
-    private TextField searchField;
-
     @FXML
     private TableColumn<Movie, String> titleColumn, ratingColumn, releaseColumn, lastViewColumn;
 
     @FXML
-    private Button addButton, watchButton, removeButton, exit;
+    private TextField searchField;
+    @FXML
+    private CheckComboBox<Category> filterBox;
+
+    @FXML
+    private Button addButton, watchButton, removeButton, filterButton, exit;
     private MainModel model;
 
 
@@ -79,8 +81,17 @@ public class MainController implements Initializable {
                 Movie selectedItem = movieTable.getSelectionModel().getSelectedItem();
                 File movieFile = new File(selectedItem.getFileLink());
                 Desktop.getDesktop().open(movieFile);
-            } catch (IOException ex) {
-                ex.printStackTrace();}});}
+            } catch (IOException ex) {ex.printStackTrace();}});
+        }
+
+        //Filter button
+        if (filterButton!=null) { filterButton.setOnAction(event -> {
+            if (filterBox.getCheckModel().isEmpty()){
+                System.out.println("No categories selected");
+            }
+            else {
+                System.out.println(filterBox.getCheckModel().getCheckedItems().toString());}});
+        }
     }
 
     @Override
@@ -88,7 +99,9 @@ public class MainController implements Initializable {
         model = new MainModel();
         buttonHandler();
 
-        try {model.fetchAllMovies();} catch (SQLException e) {throw new RuntimeException(e);}
+        try {model.fetchAllMovies(); model.fetchAllCategories();} catch (SQLException e) {throw new RuntimeException(e);}
+
+        filterBox.getItems().addAll(model.getCategories());
 
         if (movieTable != null) {
             movieTable.setItems(model.getMovies());
@@ -97,8 +110,6 @@ public class MainController implements Initializable {
             releaseColumn.setCellValueFactory(new  PropertyValueFactory<>("release"));
             lastViewColumn.setCellValueFactory((new PropertyValueFactory<>("lastView")));
         }
-
-        if(this.exit!=null) exit.setOnAction(event -> Platform.exit());
 
         searchField.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -110,5 +121,7 @@ public class MainController implements Initializable {
                 }
             }
         });
+
+        if(this.exit!=null) exit.setOnAction(event -> Platform.exit());
     }
 }

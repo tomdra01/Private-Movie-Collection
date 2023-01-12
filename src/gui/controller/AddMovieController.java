@@ -35,6 +35,7 @@ public class AddMovieController implements Initializable {
     @FXML
     private javafx.scene.control.Label categoryText;
     private MainModel model;
+    private double defaultRating = 0;
 
     public void setModel(MainModel model) {
         this.model = model;
@@ -84,12 +85,12 @@ public class AddMovieController implements Initializable {
             }
             else if(Integer.parseInt(ratingField.getText()) > 10 || Integer.parseInt(ratingField.getText()) < 0) {
                 a2.setAlertType(Alert.AlertType.ERROR);
-                a2.setContentText("Make sure the rating is in between the range of 0-10");
+                a2.setContentText("The rating should be 0 - 10");
                 a2.show();
             }
             else {
                 try {
-                    model.createMovie(titleField.getText(), Double.parseDouble(ratingField.getText()), sourceField.getText(), yearSpinner.getValue(), getCurrentDate());
+                    model.createMovie(titleField.getText(), defaultRating, sourceField.getText(), yearSpinner.getValue(), getCurrentDate());
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
@@ -102,6 +103,7 @@ public class AddMovieController implements Initializable {
             Stage stage = (Stage) addMoviePane.getScene().getWindow();
             stage.close();});}
     }
+
 
     /**
      * Getting the current date
@@ -129,8 +131,6 @@ public class AddMovieController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-        categoryField.getItems().addAll(model.getCategories());
 
         categoryField.getItems().addAll(model.getCategories());
         categoryField.setTitle("Select");
