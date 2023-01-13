@@ -12,7 +12,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(Main.class.getResource("gui/view/MainWindow.fxml"));
+        Parent root = FXMLLoader.load(Main.class.getResource("gui/view/main.fxml"));
         primaryStage.setTitle("▶ PMC");
         primaryStage.setScene(new Scene(root));
         primaryStage.centerOnScreen();

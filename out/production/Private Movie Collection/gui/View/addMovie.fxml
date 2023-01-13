@@ -104,12 +104,12 @@
             <Spinner fx:id="yearSpinner" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <children>
-                  <Button fx:id="moreButton" layoutX="108.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="38.0" text="More">
+                  <Button fx:id="moreButton" layoutX="110.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="38.0" text="More">
                      <font>
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <CheckComboBox fx:id="categoryField" layoutY="15.0" prefHeight="25.0" prefWidth="106.0" />
+                  <CheckComboBox fx:id="categoryField" layoutY="14.0" prefHeight="26.0" prefWidth="110.0" />
                </children>
             </Pane>
          </children>

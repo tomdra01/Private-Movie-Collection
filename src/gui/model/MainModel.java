@@ -51,4 +51,7 @@ public class MainModel {
         bll.deleteCategory(id);
     }
 
+    public void addGenre(Movie movie, Category category) throws SQLException {
+        bll.addGenre(movie, category);
+    }
 }

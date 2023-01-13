@@ -1,7 +1,7 @@
 package gui.controller;
 
 import be.Category;
-import dal.db.CategoryDAO;
+import be.Movie;
 import gui.model.MainModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 import org.controlsfx.control.CheckComboBox;
 
@@ -25,7 +26,7 @@ public class AddMovieController implements Initializable {
     @FXML
     private Button saveButton, cancelButton, openButton, moreButton;
     @FXML
-    private CheckComboBox<Object> categoryField;
+    private CheckComboBox<Category> categoryField;
     @FXML
     private AnchorPane addMoviePane;
     @FXML
@@ -34,22 +35,29 @@ public class AddMovieController implements Initializable {
     private Spinner<Integer> yearSpinner = new Spinner<>(1900, 2100, 2020);
     @FXML
     private javafx.scene.control.Label categoryText;
+    private TableView<Movie> movieTable;
     private MainModel model;
+    private Movie movie;
     private double defaultRating = 0;
+    private MainController mainController;
 
     public void setModel(MainModel model) {
         this.model = model;
     }
 
+    public void setMovieTable(TableView<Movie> table) {
+        this.movieTable = table;
+    }
+
     public void buttonHandler() {
         if (moreButton!=null) { moreButton.setOnAction(event -> {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/view/CategoryWindow.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/view/addCategory.fxml"));
             try {
                 Scene scene;
                 scene = new Scene(loader.load());
 
-                CategoryController categoryController = loader.getController();
-                categoryController.setModel(model);
+                AddCategoryController addCategoryController = loader.getController();
+                addCategoryController.setModel(model);
 
                 Stage stageCategory = new Stage();
                 stageCategory.setTitle("Categories");
@@ -91,6 +99,13 @@ public class AddMovieController implements Initializable {
             else {
                 try {
                     model.createMovie(titleField.getText(), defaultRating, sourceField.getText(), yearSpinner.getValue(), getCurrentDate());
+
+                    List<Category> selectedItems = categoryField.getCheckModel().getCheckedItems();
+                    getMovie().setId(getMovie().getId()+1);
+
+                    for (Category item : selectedItems) {
+                        model.addGenre(getMovie(), new Category(item.getId(), item.getName()));
+                    }
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
@@ -112,13 +127,18 @@ public class AddMovieController implements Initializable {
         return LocalDate.now();
     }
 
-    public void getCategories() {
-        categoryField.setOnMouseExited(event -> {
+    public void assignCategory() {
+    }
+
+    public void getSelectedCategories() {
+        categoryField.setOnMouseEntered(event -> {
             categoryText.setText(categoryField.getCheckModel().getCheckedItems().toString());
             if (categoryField.getCheckModel().isEmpty()) {
                 categoryText.setText("None");
             }
         });
+        ;
+
     }
 
     @Override
@@ -134,8 +154,16 @@ public class AddMovieController implements Initializable {
 
         categoryField.getItems().addAll(model.getCategories());
         categoryField.setTitle("Select");
-        getCategories();
+        getSelectedCategories();
 
         yearSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1900, 2100, 2023, 1));
+    }
+
+    public void getLastMovie(Movie getMovie) {
+        this.movie = getMovie;
+    }
+
+    public Movie getMovie() {
+        return movie;
     }
 }

@@ -2,6 +2,7 @@ package bll;
 
 import be.Category;
 import be.Movie;
+import dal.db.CatMovDAO;
 import dal.db.CategoryDAO;
 import dal.db.MovieDAO;
 import java.sql.SQLException;
@@ -12,6 +13,7 @@ import java.util.List;
 public class LogicManager {
     private MovieDAO movieDAO = new MovieDAO();
     private CategoryDAO categoryDAO = new CategoryDAO();
+    private CatMovDAO catMovDAO = new CatMovDAO();
 
     public Movie createMovie (String name, double rating, String fileLink, int release, LocalDate lastView) throws SQLException {
         return movieDAO.createMovie(name, rating, fileLink, release, lastView);
@@ -48,5 +50,9 @@ public class LogicManager {
 
     public List<Category> getAllCategories() throws SQLException {
         return categoryDAO.getAllCategories();
+    }
+
+    public void addGenre(Movie movie, Category category) throws SQLException {
+        catMovDAO.addGenre(movie, category);
     }
 }

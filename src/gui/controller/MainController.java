@@ -37,6 +37,7 @@ public class MainController implements Initializable {
     @FXML
     private Button addButton, watchButton, removeButton, filterButton, exit;
     private MainModel model;
+    private AddMovieController addMovieController;
 
 
     public void setModel(MainModel model) {
@@ -49,12 +50,13 @@ public class MainController implements Initializable {
     public void buttonHandler() {
         //Add button
         if (addButton!=null) { addButton.setOnAction(event -> {
-                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/view/AddMovieWindow.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/view/addMovie.fxml"));
                 try {
                     Scene scene;
                     scene = new Scene(loader.load());
-                    AddMovieController movieController = loader.getController();
-                    movieController.setModel(model);
+                    addMovieController = loader.getController();
+                    addMovieController.getLastMovie(movieTable.getItems().get(movieTable.getItems().size() - 1));
+                    addMovieController.setModel(model);
 
                     Stage stageAddMovie = new Stage();
                     stageAddMovie.setTitle("Add Movie");

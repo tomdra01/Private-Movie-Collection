@@ -10,13 +10,17 @@ public class Movie {
     private int release;
     private LocalDate lastView;
 
-    public Movie(int id, String name, double rating, String fileLink, int release, LocalDate lastView) {
-        this.id = id;
+    public Movie(String name, double rating, String fileLink, int release, LocalDate lastView) {
         this.name = name;
         this.rating = rating;
         this.fileLink = fileLink;
         this.release = release;
         this.lastView = lastView;
+    }
+
+    public Movie(int id, String name, double rating, String fileLink, int release, LocalDate lastView) {
+        this(name, rating, fileLink, release, lastView);
+        this.id = id;
     }
 
     public int getId() {

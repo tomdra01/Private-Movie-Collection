@@ -64,7 +64,6 @@ public class MovieDAO {
                 return new Movie(id, name, rating, fileLink, release, lastView);
             }
             throw new RuntimeException("Id not set");
-
         }
     }
 

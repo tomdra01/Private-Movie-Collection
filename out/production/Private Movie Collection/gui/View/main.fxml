@@ -66,7 +66,7 @@
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
                      <image>
-                        <Image url="@../images/WatchIcon.png" />
+                        <Image url="@../images/watchIcon.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -84,7 +84,7 @@
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
                      <image>
-                        <Image url="@../images/AddIcon.png" />
+                        <Image url="@../images/addIcon.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -102,7 +102,7 @@
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
                      <image>
-                        <Image url="@../images/RemoveIcon.png" />
+                        <Image url="@../images/removeIcon.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -131,7 +131,7 @@
                   <Label layoutX="11.0" layoutY="5.0" text="Search:" />
                   <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="389.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/FilterIcon.png" />
+                        <Image url="@../images/filterIcon.png" />
                      </image>
                   </ImageView>
                   <Button fx:id="filterButton" ellipsisString="" layoutX="388.0" layoutY="2.0" mnemonicParsing="false" opacity="0.0" prefHeight="15.0" prefWidth="15.0" style="-fx-background-color: #F1F1F1#F1F1F1; " />

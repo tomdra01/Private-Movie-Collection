@@ -14,7 +14,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class CategoryController implements Initializable {
+public class AddCategoryController implements Initializable {
     @FXML
     private ListView<Category> categoryList;
     @FXML
