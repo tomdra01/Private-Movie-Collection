@@ -19,7 +19,7 @@ public class LogicManager {
         return movieDAO.createMovie(name, rating, fileLink, release, lastView);
     }
 
-    public void deleteMovie(int id) {
+    public void deleteMovie(int id) throws SQLException {
         movieDAO.deleteMovie(id);
     }
 
@@ -44,7 +44,7 @@ public class LogicManager {
         return filtered;
     }
 
-    public void deleteCategory(int id) {
+    public void deleteCategory(int id) throws SQLException {
         categoryDAO.deleteCategory(id);
     }
 

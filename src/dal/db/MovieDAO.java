@@ -67,6 +67,7 @@ public class MovieDAO {
         }
     }
 
+    /*
     public void deleteMovie(int id) {
         String sql = "DELETE FROM Movie WHERE id = ?";
 
@@ -79,4 +80,19 @@ public class MovieDAO {
             System.out.println(e.getMessage());
         }
     }
+
+     */
+
+    public void deleteMovie(int idCatM) throws SQLException {
+        try (Connection con = databaseConnector.getConnection()){
+            PreparedStatement st1 = con.prepareStatement("DELETE FROM CatMovie WHERE MovieId = ?;");
+            st1.setInt(1, idCatM);
+
+            PreparedStatement st2 = con.prepareStatement("DELETE FROM Movie WHERE id = ?;");
+            st2.setInt(1, idCatM);
+            st1.executeUpdate();
+            st2.executeUpdate();
+        }
+    }
+
 }

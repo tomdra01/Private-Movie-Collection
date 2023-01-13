@@ -43,7 +43,7 @@ public class AddCategoryController implements Initializable {
         if (deleteButton!=null) { deleteButton.setOnAction(event -> {
             int selectedCategory = categoryList.getSelectionModel().getSelectedItem().getId();
             Category selectedItem = categoryList.getSelectionModel().getSelectedItem();
-            model.deleteCategory(selectedCategory);
+            try {model.deleteCategory(selectedCategory);} catch (SQLException e) {throw new RuntimeException(e);}
             categoryList.getItems().remove(selectedItem);});
         }
 

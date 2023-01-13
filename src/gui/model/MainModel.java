@@ -34,7 +34,7 @@ public class MainModel {
         movies.add(movie);
     }
 
-    public void deleteMovie(int id) {
+    public void deleteMovie(int id) throws SQLException {
         bll.deleteMovie(id);
     }
 
@@ -47,7 +47,7 @@ public class MainModel {
         movies.addAll(bll.searchMovie(query));
     }
 
-    public void deleteCategory(int id) {
+    public void deleteCategory(int id) throws SQLException {
         bll.deleteCategory(id);
     }
 

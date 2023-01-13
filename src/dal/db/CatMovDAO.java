@@ -3,10 +3,11 @@ package dal.db;
 import be.Category;
 import be.Movie;
 import dal.DatabaseConnector;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class CatMovDAO {
     private DatabaseConnector databaseConnector;
 
@@ -28,4 +29,24 @@ public class CatMovDAO {
             ps.executeUpdate();
         }
     }
+
+
+    /*
+    public List<Movie> getAllCatmovies(int catMovId) throws SQLException {
+        List<Movie> newMovieList = new ArrayList<>();
+        try (Connection con = databaseConnector.getConnection()) {
+            String query = "SELECT * FROM CatMovie JOIN Movie ON CatMovie.MovieId = Movie.id WHERE CatMovie.CategoryId = ?;";
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            preparedStatement.setInt(1, catMovId);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                Movie movie = new Movie();
+                movie.setCatMovId(rs.getInt("CatMovId"));
+                newMovieList.add(movie);
+            }
+        }
+        return newMovieList;
+    }
+
+     */
 }

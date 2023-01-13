@@ -9,6 +9,7 @@ public class Movie {
     private String fileLink;
     private int release;
     private LocalDate lastView;
+    private int catMovId;
 
     public Movie(String name, double rating, String fileLink, int release, LocalDate lastView) {
         this.name = name;
@@ -71,6 +72,9 @@ public class Movie {
         this.lastView = lastView;
     }
 
+    public void setCatMovId(int catMovId) {
+        this.catMovId = catMovId;
+    }
     @Override
     public String toString() {
         return "Movie{" +
@@ -82,4 +86,5 @@ public class Movie {
                 ", lastView=" + lastView +
                 '}';
     }
+
 }

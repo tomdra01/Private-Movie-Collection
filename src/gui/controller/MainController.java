@@ -72,8 +72,12 @@ public class MainController implements Initializable {
         if (removeButton!=null) { removeButton.setOnAction(event -> {
                 int selectedMovieId = movieTable.getSelectionModel().getSelectedItem().getId();
                 Movie selectedItem = movieTable.getSelectionModel().getSelectedItem();
+            try {
                 model.deleteMovie(selectedMovieId);
-                movieTable.getItems().remove(selectedItem);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            movieTable.getItems().remove(selectedItem);
             });
         }
 

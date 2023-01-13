@@ -61,6 +61,7 @@ public class CategoryDAO {
         throw new RuntimeException("Id not set");
     }
 
+    /*
     public void deleteCategory(int id) {
         String sql = "DELETE FROM Category WHERE id = ?";
 
@@ -71,6 +72,22 @@ public class CategoryDAO {
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+     */
+
+    public void deleteCategory(int id) throws SQLException{
+        try (Connection con = databaseConnector.getConnection()) {
+
+            PreparedStatement st1 = con.prepareStatement("DELETE FROM CatMovie WHERE CategoryId = ?;");
+            st1.setInt(1, id);
+
+            PreparedStatement st2 = con.prepareStatement("DELETE FROM Category WHERE id = ?;");
+            st2.setInt(1, id);
+
+            st1.executeUpdate();
+            st2.executeUpdate();
         }
     }
 }
