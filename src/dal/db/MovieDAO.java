@@ -42,12 +42,6 @@ public class MovieDAO {
             return allMovies;
         }
 
-    public static void main(String[] args) throws SQLException {
-        MovieDAO movieDAO = new MovieDAO();
-        List<Movie> allMovies = movieDAO.getAllMovies();
-        System.out.println(allMovies);
-    }
-
     public Movie createMovie(String name, double rating, String fileLink, int release, LocalDate lastView) throws SQLException{
         try(Connection con = databaseConnector.getConnection()) {
             String psql = "INSERT INTO Movie (name, rating, fileLink, release, lastView) VALUES (?,?,?,?,?)";
@@ -83,16 +77,15 @@ public class MovieDAO {
 
      */
 
-    public void deleteMovie(int idCatM) throws SQLException {
+    public void deleteMovie(int id) throws SQLException {
         try (Connection con = databaseConnector.getConnection()){
             PreparedStatement st1 = con.prepareStatement("DELETE FROM CatMovie WHERE MovieId = ?;");
-            st1.setInt(1, idCatM);
+            st1.setInt(1, id);
 
             PreparedStatement st2 = con.prepareStatement("DELETE FROM Movie WHERE id = ?;");
-            st2.setInt(1, idCatM);
+            st2.setInt(1, id);
             st1.executeUpdate();
             st2.executeUpdate();
         }
     }
-
 }

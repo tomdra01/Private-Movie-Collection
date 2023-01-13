@@ -1,10 +1,7 @@
 package dal.db;
 
 import be.Category;
-import be.Movie;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.DatabaseConnector;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,12 +35,6 @@ public class CategoryDAO {
             }
         }
         return allCategories;
-    }
-
-    public static void main(String[] args) throws SQLException {
-        CategoryDAO categoryDAO = new CategoryDAO();
-        List<Category> allCategories = categoryDAO.getAllCategories();
-        System.out.println(allCategories);
     }
 
     public Category createCategory(String name) throws SQLException {
