@@ -75,6 +75,7 @@ public class Movie {
     public void setCatMovId(int catMovId) {
         this.catMovId = catMovId;
     }
+
     @Override
     public String toString() {
         return "Movie{" +

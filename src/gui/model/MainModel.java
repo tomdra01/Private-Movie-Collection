@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 public class MainModel {
     LogicManager bll = new LogicManager();
@@ -61,5 +62,9 @@ public class MainModel {
 
     public void addGenre(Movie movie, Category category) throws SQLException {
         bll.addGenre(movie, category);
+    }
+
+    public List<Movie> filter(int id) throws  SQLException {
+        return bll.filter(id);
     }
 }

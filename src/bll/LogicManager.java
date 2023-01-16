@@ -35,6 +35,10 @@ public class LogicManager {
         return movieDAO.getAllMovies();
     }
 
+    public List<Movie> filter(int id) throws  SQLException {
+        return catMovDAO.filter(id);
+    }
+
     public Category createCategory (String name) throws SQLException {
         return categoryDAO.createCategory(name);
     }

@@ -95,14 +95,7 @@ public class MainController implements Initializable {
             catch (SQLException e) {throw new RuntimeException(e);}});
         }
 
-        //Filter button
-        if (filterButton!=null) { filterButton.setOnAction(event -> {
-            if (filterBox.getCheckModel().isEmpty()){
-                System.out.println("No categories selected");
-            }
-            else {
-                System.out.println(filterBox.getCheckModel().getCheckedItems().toString());}});
-        }
+
 
         //Rating button
         if (ratingButton!=null) {
@@ -127,6 +120,16 @@ public class MainController implements Initializable {
                         stageAddMovie.show();
                     } catch (IOException e) {
                         throw new RuntimeException(e);}}});
+        }
+
+        //Filter button
+        if (filterButton!=null) { filterButton.setOnAction(event -> {
+            if (filterBox.getCheckModel().isEmpty()){
+                System.out.println("No categories selected");
+            }
+            else {
+
+                System.out.println(filterBox.getCheckModel().getCheckedItems().toString());}});
         }
     }
 
