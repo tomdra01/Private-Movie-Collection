@@ -33,6 +33,7 @@ public class AddCategoryController implements Initializable {
         if (newButton!=null) { newButton.setOnAction(event -> {
             try {
                 model.createCategory(nameField.getText());
+                categoryList.getItems().clear();
                 categoryList.getItems().addAll(model.getCategories());
                 nameField.clear();
             } catch (SQLException e) {
