@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -86,9 +87,12 @@ public class MainController implements Initializable {
         if (watchButton!=null) { watchButton.setOnAction(event -> {
             try {
                 Movie selectedItem = movieTable.getSelectionModel().getSelectedItem();
+                selectedItem.setLastView(LocalDate.now());
+                model.updateDate(selectedItem);
                 File movieFile = new File(selectedItem.getFileLink());
                 Desktop.getDesktop().open(movieFile);
-            } catch (IOException ex) {ex.printStackTrace();}});
+            } catch (IOException ex) {ex.printStackTrace();}
+            catch (SQLException e) {throw new RuntimeException(e);}});
         }
 
         //Filter button

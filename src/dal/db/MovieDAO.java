@@ -87,6 +87,19 @@ public class MovieDAO {
         }
     }
 
+    public void updateDate(Movie movie) throws SQLException {
+        try (Connection con = databaseConnector.getConnection()) {
+            String sql = "UPDATE Movie " + "SET lastView=? " + "WHERE id=?";
+            PreparedStatement statement = con.prepareStatement(sql);
+
+            statement.setDate(1, Date.valueOf(movie.getLastView()));
+            statement.setInt(2, movie.getId());
+            statement.executeUpdate();
+        } catch (SQLServerException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     /*
     public void deleteMovie(int id) {
         String sql = "DELETE FROM Movie WHERE id = ?";

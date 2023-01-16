@@ -42,6 +42,10 @@ public class MainModel {
         bll.deleteMovie(id);
     }
 
+    public void updateDate(Movie movie) throws SQLException {
+        bll.updateDate(movie);
+    }
+
     public void createCategory(String name) throws SQLException {
         Category category = bll.createCategory(name);
         categories.add(category);

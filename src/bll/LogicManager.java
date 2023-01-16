@@ -27,6 +27,10 @@ public class LogicManager {
         movieDAO.deleteMovie(id);
     }
 
+    public void updateDate(Movie movie) throws SQLException {
+        movieDAO.updateDate(movie);
+    }
+
     public List<Movie> getAllMovies() throws SQLException {
         return movieDAO.getAllMovies();
     }
