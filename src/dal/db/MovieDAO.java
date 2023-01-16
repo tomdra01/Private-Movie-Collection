@@ -1,6 +1,7 @@
 package dal.db;
 
 import be.Movie;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.DatabaseConnector;
 import java.sql.*;
 import java.time.LocalDate;
@@ -61,6 +62,31 @@ public class MovieDAO {
         }
     }
 
+    public void editRating(Movie movie) throws SQLException {
+        try (Connection con = databaseConnector.getConnection()) {
+            String sql = "UPDATE Movie " + "SET rating=? " + "WHERE id=?";
+            PreparedStatement statement = con.prepareStatement(sql);
+
+            statement.setDouble(1, movie.getRating());
+            statement.setInt(2, movie.getId());
+            statement.executeUpdate();
+        } catch (SQLServerException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deleteMovie(int id) throws SQLException {
+        try (Connection con = databaseConnector.getConnection()){
+            PreparedStatement st1 = con.prepareStatement("DELETE FROM CatMovie WHERE MovieId = ?;");
+            st1.setInt(1, id);
+
+            PreparedStatement st2 = con.prepareStatement("DELETE FROM Movie WHERE id = ?;");
+            st2.setInt(1, id);
+            st1.executeUpdate();
+            st2.executeUpdate();
+        }
+    }
+
     /*
     public void deleteMovie(int id) {
         String sql = "DELETE FROM Movie WHERE id = ?";
@@ -76,16 +102,4 @@ public class MovieDAO {
     }
 
      */
-
-    public void deleteMovie(int id) throws SQLException {
-        try (Connection con = databaseConnector.getConnection()){
-            PreparedStatement st1 = con.prepareStatement("DELETE FROM CatMovie WHERE MovieId = ?;");
-            st1.setInt(1, id);
-
-            PreparedStatement st2 = con.prepareStatement("DELETE FROM Movie WHERE id = ?;");
-            st2.setInt(1, id);
-            st1.executeUpdate();
-            st2.executeUpdate();
-        }
-    }
 }

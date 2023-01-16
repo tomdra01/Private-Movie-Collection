@@ -35,9 +35,10 @@ public class MainController implements Initializable {
     private CheckComboBox<Category> filterBox;
 
     @FXML
-    private Button addButton, watchButton, removeButton, filterButton, exit;
+    private Button watchButton, ratingButton, addButton, removeButton, filterButton, exit;
     private MainModel model;
     private AddMovieController addMovieController;
+    private AddRatingController addRatingController;
 
 
     public void setModel(MainModel model) {
@@ -97,6 +98,31 @@ public class MainController implements Initializable {
             }
             else {
                 System.out.println(filterBox.getCheckModel().getCheckedItems().toString());}});
+        }
+
+        //Rating button
+        if (ratingButton!=null) {
+            ratingButton.setOnAction(event -> {
+                if (movieTable.getSelectionModel().isEmpty()){
+                    System.out.println("No selected movie");
+                }
+                else {
+                    Movie selectedItem = movieTable.getSelectionModel().getSelectedItem();
+
+                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/view/addRating.fxml"));
+                    try {
+                        Scene scene = new Scene(loader.load());
+                        addRatingController = loader.getController();
+                        addRatingController.setSelectedMovie(selectedItem);
+                        addRatingController.setModel(model);
+
+                        Stage stageAddMovie = new Stage();
+                        stageAddMovie.setTitle(selectedItem.getName());
+                        stageAddMovie.setScene(scene);
+                        stageAddMovie.setResizable(false);
+                        stageAddMovie.show();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);}}});
         }
     }
 

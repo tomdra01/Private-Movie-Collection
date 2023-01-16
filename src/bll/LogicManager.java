@@ -19,6 +19,10 @@ public class LogicManager {
         return movieDAO.createMovie(name, rating, fileLink, release, lastView);
     }
 
+    public void editRating(Movie movie) throws SQLException {
+        movieDAO.editRating(movie);
+    }
+
     public void deleteMovie(int id) throws SQLException {
         movieDAO.deleteMovie(id);
     }

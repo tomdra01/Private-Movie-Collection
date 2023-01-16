@@ -34,6 +34,10 @@ public class MainModel {
         movies.add(movie);
     }
 
+    public void editRating(Movie movie) throws SQLException {
+        bll.editRating(movie);
+    }
+
     public void deleteMovie(int id) throws SQLException {
         bll.deleteMovie(id);
     }

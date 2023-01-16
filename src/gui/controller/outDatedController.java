@@ -37,8 +37,10 @@ public class outDatedController implements Initializable {
     public void initialize(URL location, ResourceBundle resources){
         populateTableView();
 
+
     }
     private void populateTableView() {
+
         title.setCellValueFactory(new PropertyValueFactory<>("name"));
         lastViewed.setCellValueFactory(new PropertyValueFactory<>("lastWatched"));
 
