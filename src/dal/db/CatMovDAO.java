@@ -15,11 +15,6 @@ public class CatMovDAO {
         databaseConnector = new DatabaseConnector();
     }
 
-    public static void main(String[] args) throws SQLException {
-        CatMovDAO catMovDAO = new CatMovDAO();
-        catMovDAO.filter(1018);
-    }
-
     public List<Movie> filter(int catMovId) throws SQLException {
         List<Movie> filterMovies = new ArrayList<>();
         try (Connection con = databaseConnector.getConnection()) {
@@ -42,29 +37,17 @@ public class CatMovDAO {
         return filterMovies;
     }
 
-    /*
-    public List<Movie> getAllCatmovies(int catMovId) throws SQLException {
-        List<Movie> newMovieList = new ArrayList<>();
-        try (Connection con = connectionPool.checkOut()) {
-            String query = "SELECT * FROM CatMovie INNER JOIN Movie ON CatMovie.MovieId = Movie.MovieId WHERE CatMovie.CategoryId = ?;";
-            PreparedStatement preparedStatement = con.prepareStatement(query);
-            preparedStatement.setInt(1, catMovId);
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
-                Movie movie = new Movie(rs.getInt("CatMovId"), rs.getString("Name"), rs.getInt("Year"), rs.getString("Filelink"), rs.getInt("Duration"), rs.getString("Rating"), rs.getString("LastView"));
-                movie.setCatMovId(rs.getInt("CatMovId"));
-                newMovieList.add(movie);
-            }
-        }
-        return newMovieList;
-    }
+    /**
+     * Lets you add a category to a movie.
+     * @param movie The movie that you want to add a category to.
+     * @param category The category that you want for the movie.
+     * @throws SQLException
      */
-
     public void addGenre(Movie movie, Category category) throws SQLException {
         String sql = "INSERT INTO CatMovie(CategoryId, MovieId) VALUES(?,?);";
         try (Connection con = databaseConnector.getConnection();
              PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
-                ps.setInt(1, category.getId());
+                 ps.setInt(1, category.getId());
                  ps.setInt(2, movie.getId());
                  ps.executeUpdate();
         }

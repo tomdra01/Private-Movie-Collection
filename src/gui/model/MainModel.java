@@ -3,14 +3,15 @@ package gui.model;
 import be.Category;
 import be.Movie;
 import bll.LogicManager;
+import bll.util.Search;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.List;
 
 public class MainModel {
     LogicManager bll = new LogicManager();
+    Search util = new Search();
     private ObservableList<Movie> movies = FXCollections.observableArrayList();
     private ObservableList<Category> categories = FXCollections.observableArrayList();
 
@@ -39,8 +40,8 @@ public class MainModel {
         bll.editRating(movie);
     }
 
-    public void deleteMovie(int id) throws SQLException {
-        bll.deleteMovie(id);
+    public void deleteMovie(Movie movie) throws SQLException {
+        bll.deleteMovie(movie);
     }
 
     public void updateDate(Movie movie) throws SQLException {
@@ -51,20 +52,17 @@ public class MainModel {
         Category category = bll.createCategory(name);
         categories.add(category);
     }
+
     public void search(String query) throws SQLException {
         movies.clear();
-        movies.addAll(bll.searchMovie(query));
+        movies.addAll(util.searchMovie(query));
     }
 
-    public void deleteCategory(int id) throws SQLException {
-        bll.deleteCategory(id);
+    public void deleteCategory(Category category) throws SQLException {
+        bll.deleteCategory(category);
     }
 
     public void addGenre(Movie movie, Category category) throws SQLException {
         bll.addGenre(movie, category);
-    }
-
-    public List<Movie> filter(int id) throws  SQLException {
-        return bll.filter(id);
     }
 }

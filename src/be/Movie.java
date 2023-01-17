@@ -72,10 +72,6 @@ public class Movie {
         this.lastView = lastView;
     }
 
-    public void setCatMovId(int catMovId) {
-        this.catMovId = catMovId;
-    }
-
     @Override
     public String toString() {
         return "Movie{" +
@@ -87,5 +83,4 @@ public class Movie {
                 ", lastView=" + lastView +
                 '}';
     }
-
 }

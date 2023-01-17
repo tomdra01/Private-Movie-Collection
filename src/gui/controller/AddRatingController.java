@@ -23,7 +23,6 @@ public class AddRatingController implements Initializable {
     private Spinner<Double> ratingSpinner = new Spinner<>(0, 10, 5);
     @FXML
     private Button okButton;
-
     private MainModel model;
     private Movie selectedMovie;
 
@@ -36,6 +35,7 @@ public class AddRatingController implements Initializable {
     }
 
     public void buttonHandler() {
+        //Ok button
         if (okButton!=null) {
             okButton.setOnAction(event -> {
                 selectedMovie.setRating(ratingSpinner.getValue());

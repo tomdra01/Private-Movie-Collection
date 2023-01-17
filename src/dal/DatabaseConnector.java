@@ -17,6 +17,7 @@ public class DatabaseConnector {
         dataSource.setPortNumber(1433);
         dataSource.setTrustServerCertificate(true);
     }
+
     public Connection getConnection() throws SQLServerException {
         return dataSource.getConnection();
     }
@@ -25,7 +26,7 @@ public class DatabaseConnector {
         DatabaseConnector dataBaseConnection = new DatabaseConnector();
         Connection connection = dataBaseConnection.getConnection();
 
-        System.out.println("Try to open " + !connection.isClosed());
+        System.out.println("Database connected" + !connection.isClosed());
         connection.close();
     }
 }

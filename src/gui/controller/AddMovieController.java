@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Label;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
@@ -24,22 +25,22 @@ import org.controlsfx.control.CheckComboBox;
 
 public class AddMovieController implements Initializable {
     @FXML
-    private Button saveButton, cancelButton, openButton, moreButton;
-    @FXML
-    private CheckComboBox<Category> categoryField;
-    @FXML
     private AnchorPane addMoviePane;
     @FXML
     private TextField titleField, ratingField, sourceField;
     @FXML
+    private CheckComboBox<Category> categoryField;
+    @FXML
     private Spinner<Integer> yearSpinner = new Spinner<>(1900, 2100, 2020);
     @FXML
-    private javafx.scene.control.Label categoryText;
+    private Button saveButton, cancelButton, openButton, moreButton;
+
+    @FXML
+    private Label categoryText;
     private TableView<Movie> movieTable;
     private MainModel model;
     private Movie movie;
     private double defaultRating = 0;
-    private MainController mainController;
 
     public void setModel(MainModel model) {
         this.model = model;
@@ -50,6 +51,17 @@ public class AddMovieController implements Initializable {
     }
 
     public void buttonHandler() {
+        //Open button
+        if (openButton!=null) { openButton.setOnAction(event -> {
+            Stage stage = new Stage();
+            FileChooser fileChooser = new FileChooser();
+            FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("File types", "*.mp4", "*.MPEG-4");
+            fileChooser.getExtensionFilters().addAll(extensionFilter);
+            File selectedMovie = fileChooser.showOpenDialog(stage);
+            sourceField.setText(String.valueOf(selectedMovie));});
+        }
+
+        //More button
         if (moreButton!=null) { moreButton.setOnAction(event -> {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/view/addCategory.fxml"));
             try {
@@ -67,16 +79,6 @@ public class AddMovieController implements Initializable {
             }
             catch (IOException e) {
                 throw new RuntimeException(e);}});
-        }
-
-        //Open button
-        if (openButton!=null) { openButton.setOnAction(event -> {
-            Stage stage = new Stage();
-            FileChooser fileChooser = new FileChooser();
-            FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("File types", "*.mp4", "*.MPEG-4");
-            fileChooser.getExtensionFilters().addAll(extensionFilter);
-            File selectedMovie = fileChooser.showOpenDialog(stage);
-            sourceField.setText(String.valueOf(selectedMovie));});
         }
 
         //Save button
@@ -116,7 +118,8 @@ public class AddMovieController implements Initializable {
         //Cancel button
         if (cancelButton!=null) { cancelButton.setOnAction(event -> {
             Stage stage = (Stage) addMoviePane.getScene().getWindow();
-            stage.close();});}
+            stage.close();});
+        }
     }
 
 
@@ -127,18 +130,11 @@ public class AddMovieController implements Initializable {
         return LocalDate.now();
     }
 
-    public void assignCategory() {
-    }
-
     public void getSelectedCategories() {
         categoryField.setOnMouseEntered(event -> {
             categoryText.setText(categoryField.getCheckModel().getCheckedItems().toString());
             if (categoryField.getCheckModel().isEmpty()) {
-                categoryText.setText("None");
-            }
-        });
-        ;
-
+                categoryText.setText("None");}});
     }
 
     @Override
@@ -146,11 +142,7 @@ public class AddMovieController implements Initializable {
         model = new MainModel();
         buttonHandler();
 
-        try {
-            model.fetchAllCategories();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        try {model.fetchAllCategories();} catch (SQLException e) {throw new RuntimeException(e);}
 
         categoryField.getItems().addAll(model.getCategories());
         categoryField.setTitle("Select");

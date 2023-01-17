@@ -14,8 +14,13 @@ public class CategoryDAO {
         databaseConnector = new DatabaseConnector();
     }
 
+    /**
+     * Gets all categories from the database.
+     * @return Returns a list of all categories.
+     * @throws SQLException
+     */
     public List<Category> getAllCategories() throws SQLException {
-        ArrayList<Category> allCategories = new  ArrayList<>();
+        List<Category> allCategories = new  ArrayList<>();
         try (Connection connection = databaseConnector.getConnection())
         {
             String sql = "SELECT * FROM Category;";
@@ -37,48 +42,39 @@ public class CategoryDAO {
         return allCategories;
     }
 
+    /**
+     * Method for creating a new category.
+     * @param name The name of the category.
+     * @throws SQLException
+     */
     public Category createCategory(String name) throws SQLException {
         try (Connection con = databaseConnector.getConnection()) {
-            String psql = "INSERT INTO Category (name) VALUES (?)";
-            PreparedStatement statement = con.prepareStatement(psql, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, name);
+            PreparedStatement pstCategory = con.prepareStatement("INSERT INTO Category (name) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
+            pstCategory.setString(1, name);
+            pstCategory.execute();
 
-            statement.execute();
-            if (statement.getGeneratedKeys().next()) {
-                int id = statement.getGeneratedKeys().getInt(1);
+            if (pstCategory.getGeneratedKeys().next()) {
+                int id = pstCategory.getGeneratedKeys().getInt(1);
                 return new Category(id, name);
             }
         }
         throw new RuntimeException("Id not set");
     }
 
-    /*
-    public void deleteCategory(int id) {
-        String sql = "DELETE FROM Category WHERE id = ?";
-
-        try (Connection con = databaseConnector.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-
-            ps.setInt(1, id);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
+    /**
+     * Method for deleting a category.
+     * @param category The category to delete.
+     * @throws SQLException
      */
-
-    public void deleteCategory(int id) throws SQLException{
+    public void deleteCategory(Category category) throws SQLException{
         try (Connection con = databaseConnector.getConnection()) {
+            PreparedStatement pstCatMovie = con.prepareStatement("DELETE FROM CatMovie WHERE CategoryId = ?;");
+            pstCatMovie.setInt(1, category.getId());
+            pstCatMovie.executeUpdate();
 
-            PreparedStatement st1 = con.prepareStatement("DELETE FROM CatMovie WHERE CategoryId = ?;");
-            st1.setInt(1, id);
-
-            PreparedStatement st2 = con.prepareStatement("DELETE FROM Category WHERE id = ?;");
-            st2.setInt(1, id);
-
-            st1.executeUpdate();
-            st2.executeUpdate();
+            PreparedStatement pstCategory = con.prepareStatement("DELETE FROM Category WHERE id = ?;");
+            pstCategory.setInt(1, category.getId());
+            pstCategory.executeUpdate();
         }
     }
 }

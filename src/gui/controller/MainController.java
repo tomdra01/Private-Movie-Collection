@@ -72,10 +72,9 @@ public class MainController implements Initializable {
 
         //Remove button
         if (removeButton!=null) { removeButton.setOnAction(event -> {
-                int selectedMovieId = movieTable.getSelectionModel().getSelectedItem().getId();
                 Movie selectedItem = movieTable.getSelectionModel().getSelectedItem();
             try {
-                model.deleteMovie(selectedMovieId);
+                model.deleteMovie(selectedItem);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -128,7 +127,6 @@ public class MainController implements Initializable {
                 System.out.println("No categories selected");
             }
             else {
-
                 System.out.println(filterBox.getCheckModel().getCheckedItems().toString());}});
         }
     }
