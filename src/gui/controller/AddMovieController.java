@@ -29,35 +29,34 @@ public class AddMovieController implements Initializable {
     @FXML
     private AnchorPane addMoviePane;
     @FXML
-    private TextField titleField, ratingField, sourceField;
+    private TextField titleField, sourceField;
     @FXML
     private CheckComboBox<Category> categoryField;
     @FXML
     private Spinner<Integer> yearSpinner = new Spinner<>(1900, 2100, 2020);
     @FXML
     private Button saveButton, cancelButton, openButton, moreButton;
-
     @FXML
     private Label categoryText;
-    private TableView<Movie> movieTable;
     private MainModel model;
     private double defaultRating = 0;
 
     public void setModel(MainModel model) {
         this.model = model;
+
         try {model.fetchAllCategories();} catch (SQLException e) {throw new RuntimeException(e);}
+
+        categoryField.setTitle("Select");
+        categoryField.getItems().addAll(model.getCategories());
+        getSelectedCategories();
+
         model.getCategories().addListener((ListChangeListener<? super Category>) obs->{
             categoryField.getItems().clear();
             categoryField.getItems().addAll(model.getCategories());
-            categoryField.setTitle("Select");
             getSelectedCategories();
         });
 
         yearSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1900, 2100, 2023, 1));
-    }
-
-    public void setMovieTable(TableView<Movie> table) {
-        this.movieTable = table;
     }
 
     public void buttonHandler() {
@@ -95,22 +94,15 @@ public class AddMovieController implements Initializable {
         if (saveButton!=null) { saveButton.setOnAction(event -> {
             Stage stage = (Stage) saveButton.getScene().getWindow();
             Alert a = new Alert(Alert.AlertType.NONE); // New alert
-            Alert a2 = new Alert(Alert.AlertType.NONE);
 
-            if (titleField.getText().trim().isEmpty() || ratingField.getText().trim().isEmpty() || sourceField.getText().trim().isEmpty()) {
+            if (titleField.getText().trim().isEmpty() || sourceField.getText().trim().isEmpty()) {
                 a.setAlertType(Alert.AlertType.ERROR);
                 a.setContentText("Please fill in all fields");
                 a.show();
             }
-            else if(Integer.parseInt(ratingField.getText()) > 10 || Integer.parseInt(ratingField.getText()) < 0) {
-                a2.setAlertType(Alert.AlertType.ERROR);
-                a2.setContentText("The rating should be 0 - 10");
-                a2.show();
-            }
             else {
                 try {
                     Movie m = model.createMovie(titleField.getText(), defaultRating, sourceField.getText(), yearSpinner.getValue(), getCurrentDate());
-
                     List<Category> selectedItems = categoryField.getCheckModel().getCheckedItems();
 
                     for (Category item : selectedItems) {
@@ -144,12 +136,12 @@ public class AddMovieController implements Initializable {
         categoryField.setOnMouseEntered(event -> {
             categoryText.setText(categoryField.getCheckModel().getCheckedItems().toString());
             if (categoryField.getCheckModel().isEmpty()) {
-                categoryText.setText("None");}});
+                categoryText.setText("None");
+            }});
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         buttonHandler();
-
     }
 }

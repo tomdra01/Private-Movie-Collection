@@ -17,16 +17,12 @@ public class CatMovDAO {
         databaseConnector = new DatabaseConnector();
     }
 
-    public static void main(String[] args) throws SQLException {
-        CatMovDAO catMovDAO = new CatMovDAO();
-        System.out.println( catMovDAO.filter(1018));
-    }
-    public List<Movie> filter(int categoryId) throws SQLException {
+    public List<Movie> filter(int id) throws SQLException {
         List<Movie> filterMovies = new ArrayList<>();
         try (Connection con = databaseConnector.getConnection()) {
             String sql = "SELECT * FROM CatMovie JOIN Movie ON CatMovie.MovieId = Movie.id WHERE CategoryId = ?;";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, categoryId);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -49,7 +45,7 @@ public class CatMovDAO {
      * @param category The category that you want for the movie.
      * @throws SQLException
      */
-    public void addGenre(Movie movie, Category category) throws MovieCollectionException {
+    public void addCategory(Movie movie, Category category) throws MovieCollectionException {
         String sql = "INSERT INTO CatMovie(CategoryId, MovieId) VALUES(?,?);";
         try (Connection con = databaseConnector.getConnection();
              PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){

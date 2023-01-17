@@ -3,6 +3,7 @@ package gui.model;
 import be.Category;
 import be.Movie;
 import bll.LogicManager;
+import bll.util.Filter;
 import bll.util.Search;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,12 +14,18 @@ import java.time.LocalDate;
 
 public class MainModel {
     LogicManager bll = new LogicManager();
-    Search util = new Search();
+    Search utilSearch = new Search();
+    Filter utilFilter = new Filter();
     private ObservableList<Movie> movies = FXCollections.observableArrayList();
+    private ObservableList<Movie> filteredMovies = FXCollections.observableArrayList();
     private ObservableList<Category> categories = FXCollections.observableArrayList();
 
     public ObservableList<Movie> getMovies() {
         return movies;
+    }
+
+    public ObservableList<Movie> getFilteredMovies() {
+        return filteredMovies;
     }
 
     public ObservableList<Category> getCategories() {
@@ -26,6 +33,7 @@ public class MainModel {
     }
 
     public void fetchAllMovies() throws SQLException {
+        movies.clear();
         movies.addAll(bll.getAllMovies());
     }
 
@@ -59,7 +67,12 @@ public class MainModel {
 
     public void search(String query) throws SQLException {
         movies.clear();
-        movies.addAll(util.searchMovie(query));
+        movies.addAll(utilSearch.searchMovie(query));
+    }
+
+    public void fetchFilteredMovies(int id) throws SQLException {
+        filteredMovies.clear();
+        filteredMovies.addAll(utilFilter.filter(id));
     }
 
     public void deleteCategory(Category category) throws SQLException {
@@ -68,7 +81,7 @@ public class MainModel {
     }
 
     public void addCategory(Movie movie, Category category) throws MovieCollectionException {
-        bll.addGenre(movie, category);
+        bll.addCategory(movie, category);
         categories.add(category);
     }
 }

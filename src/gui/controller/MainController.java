@@ -6,6 +6,7 @@ import gui.model.MainModel;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -93,8 +95,6 @@ public class MainController implements Initializable {
             catch (SQLException e) {throw new RuntimeException(e);}});
         }
 
-
-
         //Rating button
         if (ratingButton!=null) {
             ratingButton.setOnAction(event -> {
@@ -123,10 +123,19 @@ public class MainController implements Initializable {
         //Filter button
         if (filterButton!=null) { filterButton.setOnAction(event -> {
             if (filterBox.getCheckModel().isEmpty()){
-                System.out.println("No categories selected");
+                try {model.fetchAllMovies();} catch (SQLException e) {throw new RuntimeException(e);}
+                movieTable.setItems(model.getMovies());
             }
             else {
-                System.out.println(filterBox.getCheckModel().getCheckedItems().toString());}});
+                List<Category> selectedItems = filterBox.getCheckModel().getCheckedItems();
+                for (Category item : selectedItems) {
+                    try {
+                        model.fetchFilteredMovies(item.getId());
+                    } catch (SQLException e) {throw new RuntimeException(e);
+                    }
+                }
+                movieTable.setItems(model.getFilteredMovies());
+            }});
         }
     }
 
@@ -137,7 +146,13 @@ public class MainController implements Initializable {
 
         try {model.fetchAllMovies(); model.fetchAllCategories();} catch (SQLException e) {throw new RuntimeException(e);}
 
+        filterBox.setTitle("Filter");
         filterBox.getItems().addAll(model.getCategories());
+
+        model.getCategories().addListener((ListChangeListener<? super Category>) obs->{
+            filterBox.getItems().clear();
+            filterBox.getItems().addAll(model.getCategories());
+        });
 
         if (movieTable != null) {
             movieTable.setItems(model.getMovies());

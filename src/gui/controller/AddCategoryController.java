@@ -52,8 +52,7 @@ public class AddCategoryController implements Initializable {
                             model.deleteCategory(selectedItem);
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
-                        }
-                    });
+                        }});
         }
 
         //Close button
@@ -66,7 +65,5 @@ public class AddCategoryController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         buttonHandler();
-
-
     }
 }

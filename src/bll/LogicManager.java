@@ -49,7 +49,7 @@ public class LogicManager {
         categoryDAO.deleteCategory(category);
     }
 
-    public void addGenre(Movie movie, Category category) throws MovieCollectionException {
-        catMovDAO.addGenre(movie, category);
+    public void addCategory(Movie movie, Category category) throws MovieCollectionException {
+        catMovDAO.addCategory(movie, category);
     }
 }

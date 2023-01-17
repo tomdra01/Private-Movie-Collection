@@ -28,6 +28,9 @@ public class AddRatingController implements Initializable {
 
     public void setModel(MainModel model) {
         this.model = model;
+
+        stars.setDisable(true);
+        ratingSpinner.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 10, selectedMovie.getRating(), 0.1));
     }
 
     public void setSelectedMovie(Movie selectedItem) {
@@ -53,8 +56,5 @@ public class AddRatingController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         buttonHandler();
-
-        stars.setDisable(true);
-        ratingSpinner.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 10, 5, 0.1));
     }
 }
