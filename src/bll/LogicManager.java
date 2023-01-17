@@ -5,6 +5,8 @@ import be.Movie;
 import dal.db.CatMovDAO;
 import dal.db.CategoryDAO;
 import dal.db.MovieDAO;
+import util.MovieCollectionException;
+
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ public class LogicManager {
         return movieDAO.getAllMovies();
     }
 
-    public Movie createMovie (String name, double rating, String fileLink, int release, LocalDate lastView) throws SQLException {
+    public Movie createMovie (String name, double rating, String fileLink, int release, LocalDate lastView) throws MovieCollectionException {
         return movieDAO.createMovie(name, rating, fileLink, release, lastView);
     }
 
@@ -47,7 +49,7 @@ public class LogicManager {
         categoryDAO.deleteCategory(category);
     }
 
-    public void addGenre(Movie movie, Category category) throws SQLException {
+    public void addGenre(Movie movie, Category category) throws MovieCollectionException {
         catMovDAO.addGenre(movie, category);
     }
 }

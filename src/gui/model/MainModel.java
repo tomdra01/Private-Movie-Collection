@@ -6,6 +6,8 @@ import bll.LogicManager;
 import bll.util.Search;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import util.MovieCollectionException;
+
 import java.sql.SQLException;
 import java.time.LocalDate;
 
@@ -28,12 +30,14 @@ public class MainModel {
     }
 
     public void fetchAllCategories() throws SQLException {
+        categories.clear();
         categories.addAll(bll.getAllCategories());
     }
 
-    public void createMovie(String name, double rating, String fileLink, int release, LocalDate lastView) throws SQLException {
+    public Movie createMovie(String name, double rating, String fileLink, int release, LocalDate lastView) throws MovieCollectionException {
         Movie movie = bll.createMovie(name, rating, fileLink, release, lastView);
         movies.add(movie);
+        return movie;
     }
 
     public void editRating(Movie movie) throws SQLException {
@@ -60,9 +64,11 @@ public class MainModel {
 
     public void deleteCategory(Category category) throws SQLException {
         bll.deleteCategory(category);
+        categories.remove(category);
     }
 
-    public void addGenre(Movie movie, Category category) throws SQLException {
+    public void addCategory(Movie movie, Category category) throws MovieCollectionException {
         bll.addGenre(movie, category);
+        categories.add(category);
     }
 }

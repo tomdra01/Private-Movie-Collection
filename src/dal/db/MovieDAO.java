@@ -3,6 +3,7 @@ package dal.db;
 import be.Movie;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.DatabaseConnector;
+import util.MovieCollectionException;
 
 import java.io.IOException;
 import java.sql.*;
@@ -56,7 +57,7 @@ public class MovieDAO {
      * @return The new movie that you just added to the database.
      * @throws SQLException
      */
-    public Movie createMovie(String name, double rating, String fileLink, int release, LocalDate lastView) throws SQLException {
+    public Movie createMovie(String name, double rating, String fileLink, int release, LocalDate lastView) throws MovieCollectionException {
         try (Connection con = databaseConnector.getConnection()) {
             String psql = "INSERT INTO Movie (name, rating, fileLink, release, lastView) VALUES (?,?,?,?,?)";
             PreparedStatement statement = con.prepareStatement(psql, Statement.RETURN_GENERATED_KEYS);
@@ -72,6 +73,9 @@ public class MovieDAO {
                 return new Movie(id, name, rating, fileLink, release, lastView);
             }
             throw new RuntimeException("Id not set");
+        }
+        catch(SQLException e){
+            throw new MovieCollectionException("Database error trying to create a movie",e);
         }
     }
 

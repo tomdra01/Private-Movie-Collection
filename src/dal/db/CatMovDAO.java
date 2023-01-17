@@ -3,6 +3,8 @@ package dal.db;
 import be.Category;
 import be.Movie;
 import dal.DatabaseConnector;
+import util.MovieCollectionException;
+
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,12 +17,16 @@ public class CatMovDAO {
         databaseConnector = new DatabaseConnector();
     }
 
-    public List<Movie> filter(int catMovId) throws SQLException {
+    public static void main(String[] args) throws SQLException {
+        CatMovDAO catMovDAO = new CatMovDAO();
+        System.out.println( catMovDAO.filter(1018));
+    }
+    public List<Movie> filter(int categoryId) throws SQLException {
         List<Movie> filterMovies = new ArrayList<>();
         try (Connection con = databaseConnector.getConnection()) {
             String sql = "SELECT * FROM CatMovie JOIN Movie ON CatMovie.MovieId = Movie.id WHERE CategoryId = ?;";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, catMovId);
+            ps.setInt(1, categoryId);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -43,13 +49,17 @@ public class CatMovDAO {
      * @param category The category that you want for the movie.
      * @throws SQLException
      */
-    public void addGenre(Movie movie, Category category) throws SQLException {
+    public void addGenre(Movie movie, Category category) throws MovieCollectionException {
         String sql = "INSERT INTO CatMovie(CategoryId, MovieId) VALUES(?,?);";
         try (Connection con = databaseConnector.getConnection();
              PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
                  ps.setInt(1, category.getId());
                  ps.setInt(2, movie.getId());
                  ps.executeUpdate();
+
+        }
+        catch(SQLException e){
+            throw new MovieCollectionException("Database error trying to add a genre: "+ category + " to the movie: " + movie,e);
         }
     }
 }

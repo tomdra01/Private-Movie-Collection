@@ -1,11 +1,13 @@
 package be;
 
+import javafx.beans.property.SimpleDoubleProperty;
+
 import java.time.LocalDate;
 
 public class Movie {
     private int id;
     private String name;
-    private double rating;
+    private SimpleDoubleProperty rating = new SimpleDoubleProperty();
     private String fileLink;
     private int release;
     private LocalDate lastView;
@@ -13,7 +15,7 @@ public class Movie {
 
     public Movie(String name, double rating, String fileLink, int release, LocalDate lastView) {
         this.name = name;
-        this.rating = rating;
+        this.rating.set(rating);
         this.fileLink = fileLink;
         this.release = release;
         this.lastView = lastView;
@@ -41,11 +43,15 @@ public class Movie {
     }
 
     public double getRating() {
-        return rating;
+        return rating.get();
     }
 
     public void setRating(double rating) {
-        this.rating = rating;
+        this.rating.set(rating);
+    }
+
+    public SimpleDoubleProperty ratingProperty(){
+        return rating;
     }
 
     public String getFileLink() {

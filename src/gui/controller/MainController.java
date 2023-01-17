@@ -57,7 +57,6 @@ public class MainController implements Initializable {
                     Scene scene;
                     scene = new Scene(loader.load());
                     addMovieController = loader.getController();
-                    addMovieController.getLastMovie(movieTable.getItems().get(movieTable.getItems().size() - 1));
                     addMovieController.setModel(model);
 
                     Stage stageAddMovie = new Stage();

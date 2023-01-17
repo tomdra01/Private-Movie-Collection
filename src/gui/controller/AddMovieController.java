@@ -3,6 +3,7 @@ package gui.controller;
 import be.Category;
 import be.Movie;
 import gui.model.MainModel;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,6 +23,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 import org.controlsfx.control.CheckComboBox;
+import util.MovieCollectionException;
 
 public class AddMovieController implements Initializable {
     @FXML
@@ -39,11 +41,19 @@ public class AddMovieController implements Initializable {
     private Label categoryText;
     private TableView<Movie> movieTable;
     private MainModel model;
-    private Movie movie;
     private double defaultRating = 0;
 
     public void setModel(MainModel model) {
         this.model = model;
+        try {model.fetchAllCategories();} catch (SQLException e) {throw new RuntimeException(e);}
+        model.getCategories().addListener((ListChangeListener<? super Category>) obs->{
+            categoryField.getItems().clear();
+            categoryField.getItems().addAll(model.getCategories());
+            categoryField.setTitle("Select");
+            getSelectedCategories();
+        });
+
+        yearSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1900, 2100, 2023, 1));
     }
 
     public void setMovieTable(TableView<Movie> table) {
@@ -85,7 +95,6 @@ public class AddMovieController implements Initializable {
         if (saveButton!=null) { saveButton.setOnAction(event -> {
             Stage stage = (Stage) saveButton.getScene().getWindow();
             Alert a = new Alert(Alert.AlertType.NONE); // New alert
-
             Alert a2 = new Alert(Alert.AlertType.NONE);
 
             if (titleField.getText().trim().isEmpty() || ratingField.getText().trim().isEmpty() || sourceField.getText().trim().isEmpty()) {
@@ -100,16 +109,17 @@ public class AddMovieController implements Initializable {
             }
             else {
                 try {
-                    model.createMovie(titleField.getText(), defaultRating, sourceField.getText(), yearSpinner.getValue(), getCurrentDate());
+                    Movie m = model.createMovie(titleField.getText(), defaultRating, sourceField.getText(), yearSpinner.getValue(), getCurrentDate());
 
                     List<Category> selectedItems = categoryField.getCheckModel().getCheckedItems();
-                    getMovie().setId(getMovie().getId()+1);
 
                     for (Category item : selectedItems) {
-                        model.addGenre(getMovie(), new Category(item.getId(), item.getName()));
+                        model.addCategory(m, new Category(item.getId(), item.getName()));
                     }
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                } catch (MovieCollectionException e) {
+                    Alert b = new Alert(Alert.AlertType.ERROR, e.getMessage());
+                    e.printStackTrace();
+                    b.show();
                 }
                 stage.close();
             }});
@@ -139,23 +149,7 @@ public class AddMovieController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        model = new MainModel();
         buttonHandler();
 
-        try {model.fetchAllCategories();} catch (SQLException e) {throw new RuntimeException(e);}
-
-        categoryField.getItems().addAll(model.getCategories());
-        categoryField.setTitle("Select");
-        getSelectedCategories();
-
-        yearSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1900, 2100, 2023, 1));
-    }
-
-    public void getLastMovie(Movie getMovie) {
-        this.movie = getMovie;
-    }
-
-    public Movie getMovie() {
-        return movie;
     }
 }

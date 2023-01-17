@@ -26,29 +26,34 @@ public class AddCategoryController implements Initializable {
 
     public void setModel(MainModel model) {
         this.model = model;
+        try {
+            model.fetchAllCategories();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        categoryList.setItems(model.getCategories());
     }
 
     public void buttonHandler() {
         //New button
         if (newButton!=null) { newButton.setOnAction(event -> {
             try {
-                categoryList.getItems().clear();
                 model.createCategory(nameField.getText());
-                categoryList.getItems().addAll(model.getCategories());
                 nameField.clear();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }});}
 
         //Delete button
-        if (deleteButton!=null) { deleteButton.setOnAction(event -> {
-            Category selectedItem = categoryList.getSelectionModel().getSelectedItem();
-            try {
-                model.deleteCategory(selectedItem);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-            categoryList.getItems().remove(selectedItem);});
+        if (deleteButton!=null) {
+            deleteButton.setOnAction(event -> {
+                        Category selectedItem = categoryList.getSelectionModel().getSelectedItem();
+                        try {
+                            model.deleteCategory(selectedItem);
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
         }
 
         //Close button
@@ -60,14 +65,8 @@ public class AddCategoryController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        model = new MainModel();
         buttonHandler();
 
-        try {
-            model.fetchAllCategories();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        categoryList.getItems().addAll(model.getCategories());
+
     }
 }
