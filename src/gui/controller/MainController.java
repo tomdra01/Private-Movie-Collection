@@ -43,10 +43,6 @@ public class MainController implements Initializable {
 
     public void setModel(MainModel model) {
         this.model = model;
-
-        try {model.fetchAllMovies(); model.fetchAllCategories();} catch (SQLException e) {throw new RuntimeException(e);}
-        movieTable.setItems(model.getMovies());
-        setTable();
     }
 
     /**
@@ -154,6 +150,10 @@ public class MainController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         model = new MainModel();
         buttonHandler();
+
+        try {model.fetchAllMovies(); model.fetchAllCategories();} catch (SQLException e) {throw new RuntimeException(e);}
+        movieTable.setItems(model.getMovies());
+        setTable();
 
         filterBox.setTitle("Filter");
         filterBox.getItems().addAll(model.getCategories());
