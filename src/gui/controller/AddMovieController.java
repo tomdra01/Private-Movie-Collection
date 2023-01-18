@@ -64,7 +64,7 @@ public class AddMovieController implements Initializable {
         if (openButton!=null) { openButton.setOnAction(event -> {
             Stage stage = new Stage();
             FileChooser fileChooser = new FileChooser();
-            FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("File types", "*.mp4", "*.MPEG-4");
+            FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("*.mp4", "*.MPEG-4");
             fileChooser.getExtensionFilters().addAll(extensionFilter);
             File selectedMovie = fileChooser.showOpenDialog(stage);
             sourceField.setText(String.valueOf(selectedMovie));});
@@ -74,8 +74,7 @@ public class AddMovieController implements Initializable {
         if (moreButton!=null) { moreButton.setOnAction(event -> {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/view/addCategory.fxml"));
             try {
-                Scene scene;
-                scene = new Scene(loader.load());
+                Scene scene = new Scene(loader.load());
 
                 AddCategoryController addCategoryController = loader.getController();
                 addCategoryController.setModel(model);

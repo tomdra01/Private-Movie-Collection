@@ -11,7 +11,6 @@ public class Movie {
     private String fileLink;
     private int release;
     private LocalDate lastView;
-    private int catMovId;
 
     public Movie(String name, double rating, String fileLink, int release, LocalDate lastView) {
         this.name = name;

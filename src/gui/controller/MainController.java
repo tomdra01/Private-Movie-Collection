@@ -40,51 +40,25 @@ public class MainController implements Initializable {
     @FXML
     private Button watchButton, ratingButton, addButton, removeButton, filterButton, exit;
     private MainModel model;
-    private AddMovieController addMovieController;
-    private AddRatingController addRatingController;
-
 
     public void setModel(MainModel model) {
         this.model = model;
+
+        try {model.fetchAllMovies(); model.fetchAllCategories();} catch (SQLException e) {throw new RuntimeException(e);}
+        movieTable.setItems(model.getMovies());
+        setTable();
     }
 
     /**
      * Handles all the buttons in the Application
      */
     public void buttonHandler() {
-        //Add button
-        if (addButton!=null) { addButton.setOnAction(event -> {
-                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/view/addMovie.fxml"));
-                try {
-                    Scene scene;
-                    scene = new Scene(loader.load());
-                    addMovieController = loader.getController();
-                    addMovieController.setModel(model);
-
-                    Stage stageAddMovie = new Stage();
-                    stageAddMovie.setTitle("Add Movie");
-                    stageAddMovie.setScene(scene);
-                    stageAddMovie.setResizable(false);
-                    stageAddMovie.show();
-                }
-                catch (IOException e) {
-                    throw new RuntimeException(e);}});
-        }
-
-        //Remove button
-        if (removeButton!=null) { removeButton.setOnAction(event -> {
-                Movie selectedItem = movieTable.getSelectionModel().getSelectedItem();
-            try {
-                model.deleteMovie(selectedItem);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-            movieTable.getItems().remove(selectedItem);
-            });
-        }
-
         //Watch button
         if (watchButton!=null) { watchButton.setOnAction(event -> {
+            if (movieTable.getSelectionModel().isEmpty()){
+                System.out.println("No selected movie to watch");
+            }
+            else {
             try {
                 Movie selectedItem = movieTable.getSelectionModel().getSelectedItem();
                 selectedItem.setLastView(LocalDate.now());
@@ -92,32 +66,62 @@ public class MainController implements Initializable {
                 File movieFile = new File(selectedItem.getFileLink());
                 Desktop.getDesktop().open(movieFile);
             } catch (IOException ex) {ex.printStackTrace();}
-            catch (SQLException e) {throw new RuntimeException(e);}});
+            catch (SQLException e) {throw new RuntimeException(e);}
+            }});
         }
 
         //Rating button
         if (ratingButton!=null) {
             ratingButton.setOnAction(event -> {
                 if (movieTable.getSelectionModel().isEmpty()){
-                    System.out.println("No selected movie");
+                    System.out.println("No selected movie to rate");
                 }
                 else {
                     Movie selectedItem = movieTable.getSelectionModel().getSelectedItem();
-
                     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/view/addRating.fxml"));
                     try {
                         Scene scene = new Scene(loader.load());
-                        addRatingController = loader.getController();
+                        AddRatingController addRatingController = loader.getController();
                         addRatingController.setSelectedMovie(selectedItem);
                         addRatingController.setModel(model);
 
-                        Stage stageAddMovie = new Stage();
-                        stageAddMovie.setTitle(selectedItem.getName());
-                        stageAddMovie.setScene(scene);
-                        stageAddMovie.setResizable(false);
-                        stageAddMovie.show();
+                        Stage stage = new Stage();
+                        stage.setTitle(selectedItem.getName());
+                        stage.setScene(scene);
+                        stage.setResizable(false);
+                        stage.show();
                     } catch (IOException e) {
                         throw new RuntimeException(e);}}});
+        }
+
+        //Add button
+        if (addButton!=null) { addButton.setOnAction(event -> {
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/view/addMovie.fxml"));
+                try {
+                    Scene scene = new Scene(loader.load());
+                    AddMovieController addMovieController = loader.getController();
+                    addMovieController.setModel(model);
+
+                    Stage stage = new Stage();
+                    stage.setTitle("Add Movie");
+                    stage.setScene(scene);
+                    stage.setResizable(false);
+                    stage.show();
+                }
+                catch (IOException e) {
+                    throw new RuntimeException(e);}});
+        }
+
+        //Remove button
+        if (removeButton!=null) { removeButton.setOnAction(event -> {
+            if (movieTable.getSelectionModel().isEmpty()){
+                System.out.println("No selected movie to remove");
+            }
+            else {
+            Movie selectedItem = movieTable.getSelectionModel().getSelectedItem();
+            try {model.deleteMovie(selectedItem);} catch (SQLException e) {throw new RuntimeException(e);}
+            movieTable.getItems().remove(selectedItem);
+            }});
         }
 
         //Filter button
@@ -139,12 +143,17 @@ public class MainController implements Initializable {
         }
     }
 
+    public void setTable() {
+        titleColumn.setCellValueFactory((new PropertyValueFactory<>("name")));
+        ratingColumn.setCellValueFactory((new PropertyValueFactory<>("rating")));
+        releaseColumn.setCellValueFactory(new  PropertyValueFactory<>("release"));
+        lastViewColumn.setCellValueFactory((new PropertyValueFactory<>("lastView")));
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         model = new MainModel();
         buttonHandler();
-
-        try {model.fetchAllMovies(); model.fetchAllCategories();} catch (SQLException e) {throw new RuntimeException(e);}
 
         filterBox.setTitle("Filter");
         filterBox.getItems().addAll(model.getCategories());
@@ -153,14 +162,6 @@ public class MainController implements Initializable {
             filterBox.getItems().clear();
             filterBox.getItems().addAll(model.getCategories());
         });
-
-        if (movieTable != null) {
-            movieTable.setItems(model.getMovies());
-            titleColumn.setCellValueFactory((new PropertyValueFactory<>("name")));
-            ratingColumn.setCellValueFactory((new PropertyValueFactory<>("rating")));
-            releaseColumn.setCellValueFactory(new  PropertyValueFactory<>("release"));
-            lastViewColumn.setCellValueFactory((new PropertyValueFactory<>("lastView")));
-        }
 
         searchField.textProperty().addListener(new ChangeListener<String>() {
             @Override

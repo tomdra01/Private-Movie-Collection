@@ -47,6 +47,31 @@ public class MovieDAO {
         return allMovies;
     }
 
+
+    public List<Movie> getBadMovies() throws SQLException {
+        List<Movie> badMovies = new ArrayList<>();
+        try (Connection con = databaseConnector.getConnection()) {
+            String sql = "SELECT * FROM Movie WHERE DATEADD(year, -2, GETDATE()) > lastView AND rating < 6";
+            Statement statement = con.createStatement();
+
+            if (statement.execute(sql)) {
+                ResultSet resultSet = statement.getResultSet();
+                while (resultSet.next()) {
+                    int id = resultSet.getInt("id");
+                    String name = resultSet.getString("name");
+                    double rating = resultSet.getDouble("rating");
+                    String fileLink = resultSet.getString("fileLink");
+                    int release = resultSet.getInt("release");
+                    LocalDate lastView = resultSet.getDate("lastView").toLocalDate();
+
+                    Movie movie = new Movie(id, name, rating, fileLink, release, lastView);
+                    badMovies.add(movie);
+                }
+            }
+        }
+        return badMovies;
+    }
+
     /**
      * Method for creating a new movie.
      * @param name The name of the movie.

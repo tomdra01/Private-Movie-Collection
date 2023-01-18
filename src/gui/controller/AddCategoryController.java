@@ -26,33 +26,32 @@ public class AddCategoryController implements Initializable {
 
     public void setModel(MainModel model) {
         this.model = model;
-        try {
-            model.fetchAllCategories();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        try { model.fetchAllCategories(); } catch (SQLException e) {throw new RuntimeException(e);}
         categoryList.setItems(model.getCategories());
     }
 
     public void buttonHandler() {
         //New button
         if (newButton!=null) { newButton.setOnAction(event -> {
-            try {
-                model.createCategory(nameField.getText());
-                nameField.clear();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }});}
+            if (nameField.getText().isEmpty()) {
+                System.out.println("Empty field");
+            } else {
+                try {
+                    model.createCategory(nameField.getText());
+                    nameField.clear();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }}});
+        }
 
         //Delete button
-        if (deleteButton!=null) {
-            deleteButton.setOnAction(event -> {
-                        Category selectedItem = categoryList.getSelectionModel().getSelectedItem();
-                        try {
-                            model.deleteCategory(selectedItem);
-                        } catch (SQLException e) {
-                            throw new RuntimeException(e);
-                        }});
+        if (deleteButton!=null) { deleteButton.setOnAction(event -> {
+            if (categoryList.getSelectionModel().isEmpty()){
+                System.out.println("No selected category to delete");
+            } else {
+            Category selectedItem = categoryList.getSelectionModel().getSelectedItem();
+            try { model.deleteCategory(selectedItem); } catch (SQLException e) { throw new RuntimeException(e);}
+            }});
         }
 
         //Close button

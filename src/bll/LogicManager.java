@@ -21,6 +21,10 @@ public class LogicManager {
         return movieDAO.getAllMovies();
     }
 
+    public List<Movie> getBadMovies() throws SQLException {
+        return movieDAO.getBadMovies();
+    }
+
     public Movie createMovie (String name, double rating, String fileLink, int release, LocalDate lastView) throws MovieCollectionException {
         return movieDAO.createMovie(name, rating, fileLink, release, lastView);
     }

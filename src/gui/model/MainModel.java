@@ -18,6 +18,7 @@ public class MainModel {
     Filter utilFilter = new Filter();
     private ObservableList<Movie> movies = FXCollections.observableArrayList();
     private ObservableList<Movie> filteredMovies = FXCollections.observableArrayList();
+    private ObservableList<Movie> badMovies = FXCollections.observableArrayList();
     private ObservableList<Category> categories = FXCollections.observableArrayList();
 
     public ObservableList<Movie> getMovies() {
@@ -28,6 +29,10 @@ public class MainModel {
         return filteredMovies;
     }
 
+    public ObservableList<Movie> getBadMovies() {
+        return badMovies;
+    }
+
     public ObservableList<Category> getCategories() {
         return categories;
     }
@@ -35,6 +40,11 @@ public class MainModel {
     public void fetchAllMovies() throws SQLException {
         movies.clear();
         movies.addAll(bll.getAllMovies());
+    }
+
+    public void fetchBadMovies() throws SQLException {
+        badMovies.clear();
+        badMovies.addAll(bll.getBadMovies());
     }
 
     public void fetchAllCategories() throws SQLException {

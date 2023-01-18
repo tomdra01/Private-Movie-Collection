@@ -12,8 +12,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(Main.class.getResource("gui/view/main.fxml"));
-        primaryStage.setTitle("▶ PMC");
+        Parent root = FXMLLoader.load(Main.class.getResource("gui/view/warning.fxml"));
+        primaryStage.setTitle("Notification");
         primaryStage.setScene(new Scene(root));
         primaryStage.centerOnScreen();
         primaryStage.setResizable(false);
