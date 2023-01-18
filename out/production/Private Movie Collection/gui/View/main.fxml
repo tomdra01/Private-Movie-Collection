@@ -135,12 +135,12 @@
           <RowConstraints maxHeight="428.0" minHeight="10.0" prefHeight="428.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TableView fx:id="movieTable" maxWidth="500.0" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: #DCDCDC; -fx-background-radius: 10;" GridPane.rowIndex="1">
+            <TableView fx:id="movieTable" fixedCellSize="0.0" maxWidth="500.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: #DCDCDC; -fx-background-radius: 10;" GridPane.rowIndex="1">
               <columns>
-                <TableColumn fx:id="titleColumn" maxWidth="140.0" prefWidth="140.0" resizable="false" text="Title" />
-                <TableColumn fx:id="ratingColumn" maxWidth="80.0" resizable="false" text="Rating" />
-                  <TableColumn fx:id="releaseColumn" maxWidth="140.0" prefWidth="140.0" resizable="false" text="Release" />
-                  <TableColumn fx:id="lastViewColumn" maxWidth="140.0" prefWidth="140.0" resizable="false" text="Last Viewed" />
+                <TableColumn fx:id="titleColumn" editable="false" maxWidth="140.0" prefWidth="140.0" resizable="false" text="Title" />
+                <TableColumn fx:id="ratingColumn" editable="false" maxWidth="80.0" resizable="false" text="Rating" />
+                  <TableColumn fx:id="releaseColumn" editable="false" maxWidth="140.0" prefWidth="140.0" resizable="false" text="Release" />
+                  <TableColumn fx:id="lastViewColumn" editable="false" maxWidth="140.0" prefWidth="140.0" resizable="false" text="Last Viewed" />
               </columns>
             </TableView>
             <Pane prefHeight="200.0" prefWidth="200.0">
