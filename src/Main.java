@@ -12,6 +12,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        //start
         Parent root = FXMLLoader.load(Main.class.getResource("gui/view/warning.fxml"));
         primaryStage.setTitle("Notification");
         primaryStage.setScene(new Scene(root));

@@ -35,7 +35,7 @@ public class WarningController implements Initializable {
     public void buttonHandler() {
         //Skip button
         skipButton.setOnAction(event -> {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/view/main.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/view/mainView.fxml"));
             try {
                 Scene scene = new Scene(loader.load());
                 MainController mainController = loader.getController();
