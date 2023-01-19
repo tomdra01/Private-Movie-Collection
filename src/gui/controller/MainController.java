@@ -77,14 +77,14 @@ public class MainController implements Initializable {
                 System.out.println("No selected movie to watch");
             }
             else {
-            try {
+                try {
                 Movie selectedItem = movieTable.getSelectionModel().getSelectedItem();
                 selectedItem.setLastView(LocalDate.now());
                 model.updateDate(selectedItem);
                 File movieFile = new File(selectedItem.getFileLink());
                 Desktop.getDesktop().open(movieFile);
-            } catch (IOException ex) {ex.printStackTrace();}
-            catch (SQLException e) {throw new RuntimeException(e);}
+                } catch (IOException ex) {ex.printStackTrace();}
+                catch (SQLException e) {throw new RuntimeException(e);}
             }});
         }
 
@@ -96,7 +96,7 @@ public class MainController implements Initializable {
                 }
                 else {
                     Movie selectedItem = movieTable.getSelectionModel().getSelectedItem();
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/view/addRating.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/view/addRating.fxml"));
                     try {
                         Scene scene = new Scene(loader.load());
                         AddRatingController addRatingController = loader.getController();

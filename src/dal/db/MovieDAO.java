@@ -74,13 +74,9 @@ public class MovieDAO {
 
     /**
      * Method for creating a new movie.
-     * @param name The name of the movie.
-     * @param rating The rating of the movie.
-     * @param fileLink The path to the file of the movie.
-     * @param release The release year of the movie.
-     * @param lastView The date when the movie was last seen.
+     * @param movie
      * @return The new movie that you just added to the database.
-     * @throws SQLException
+     * @throws MovieCollectionException
      */
     public Movie createMovie(Movie movie) throws MovieCollectionException {
         try (Connection con = databaseConnector.getConnection()) {

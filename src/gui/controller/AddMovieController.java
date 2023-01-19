@@ -78,10 +78,9 @@ public class AddMovieController implements Initializable {
 
         //More button
         if (moreButton!=null) { moreButton.setOnAction(event -> {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/view/addCategory.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/view/addCategory.fxml"));
             try {
                 Scene scene = new Scene(loader.load());
-
                 AddCategoryController addCategoryController = loader.getController();
                 addCategoryController.setModel(model);
 

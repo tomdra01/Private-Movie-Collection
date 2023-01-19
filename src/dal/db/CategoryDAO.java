@@ -44,18 +44,19 @@ public class CategoryDAO {
 
     /**
      * Method for creating a new category.
-     * @param name The name of the category.
+     * @param category
      * @throws SQLException
      */
-    public Category createCategory(String name) throws SQLException {
+    public Category createCategory(Category category) throws SQLException {
         try (Connection con = databaseConnector.getConnection()) {
-            PreparedStatement pstCategory = con.prepareStatement("INSERT INTO Category (name) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
-            pstCategory.setString(1, name);
-            pstCategory.execute();
+            PreparedStatement pst = con.prepareStatement("INSERT INTO Category (name) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
+            pst.setString(1, category.getName());
+            pst.execute();
 
-            if (pstCategory.getGeneratedKeys().next()) {
-                int id = pstCategory.getGeneratedKeys().getInt(1);
-                return new Category(id, name);
+            if (pst.getGeneratedKeys().next()) {
+                int id = pst.getGeneratedKeys().getInt(1);
+                category.setId(id);
+                return category;
             }
         }
         throw new RuntimeException("Id not set");

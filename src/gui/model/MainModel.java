@@ -66,9 +66,10 @@ public class MainModel {
         bll.updateDate(movie);
     }
 
-    public void createCategory(String name) throws SQLException {
-        Category category = bll.createCategory(name);
-        categories.add(category);
+    public Category createCategory(Category category) throws SQLException {
+        Category c = bll.createCategory(category);
+        categories.add(c);
+        return c;
     }
 
     public void searchFilter(int id, String query) throws SQLException {

@@ -1,6 +1,7 @@
 package gui.controller;
 
 import be.Category;
+import be.Movie;
 import gui.model.MainModel;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -43,7 +44,8 @@ public class AddCategoryController implements Initializable {
                 System.out.println("Empty field");
             } else {
                 try {
-                    model.createCategory(nameField.getText());
+                    Category c = new Category(nameField.getText());
+                    model.createCategory(c);
                     nameField.clear();
                 } catch (SQLException e) {
                     throw new RuntimeException(e);

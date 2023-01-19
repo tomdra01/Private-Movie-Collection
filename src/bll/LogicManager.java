@@ -48,8 +48,8 @@ public class LogicManager {
         return categoryDAO.getAllCategories();
     }
 
-    public Category createCategory (String name) throws SQLException {
-        return categoryDAO.createCategory(name);
+    public Category createCategory (Category category) throws SQLException {
+        return categoryDAO.createCategory(category);
     }
 
     public void deleteCategory(Category category) throws SQLException {
