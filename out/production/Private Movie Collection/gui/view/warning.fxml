@@ -12,7 +12,7 @@
 
 <AnchorPane fx:id="warningPane" prefHeight="420.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.WarningController">
     <children>
-        <TableView fx:id="badMoviesTable" layoutX="11.0" layoutY="100.0" prefHeight="265.0" prefWidth="259.0">
+        <TableView fx:id="badMoviesTable" layoutX="11.0" layoutY="100.0" prefHeight="265.0" prefWidth="259.0" style="-fx-background-color: #DCDCDC #DCDCDC; -fx-background-radius: 10;">
             <columns>
                 <TableColumn fx:id="movieColumn" prefWidth="128.66662120819092" text="Movie" />
                 <TableColumn fx:id="lastSeenColumn" prefWidth="130.0000762939453" text="Last seen" />
