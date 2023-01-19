@@ -69,6 +69,5 @@ public class LogicManager {
             filterList.stream().anyMatch((movie2)-> movie.getId()==movie2.getId())
         ).toList();
         return out;
-
     }
 }

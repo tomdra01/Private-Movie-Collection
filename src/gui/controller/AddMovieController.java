@@ -87,7 +87,7 @@ public class AddMovieController implements Initializable {
                 addCategoryController.setModel(model);
 
                 Stage stageCategory = new Stage();
-                stageCategory.setTitle("Categories");
+                stageCategory.setTitle("More");
                 stageCategory.setScene(scene);
                 stageCategory.setResizable(false);
                 stageCategory.show();

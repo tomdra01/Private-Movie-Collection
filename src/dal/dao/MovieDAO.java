@@ -4,7 +4,6 @@ import be.Movie;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.db.DatabaseConnector;
 import util.MovieCollectionException;
-
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;

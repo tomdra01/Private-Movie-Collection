@@ -121,7 +121,7 @@ public class MainController implements Initializable {
                     addMovieController.setModel(model);
 
                     Stage stage = new Stage();
-                    stage.setTitle("Add Movie");
+                    stage.setTitle("Add");
                     stage.setScene(scene);
                     stage.setResizable(false);
                     stage.show();

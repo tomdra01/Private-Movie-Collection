@@ -54,12 +54,12 @@ public class MainModel {
         return m;
     }
 
-    public void editRating(Movie movie) throws SQLException {
-        bll.editRating(movie);
-    }
-
     public void deleteMovie(Movie movie) throws SQLException {
         bll.deleteMovie(movie);
+    }
+
+    public void editRating(Movie movie) throws SQLException {
+        bll.editRating(movie);
     }
 
     public void updateDate(Movie movie) throws SQLException {
@@ -72,12 +72,6 @@ public class MainModel {
         return c;
     }
 
-    public void searchFilter(int id, String query) throws SQLException {
-        List<Movie> movieList = bll.filterSearch(id, query);
-        movies.clear();
-        movies.addAll(movieList);
-    }
-
     public void deleteCategory(Category category) throws SQLException {
         bll.deleteCategory(category);
         categories.remove(category);
@@ -86,5 +80,11 @@ public class MainModel {
     public void addCategory(Movie movie, Category category) throws MovieCollectionException {
         bll.addCategory(movie, category);
         categories.add(category);
+    }
+
+    public void searchFilter(int id, String query) throws SQLException {
+        List<Movie> movieList = bll.filterSearch(id, query);
+        movies.clear();
+        movies.addAll(movieList);
     }
 }

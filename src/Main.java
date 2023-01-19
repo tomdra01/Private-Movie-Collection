@@ -14,7 +14,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         //start
         Parent root = FXMLLoader.load(Main.class.getResource("/gui/view/warning.fxml"));
-        primaryStage.setTitle("Notification");
+        primaryStage.setTitle(" ");
         primaryStage.setScene(new Scene(root));
         primaryStage.centerOnScreen();
         primaryStage.setResizable(false);

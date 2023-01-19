@@ -41,7 +41,7 @@ public class WarningController implements Initializable {
                             mainController.setModel(model);
 
                             Stage stage = new Stage();
-                            stage.setTitle("▶ PMC");
+                            stage.setTitle(" ");
                             stage.setScene(scene);
                             stage.setResizable(false);
                             stage.show();
