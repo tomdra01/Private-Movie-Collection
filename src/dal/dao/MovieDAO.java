@@ -1,11 +1,10 @@
-package dal.db;
+package dal.dao;
 
 import be.Movie;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
-import dal.DatabaseConnector;
+import dal.db.DatabaseConnector;
 import util.MovieCollectionException;
 
-import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;

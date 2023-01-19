@@ -1,7 +1,7 @@
 package bll.util;
 
 import be.Movie;
-import dal.db.MovieDAO;
+import dal.dao.MovieDAO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;

@@ -4,13 +4,12 @@ import be.Category;
 import be.Movie;
 import bll.util.Filter;
 import bll.util.Search;
-import dal.db.CatMovDAO;
-import dal.db.CategoryDAO;
-import dal.db.MovieDAO;
+import dal.dao.CatMovDAO;
+import dal.dao.CategoryDAO;
+import dal.dao.MovieDAO;
 import util.MovieCollectionException;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.*;
 
 public class LogicManager {

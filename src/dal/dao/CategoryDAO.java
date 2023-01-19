@@ -1,7 +1,7 @@
-package dal.db;
+package dal.dao;
 
 import be.Category;
-import dal.DatabaseConnector;
+import dal.db.DatabaseConnector;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

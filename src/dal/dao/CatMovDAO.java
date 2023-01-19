@@ -1,12 +1,11 @@
-package dal.db;
+package dal.dao;
 
 import be.Category;
 import be.Movie;
-import dal.DatabaseConnector;
+import dal.db.DatabaseConnector;
 import util.MovieCollectionException;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
