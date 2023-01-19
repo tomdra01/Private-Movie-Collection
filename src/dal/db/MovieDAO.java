@@ -82,20 +82,21 @@ public class MovieDAO {
      * @return The new movie that you just added to the database.
      * @throws SQLException
      */
-    public Movie createMovie(String name, double rating, String fileLink, int release, LocalDate lastView) throws MovieCollectionException {
+    public Movie createMovie(Movie movie) throws MovieCollectionException {
         try (Connection con = databaseConnector.getConnection()) {
             String psql = "INSERT INTO Movie (name, rating, fileLink, release, lastView) VALUES (?,?,?,?,?)";
             PreparedStatement statement = con.prepareStatement(psql, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, name);
-            statement.setDouble(2, rating);
-            statement.setString(3, fileLink);
-            statement.setInt(4, release);
-            statement.setDate(5, Date.valueOf(lastView));
+            statement.setString(1, movie.getName());
+            statement.setDouble(2, movie.getRating());
+            statement.setString(3, movie.getFileLink());
+            statement.setInt(4, movie.getRelease());
+            statement.setDate(5, Date.valueOf(movie.getLastView()));
 
             statement.execute();
             if (statement.getGeneratedKeys().next()) {
                 int id = statement.getGeneratedKeys().getInt(1);
-                return new Movie(id, name, rating, fileLink, release, lastView);
+                movie.setId(id);
+                return movie;
             }
             throw new RuntimeException("Id not set");
         }

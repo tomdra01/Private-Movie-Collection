@@ -11,22 +11,18 @@ import util.MovieCollectionException;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 public class MainModel {
-    LogicManager bll = new LogicManager();
-    Search utilSearch = new Search();
-    Filter utilFilter = new Filter();
+    LogicManager bll = new LogicManager(); //Logic manager
+
+    //Private lists
     private ObservableList<Movie> movies = FXCollections.observableArrayList();
-    private ObservableList<Movie> filteredMovies = FXCollections.observableArrayList();
     private ObservableList<Movie> badMovies = FXCollections.observableArrayList();
     private ObservableList<Category> categories = FXCollections.observableArrayList();
 
     public ObservableList<Movie> getMovies() {
         return movies;
-    }
-
-    public ObservableList<Movie> getFilteredMovies() {
-        return filteredMovies;
     }
 
     public ObservableList<Movie> getBadMovies() {
@@ -52,10 +48,10 @@ public class MainModel {
         categories.addAll(bll.getAllCategories());
     }
 
-    public Movie createMovie(String name, double rating, String fileLink, int release, LocalDate lastView) throws MovieCollectionException {
-        Movie movie = bll.createMovie(name, rating, fileLink, release, lastView);
-        movies.add(movie);
-        return movie;
+    public Movie createMovie(Movie movie) throws MovieCollectionException {
+        Movie m = bll.createMovie(movie);
+        movies.add(m);
+        return m;
     }
 
     public void editRating(Movie movie) throws SQLException {
@@ -75,14 +71,10 @@ public class MainModel {
         categories.add(category);
     }
 
-    public void search(String query) throws SQLException {
+    public void searchFilter(int id, String query) throws SQLException {
+        List<Movie> movieList = bll.filterSearch(id, query);
         movies.clear();
-        movies.addAll(utilSearch.searchMovie(query));
-    }
-
-    public void fetchFilteredMovies(int id) throws SQLException {
-        filteredMovies.clear();
-        filteredMovies.addAll(utilFilter.filter(id));
+        movies.addAll(movieList);
     }
 
     public void deleteCategory(Category category) throws SQLException {

@@ -18,11 +18,11 @@
                 <TableColumn fx:id="lastSeenColumn" prefWidth="130.0000762939453" text="Last seen" />
             </columns>
         </TableView>
-        <Text fx:id="title" layoutX="178.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WARNING">
+        <Text layoutX="178.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WARNING">
          <font>
             <Font name="Futura Medium" size="18.0" />
          </font></Text>
-        <Text fx:id="text" layoutX="48.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Remember to delete movies, that has a personal rating under 6 and has not been opened from the application in more than 2 years. " textAlignment="CENTER" wrappingWidth="357.23944091796875">
+        <Text layoutX="48.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Remember to delete movies, that has a personal rating under 6 and has not been opened from the application in more than 2 years. " textAlignment="CENTER" wrappingWidth="357.23944091796875">
          <font>
             <Font size="12.0" />
          </font></Text>

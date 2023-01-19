@@ -11,9 +11,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -27,33 +25,35 @@ public class WarningController implements Initializable {
     @FXML
     private TableColumn movieColumn, lastSeenColumn;
     @FXML
-    private Text title, text;
-    @FXML
     private Button removeButton, skipButton;
     private MainModel model;
 
     public void buttonHandler() {
         //Skip button
-        skipButton.setOnAction(event -> {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/view/mainView.fxml"));
-            try {
-                Scene scene = new Scene(loader.load());
-                MainController mainController = loader.getController();
-                mainController.setModel(model);
+        if (skipButton != null) {
+            skipButton.setOnAction(event -> {
+                        URL file = getClass().getResource("/gui/view/mainView.fxml");
+                        FXMLLoader loader = new FXMLLoader(file);
 
-                Stage stage = new Stage();
-                stage.setTitle("▶ PMC");
-                stage.setScene(scene);
-                stage.setResizable(false);
-                stage.show();
-            }
-            catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            Stage stage = (Stage) warningPane.getScene().getWindow();
-            stage.close();
-            }
-        );
+                        try {
+                            Scene scene = new Scene(loader.load());
+                            MainController mainController = loader.getController();
+                            mainController.setModel(model);
+
+                            Stage stage = new Stage();
+                            stage.setTitle("▶ PMC");
+                            stage.setScene(scene);
+                            stage.setResizable(false);
+                            stage.show();
+                        }
+                        catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        Stage stage = (Stage) warningPane.getScene().getWindow();
+                        stage.close();
+                    }
+            );
+        }
 
         //Remove button
         removeButton.setOnAction(event -> {
@@ -68,8 +68,7 @@ public class WarningController implements Initializable {
                     throw new RuntimeException(e);
                 }
                 badMoviesTable.getItems().remove(selectedItem);
-            }
-        });
+            }});
     }
 
 

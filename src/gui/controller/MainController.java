@@ -31,22 +31,44 @@ public class MainController implements Initializable {
     private TableView<Movie> movieTable;
     @FXML
     private TableColumn<Movie, String> titleColumn, ratingColumn, releaseColumn, lastViewColumn;
-
     @FXML
     private TextField searchField;
     @FXML
     private CheckComboBox<Category> filterBox;
-
     @FXML
     private Button watchButton, ratingButton, addButton, removeButton, filterButton, exit;
     private MainModel model;
 
+    /**
+     * Setting the model.
+     */
     public void setModel(MainModel model) {
         this.model = model;
+
+        try {model.fetchAllMovies(); model.fetchAllCategories();} catch (SQLException e) {throw new RuntimeException(e);}
+        movieTable.setItems(model.getMovies());
+        setTable();
+
+        filterBox.setTitle("Filter");
+        filterBox.getItems().addAll(model.getCategories());
+
+        model.getCategories().addListener((ListChangeListener<? super Category>) obs->{
+            filterBox.getItems().clear();
+            filterBox.getItems().addAll(model.getCategories());
+        });
+
+        searchField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                searchAndFilter();
+            }
+        });
+
+        if(this.exit!=null) exit.setOnAction(event -> Platform.exit()); //Exit application
     }
 
     /**
-     * Handles all the buttons in the Application
+     * Handles all the buttons in the current window.
      */
     public void buttonHandler() {
         //Watch button
@@ -92,7 +114,7 @@ public class MainController implements Initializable {
 
         //Add button
         if (addButton!=null) { addButton.setOnAction(event -> {
-                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/view/addMovie.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/view/addMovie.fxml"));
                 try {
                     Scene scene = new Scene(loader.load());
                     AddMovieController addMovieController = loader.getController();
@@ -127,53 +149,46 @@ public class MainController implements Initializable {
                 movieTable.setItems(model.getMovies());
             }
             else {
-                List<Category> selectedItems = filterBox.getCheckModel().getCheckedItems();
-                for (Category item : selectedItems) {
-                    try {
-                        model.fetchFilteredMovies(item.getId());
-                    } catch (SQLException e) {throw new RuntimeException(e);
-                    }
-                }
-                movieTable.setItems(model.getFilteredMovies());
+                searchAndFilter();
             }});
         }
     }
 
-    public void setTable() {
+    /**
+     * Setting the table.
+     */
+    private void setTable() {
         titleColumn.setCellValueFactory((new PropertyValueFactory<>("name")));
         ratingColumn.setCellValueFactory((new PropertyValueFactory<>("rating")));
         releaseColumn.setCellValueFactory(new  PropertyValueFactory<>("release"));
         lastViewColumn.setCellValueFactory((new PropertyValueFactory<>("lastView")));
     }
 
+    private void searchAndFilter() {
+        if (filterBox.getCheckModel().getCheckedItems().isEmpty()){
+            try {
+                model.searchFilter(-1, searchField.getText());
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        else {
+        List<Category> selectedItems = filterBox.getCheckModel().getCheckedItems();
+        for (Category item : selectedItems) {
+            try {
+                model.searchFilter(item.getId(), searchField.getText());
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            }
+        }
+    }
+
+    /**
+     * Initialize method for MovieController.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        model = new MainModel();
         buttonHandler();
-
-        try {model.fetchAllMovies(); model.fetchAllCategories();} catch (SQLException e) {throw new RuntimeException(e);}
-        movieTable.setItems(model.getMovies());
-        setTable();
-
-        filterBox.setTitle("Filter");
-        filterBox.getItems().addAll(model.getCategories());
-
-        model.getCategories().addListener((ListChangeListener<? super Category>) obs->{
-            filterBox.getItems().clear();
-            filterBox.getItems().addAll(model.getCategories());
-        });
-
-        searchField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                try {
-                    model.search(newValue);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
-
-        if(this.exit!=null) exit.setOnAction(event -> Platform.exit());
     }
 }

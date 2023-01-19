@@ -2,6 +2,8 @@ package bll;
 
 import be.Category;
 import be.Movie;
+import bll.util.Filter;
+import bll.util.Search;
 import dal.db.CatMovDAO;
 import dal.db.CategoryDAO;
 import dal.db.MovieDAO;
@@ -9,13 +11,14 @@ import util.MovieCollectionException;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class LogicManager {
     private MovieDAO movieDAO = new MovieDAO();
     private CategoryDAO categoryDAO = new CategoryDAO();
     private CatMovDAO catMovDAO = new CatMovDAO();
+    private Filter filter = new Filter();
+    private Search search = new Search();
 
     public List<Movie> getAllMovies() throws SQLException {
         return movieDAO.getAllMovies();
@@ -25,8 +28,8 @@ public class LogicManager {
         return movieDAO.getBadMovies();
     }
 
-    public Movie createMovie (String name, double rating, String fileLink, int release, LocalDate lastView) throws MovieCollectionException {
-        return movieDAO.createMovie(name, rating, fileLink, release, lastView);
+    public Movie createMovie (Movie movie) throws MovieCollectionException {
+        return movieDAO.createMovie(movie);
     }
 
     public void deleteMovie(Movie movie) throws SQLException {
@@ -55,5 +58,18 @@ public class LogicManager {
 
     public void addCategory(Movie movie, Category category) throws MovieCollectionException {
         catMovDAO.addCategory(movie, category);
+    }
+
+    public List<Movie> filterSearch(int id, String query) throws SQLException {
+        List<Movie> searchedList = search.searchMovie(query);
+        List<Movie> filterList = filter.filter(id);
+        if (filterList.isEmpty())
+            return searchedList;
+
+        List<Movie> out = searchedList.stream().filter((movie)->
+            filterList.stream().anyMatch((movie2)-> movie.getId()==movie2.getId())
+        ).toList();
+        return out;
+
     }
 }

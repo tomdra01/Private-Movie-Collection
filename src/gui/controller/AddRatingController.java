@@ -18,14 +18,17 @@ public class AddRatingController implements Initializable {
     @FXML
     private AnchorPane ratingPane;
     @FXML
+    private Button okButton;
+    @FXML
     private Rating stars;
     @FXML
     private Spinner<Double> ratingSpinner = new Spinner<>(0, 10, 5);
-    @FXML
-    private Button okButton;
-    private MainModel model;
     private Movie selectedMovie;
+    private MainModel model;
 
+    /**
+     * Setting the model.
+     */
     public void setModel(MainModel model) {
         this.model = model;
 
@@ -33,10 +36,17 @@ public class AddRatingController implements Initializable {
         ratingSpinner.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 10, selectedMovie.getRating(), 0.1));
     }
 
+    /**
+     * Setter for movie.
+     * @param selectedItem
+     */
     public void setSelectedMovie(Movie selectedItem) {
         this.selectedMovie = selectedItem;
     }
 
+    /**
+     * Handles all buttons in the current window.
+     */
     public void buttonHandler() {
         //Ok button
         if (okButton!=null) {
@@ -53,6 +63,9 @@ public class AddRatingController implements Initializable {
         }
     }
 
+    /**
+     * Initialize method for the AddRatingController.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         buttonHandler();

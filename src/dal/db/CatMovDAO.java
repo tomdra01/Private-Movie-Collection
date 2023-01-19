@@ -27,7 +27,7 @@ public class CatMovDAO {
 
             while (rs.next()) {
                 Movie movie = new Movie(
-                        rs.getInt("id"),
+                        rs.getInt("MovieId"),
                         rs.getString("name"),
                         rs.getDouble("rating"),
                         rs.getString("fileLink"),

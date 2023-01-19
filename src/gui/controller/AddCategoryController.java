@@ -17,19 +17,25 @@ public class AddCategoryController implements Initializable {
     @FXML
     private AnchorPane categoryPane;
     @FXML
+    private Button closeButton, newButton, deleteButton;
+    @FXML
     private ListView<Category> categoryList;
     @FXML
     private TextField nameField;
-    @FXML
-    private Button closeButton, newButton, deleteButton;
     private MainModel model;
 
+    /**
+     * Setting the model.
+     */
     public void setModel(MainModel model) {
         this.model = model;
         try { model.fetchAllCategories(); } catch (SQLException e) {throw new RuntimeException(e);}
         categoryList.setItems(model.getCategories());
     }
 
+    /**
+     * Handles all the buttons in the current window.
+     */
     public void buttonHandler() {
         //New button
         if (newButton!=null) { newButton.setOnAction(event -> {
@@ -61,6 +67,9 @@ public class AddCategoryController implements Initializable {
         }
     }
 
+    /**
+     * Initialize method for the AddCategoryController.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         buttonHandler();

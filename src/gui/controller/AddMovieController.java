@@ -29,18 +29,21 @@ public class AddMovieController implements Initializable {
     @FXML
     private AnchorPane addMoviePane;
     @FXML
+    private Button saveButton, cancelButton, openButton, moreButton;
+    @FXML
     private TextField titleField, sourceField;
     @FXML
     private CheckComboBox<Category> categoryField;
     @FXML
-    private Spinner<Integer> yearSpinner = new Spinner<>(1900, 2100, 2020);
-    @FXML
-    private Button saveButton, cancelButton, openButton, moreButton;
-    @FXML
     private Label categoryText;
-    private MainModel model;
+    @FXML
+    private Spinner<Integer> yearSpinner = new Spinner<>(1900, 2100, 2020);
     private double defaultRating = 0;
+    private MainModel model;
 
+    /**
+     * Setting the model.
+     */
     public void setModel(MainModel model) {
         this.model = model;
 
@@ -59,12 +62,15 @@ public class AddMovieController implements Initializable {
         yearSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1900, 2100, 2023, 1));
     }
 
+    /**
+     * Handles all buttons in the current window.
+     */
     public void buttonHandler() {
         //Open button
         if (openButton!=null) { openButton.setOnAction(event -> {
             Stage stage = new Stage();
             FileChooser fileChooser = new FileChooser();
-            FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("*.mp4", "*.MPEG-4");
+            FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("filter","*.mp4", "*.MPEG-4");
             fileChooser.getExtensionFilters().addAll(extensionFilter);
             File selectedMovie = fileChooser.showOpenDialog(stage);
             sourceField.setText(String.valueOf(selectedMovie));});
@@ -101,7 +107,14 @@ public class AddMovieController implements Initializable {
             }
             else {
                 try {
-                    Movie m = model.createMovie(titleField.getText(), defaultRating, sourceField.getText(), yearSpinner.getValue(), getCurrentDate());
+                    Movie m = new Movie(
+                            titleField.getText(),
+                            defaultRating,
+                            sourceField.getText(),
+                            yearSpinner.getValue(),
+                            getCurrentDate());
+                    model.createMovie(m);
+
                     List<Category> selectedItems = categoryField.getCheckModel().getCheckedItems();
 
                     for (Category item : selectedItems) {
@@ -112,8 +125,7 @@ public class AddMovieController implements Initializable {
                     e.printStackTrace();
                     b.show();
                 }
-                stage.close();
-            }});
+                stage.close();}});
         }
 
         //Cancel button
@@ -125,7 +137,8 @@ public class AddMovieController implements Initializable {
 
 
     /**
-     * Getting the current date
+     * Getting the current date.
+     * @return LocalDate.now
      */
     public LocalDate getCurrentDate() {
         return LocalDate.now();
@@ -139,6 +152,9 @@ public class AddMovieController implements Initializable {
             }});
     }
 
+    /**
+     * Initialize method for AddMovieController
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         buttonHandler();
