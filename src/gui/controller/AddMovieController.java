@@ -67,53 +67,54 @@ public class AddMovieController implements Initializable {
      */
     public void buttonHandler() {
         //Open button
-        if (openButton!=null) { openButton.setOnAction(event -> {
+        if (openButton!=null) openButton.setOnAction(event -> {
             Stage stage = new Stage();
+
             FileChooser fileChooser = new FileChooser();
             FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("filter","*.mp4", "*.MPEG-4");
             fileChooser.getExtensionFilters().addAll(extensionFilter);
+
             File selectedMovie = fileChooser.showOpenDialog(stage);
-            sourceField.setText(String.valueOf(selectedMovie));});
-        }
+            sourceField.setText(String.valueOf(selectedMovie));
+        });
+
 
         //More button
-        if (moreButton!=null) { moreButton.setOnAction(event -> {
+        if (moreButton!=null) moreButton.setOnAction(event -> {
             categoryText.setText("None");
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/view/addCategory.fxml"));
             try {
                 Scene scene = new Scene(loader.load());
+
                 AddCategoryController addCategoryController = loader.getController();
                 addCategoryController.setModel(model);
 
                 Stage stageCategory = new Stage();
+
                 stageCategory.setTitle("More");
                 stageCategory.setScene(scene);
                 stageCategory.setResizable(false);
                 stageCategory.show();
             }
             catch (IOException e) {
-                throw new RuntimeException(e);}});
-        }
+                throw new RuntimeException(e);
+            }
+        });
 
         //Save button
-        if (saveButton!=null) { saveButton.setOnAction(event -> {
+        if (saveButton!=null) saveButton.setOnAction(event -> {
             Stage stage = (Stage) saveButton.getScene().getWindow();
-            Alert a = new Alert(Alert.AlertType.NONE); // New alert
 
             if (titleField.getText().trim().isEmpty() || sourceField.getText().trim().isEmpty()) {
-                a.setAlertType(Alert.AlertType.ERROR);
-                a.setContentText("Please fill in all fields");
-                a.show();
+                Alert alert = new Alert(Alert.AlertType.ERROR, "No movie selected");
+
+                alert.setContentText("Please fill in all fields");
+                alert.show();
             }
             else {
                 try {
-                    Movie m = new Movie(
-                            titleField.getText(),
-                            defaultRating,
-                            sourceField.getText(),
-                            yearSpinner.getValue(),
-                            getCurrentDate());
+                    Movie m = new Movie(titleField.getText(), defaultRating, sourceField.getText(), yearSpinner.getValue(), getCurrentDate());
                     model.createMovie(m);
 
                     List<Category> selectedItems = categoryField.getCheckModel().getCheckedItems();
@@ -122,20 +123,21 @@ public class AddMovieController implements Initializable {
                         model.addCategory(m, new Category(item.getId(), item.getName()));
                     }
                 } catch (MovieCollectionException e) {
-                    Alert b = new Alert(Alert.AlertType.ERROR, e.getMessage());
+                    Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
+
                     e.printStackTrace();
-                    b.show();
+                    alert.show();
                 }
-                stage.close();}});
-        }
+                stage.close();
+            }
+        });
 
         //Cancel button
-        if (cancelButton!=null) { cancelButton.setOnAction(event -> {
+        if (cancelButton!=null) cancelButton.setOnAction(event -> {
             Stage stage = (Stage) addMoviePane.getScene().getWindow();
-            stage.close();});
-        }
+            stage.close();
+        });
     }
-
 
     /**
      * Getting the current date.
@@ -148,9 +150,8 @@ public class AddMovieController implements Initializable {
     public void getSelectedCategories() {
         categoryField.setOnMouseEntered(event -> {
             categoryText.setText(categoryField.getCheckModel().getCheckedItems().toString());
-            if (categoryField.getCheckModel().isEmpty()) {
-                categoryText.setText("None");
-            }});
+            if (categoryField.getCheckModel().isEmpty()) categoryText.setText("None");
+            });
     }
 
     /**

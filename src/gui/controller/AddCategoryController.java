@@ -5,6 +5,7 @@ import be.Movie;
 import gui.model.MainModel;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -30,7 +31,9 @@ public class AddCategoryController implements Initializable {
      */
     public void setModel(MainModel model) {
         this.model = model;
+
         try { model.fetchAllCategories(); } catch (SQLException e) {throw new RuntimeException(e);}
+
         categoryList.setItems(model.getCategories());
     }
 
@@ -39,34 +42,49 @@ public class AddCategoryController implements Initializable {
      */
     public void buttonHandler() {
         //New button
-        if (newButton!=null) { newButton.setOnAction(event -> {
+        if (newButton!=null) newButton.setOnAction(event -> {
             if (nameField.getText().isEmpty()) {
-                System.out.println("Empty field");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Empty field");
+
+                alert.setTitle("Message");
+                alert.setHeaderText("Something went wrong");
+                alert.show();
             } else {
                 try {
                     Category c = new Category(nameField.getText());
                     model.createCategory(c);
+
                     nameField.clear();
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
-                }}});
-        }
+                }
+            }
+        });
 
         //Delete button
-        if (deleteButton!=null) { deleteButton.setOnAction(event -> {
+        if (deleteButton!=null) deleteButton.setOnAction(event -> {
             if (categoryList.getSelectionModel().isEmpty()){
-                System.out.println("No selected category to delete");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "No category selected");
+
+                alert.setTitle("Message");
+                alert.setHeaderText("Something went wrong");
+                alert.show();
             } else {
-            Category selectedItem = categoryList.getSelectionModel().getSelectedItem();
-            try { model.deleteCategory(selectedItem); } catch (SQLException e) { throw new RuntimeException(e);}
-            }});
-        }
+                Category selectedItem = categoryList.getSelectionModel().getSelectedItem();
+
+                try {
+                    model.deleteCategory(selectedItem);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
 
         //Close button
-        if (closeButton!=null) { closeButton.setOnAction(event -> {
+        if (closeButton!=null) closeButton.setOnAction(event -> {
             Stage stage = (Stage) categoryPane.getScene().getWindow();
-            stage.close();});
-        }
+            stage.close();
+        });
     }
 
     /**

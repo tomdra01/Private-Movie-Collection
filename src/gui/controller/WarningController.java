@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -28,37 +29,38 @@ public class WarningController implements Initializable {
     private Button removeButton, skipButton;
     private MainModel model;
 
+    /**
+     * Handles all buttons in the current window.
+     */
     public void buttonHandler() {
         //Skip button
-        if (skipButton != null) {
-            skipButton.setOnAction(event -> {
-                        URL file = getClass().getResource("/gui/view/mainView.fxml");
-                        FXMLLoader loader = new FXMLLoader(file);
+        if (skipButton != null) skipButton.setOnAction(event -> {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/view/mainView.fxml"));
+            try {
+                Scene scene = new Scene(loader.load());
 
-                        try {
-                            Scene scene = new Scene(loader.load());
-                            MainController mainController = loader.getController();
-                            mainController.setModel(model);
+                MainController mainController = loader.getController();
+                mainController.setModel(model);
 
-                            Stage stage = new Stage();
-                            stage.setTitle(" ");
-                            stage.setScene(scene);
-                            stage.setResizable(false);
-                            stage.show();
-                        }
-                        catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                        Stage stage = (Stage) warningPane.getScene().getWindow();
-                        stage.close();
-                    }
-            );
-        }
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setResizable(false);
+                stage.show();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            Stage stage = (Stage) warningPane.getScene().getWindow();
+            stage.close();
+        });
 
         //Remove button
-        removeButton.setOnAction(event -> {
+        if (removeButton!=null) removeButton.setOnAction(event -> {
             if (badMoviesTable.getSelectionModel().isEmpty()){
-                System.out.println("no selected item");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "No movie selected");
+
+                alert.setTitle("Message");
+                alert.setHeaderText("Something went wrong");
+                alert.show();
             }
             else {
                 Movie selectedItem = badMoviesTable.getSelectionModel().getSelectedItem();
@@ -68,15 +70,21 @@ public class WarningController implements Initializable {
                     throw new RuntimeException(e);
                 }
                 badMoviesTable.getItems().remove(selectedItem);
-            }});
+            }
+        });
     }
 
-
+    /**
+     * Setting the table.
+     */
     public void setTable() {
         movieColumn.setCellValueFactory((new PropertyValueFactory<>("name")));
         lastSeenColumn.setCellValueFactory((new PropertyValueFactory<>("lastView")));
     }
 
+    /**
+     * Initialize method for the WarningController.
+     */
     public void initialize(URL location, ResourceBundle resources) {
         model = new MainModel();
         buttonHandler();

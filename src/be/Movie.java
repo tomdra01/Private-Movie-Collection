@@ -1,7 +1,6 @@
 package be;
 
 import javafx.beans.property.SimpleDoubleProperty;
-
 import java.time.LocalDate;
 
 public class Movie {
@@ -12,6 +11,7 @@ public class Movie {
     private int release;
     private LocalDate lastView;
 
+    //Constructor
     public Movie(String name, double rating, String fileLink, int release, LocalDate lastView) {
         this.name = name;
         this.rating.set(rating);
@@ -20,6 +20,7 @@ public class Movie {
         this.lastView = lastView;
     }
 
+    //Constructor
     public Movie(int id, String name, double rating, String fileLink, int release, LocalDate lastView) {
         this(name, rating, fileLink, release, lastView);
         this.id = id;

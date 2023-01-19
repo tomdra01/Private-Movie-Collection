@@ -68,59 +68,78 @@ public class MainController implements Initializable {
     }
 
     /**
-     * Handles all the buttons in the current window.
+     * Handles all buttons in the current window.
      */
     public void buttonHandler() {
         //Watch button
-        if (watchButton!=null) { watchButton.setOnAction(event -> {
+        if (watchButton!=null) watchButton.setOnAction(event -> {
             if (movieTable.getSelectionModel().isEmpty()){
-                System.out.println("No selected movie to watch");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "No movie selected");
+
+                alert.setTitle("Message");
+                alert.setHeaderText("Something went wrong");
+                alert.show();
             }
             else {
                 try {
-                Movie selectedItem = movieTable.getSelectionModel().getSelectedItem();
-                selectedItem.setLastView(LocalDate.now());
-                model.updateDate(selectedItem);
-                File movieFile = new File(selectedItem.getFileLink());
-                Desktop.getDesktop().open(movieFile);
-                } catch (IOException ex) {ex.printStackTrace();}
-                catch (SQLException e) {throw new RuntimeException(e);}
-            }});
-        }
+                    Movie selectedItem = movieTable.getSelectionModel().getSelectedItem();
+
+                    selectedItem.setLastView(LocalDate.now());
+                    model.updateDate(selectedItem);
+
+                    File movieFile = new File(selectedItem.getFileLink());
+                    Desktop.getDesktop().open(movieFile);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
 
         //Rating button
-        if (ratingButton!=null) {
-            ratingButton.setOnAction(event -> {
-                if (movieTable.getSelectionModel().isEmpty()){
-                    System.out.println("No selected movie to rate");
-                }
-                else {
-                    Movie selectedItem = movieTable.getSelectionModel().getSelectedItem();
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/view/addRating.fxml"));
-                    try {
-                        Scene scene = new Scene(loader.load());
-                        AddRatingController addRatingController = loader.getController();
-                        addRatingController.setSelectedMovie(selectedItem);
-                        addRatingController.setModel(model);
+        if (ratingButton!=null) ratingButton.setOnAction(event -> {
+            if (movieTable.getSelectionModel().isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "No movie selected");
 
-                        Stage stage = new Stage();
-                        stage.setTitle(selectedItem.getName());
-                        stage.setScene(scene);
-                        stage.setResizable(false);
-                        stage.show();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);}}});
-        }
+                alert.setTitle("Message");
+                alert.setHeaderText("Something went wrong");
+                alert.show();
+            }
+            else {
+                Movie selectedItem = movieTable.getSelectionModel().getSelectedItem();
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/view/addRating.fxml"));
+                try {
+                    Scene scene = new Scene(loader.load());
+
+                    AddRatingController addRatingController = loader.getController();
+                    addRatingController.setSelectedMovie(selectedItem);
+                    addRatingController.setModel(model);
+
+                    Stage stage = new Stage();
+
+                    stage.setTitle(selectedItem.getName());
+                    stage.setScene(scene);
+                    stage.setResizable(false);
+                    stage.show();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
 
         //Add button
         if (addButton!=null) { addButton.setOnAction(event -> {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/view/addMovie.fxml"));
                 try {
                     Scene scene = new Scene(loader.load());
+
                     AddMovieController addMovieController = loader.getController();
                     addMovieController.setModel(model);
 
                     Stage stage = new Stage();
+
                     stage.setTitle("Add");
                     stage.setScene(scene);
                     stage.setResizable(false);
@@ -131,27 +150,39 @@ public class MainController implements Initializable {
         }
 
         //Remove button
-        if (removeButton!=null) { removeButton.setOnAction(event -> {
+        if (removeButton!=null) removeButton.setOnAction(event -> {
             if (movieTable.getSelectionModel().isEmpty()){
-                System.out.println("No selected movie to remove");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "No movie selected");
+
+                alert.setTitle("Message");
+                alert.setHeaderText("Something went wrong");
+                alert.show();
             }
             else {
-            Movie selectedItem = movieTable.getSelectionModel().getSelectedItem();
-            try {model.deleteMovie(selectedItem);} catch (SQLException e) {throw new RuntimeException(e);}
-            movieTable.getItems().remove(selectedItem);
-            }});
-        }
+                Movie selectedItem = movieTable.getSelectionModel().getSelectedItem();
+                try {
+                    model.deleteMovie(selectedItem);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                movieTable.getItems().remove(selectedItem);
+            }
+        });
 
         //Filter button
-        if (filterButton!=null) { filterButton.setOnAction(event -> {
-            if (filterBox.getCheckModel().isEmpty()){
-                try {model.fetchAllMovies();} catch (SQLException e) {throw new RuntimeException(e);}
+        if (filterButton!=null) filterButton.setOnAction(event -> {
+            if (filterBox.getCheckModel().isEmpty()) {
+                try {
+                    model.fetchAllMovies();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
                 movieTable.setItems(model.getMovies());
             }
             else {
                 searchAndFilter();
-            }});
-        }
+            }
+        });
     }
 
     /**
@@ -165,7 +196,7 @@ public class MainController implements Initializable {
     }
 
     private void searchAndFilter() {
-        if (filterBox.getCheckModel().getCheckedItems().isEmpty()){
+        if (filterBox.getCheckModel().getCheckedItems().isEmpty()) {
             try {
                 model.searchFilter(-1, searchField.getText());
             } catch (SQLException e) {
@@ -174,12 +205,12 @@ public class MainController implements Initializable {
         }
         else {
         List<Category> selectedItems = filterBox.getCheckModel().getCheckedItems();
-        for (Category item : selectedItems) {
-            try {
-                model.searchFilter(item.getId(), searchField.getText());
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            for (Category item : selectedItems) {
+                try {
+                    model.searchFilter(item.getId(), searchField.getText());
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
     }

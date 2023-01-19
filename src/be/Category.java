@@ -4,10 +4,12 @@ public class Category {
     private int id;
     private String name;
 
+    //Constructor
     public Category(String name) {
         this.name = name;
     }
 
+    //Constructor
     public Category(int id, String name) {
         this(name);
         this.id = id;

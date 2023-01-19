@@ -11,7 +11,8 @@ public class Search {
 
     /**
      * Search function.
-     * @return Returns all filtered movies.
+     * @param query
+     * @return Returns all searched movies.
      * @throws SQLException
      */
     public List<Movie> searchMovie(String query) throws SQLException {

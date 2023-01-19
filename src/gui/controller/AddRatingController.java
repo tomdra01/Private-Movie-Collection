@@ -33,6 +33,7 @@ public class AddRatingController implements Initializable {
         this.model = model;
 
         stars.setDisable(true);
+
         ratingSpinner.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 10, selectedMovie.getRating(), 0.1));
     }
 
@@ -49,8 +50,7 @@ public class AddRatingController implements Initializable {
      */
     public void buttonHandler() {
         //Ok button
-        if (okButton!=null) {
-            okButton.setOnAction(event -> {
+        if (okButton!=null) okButton.setOnAction(event -> {
                 selectedMovie.setRating(ratingSpinner.getValue());
                 try {
                     model.editRating(selectedMovie);
@@ -59,8 +59,7 @@ public class AddRatingController implements Initializable {
                 }
                 Stage stage = (Stage) ratingPane.getScene().getWindow();
                 stage.close();
-            });
-        }
+        });
     }
 
     /**
