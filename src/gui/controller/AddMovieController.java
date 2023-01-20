@@ -45,7 +45,7 @@ public class AddMovieController implements Initializable {
      * Setting the model.
      */
     public void setModel(MainModel model) {
-        this.model = model;
+        this.model = model; //Model
 
         try {model.fetchAllCategories();} catch (SQLException e) {throw new RuntimeException(e);}
 
@@ -107,7 +107,7 @@ public class AddMovieController implements Initializable {
             Stage stage = (Stage) saveButton.getScene().getWindow();
 
             if (titleField.getText().trim().isEmpty() || sourceField.getText().trim().isEmpty()) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "No movie selected");
+                Alert alert = new Alert(Alert.AlertType.ERROR, "No movie selected"); //Alert
 
                 alert.setContentText("Please fill in all fields");
                 alert.show();
@@ -115,12 +115,12 @@ public class AddMovieController implements Initializable {
             else {
                 try {
                     Movie m = new Movie(titleField.getText(), defaultRating, sourceField.getText(), yearSpinner.getValue(), getCurrentDate());
-                    model.createMovie(m);
+                    model.createMovie(m); //Creating movie in the database
 
                     List<Category> selectedItems = categoryField.getCheckModel().getCheckedItems();
 
-                    for (Category item : selectedItems) {
-                        model.addCategory(m, new Category(item.getId(), item.getName()));
+                    for (Category item : selectedItems) { //Loop
+                        model.addCategory(m, new Category(item.getId(), item.getName())); //Adding categories to the movie
                     }
                 } catch (MovieCollectionException e) {
                     Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());

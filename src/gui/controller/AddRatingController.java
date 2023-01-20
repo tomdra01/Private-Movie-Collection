@@ -30,7 +30,7 @@ public class AddRatingController implements Initializable {
      * Setting the model.
      */
     public void setModel(MainModel model) {
-        this.model = model;
+        this.model = model; //Model
 
         stars.setDisable(true);
 
@@ -53,7 +53,7 @@ public class AddRatingController implements Initializable {
         if (okButton!=null) okButton.setOnAction(event -> {
                 selectedMovie.setRating(ratingSpinner.getValue());
                 try {
-                    model.editRating(selectedMovie);
+                    model.editRating(selectedMovie); //Edit the rating of a movie in the database
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }

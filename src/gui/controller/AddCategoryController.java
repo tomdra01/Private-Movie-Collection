@@ -30,7 +30,7 @@ public class AddCategoryController implements Initializable {
      * Setting the model.
      */
     public void setModel(MainModel model) {
-        this.model = model;
+        this.model = model; //Model
 
         try { model.fetchAllCategories(); } catch (SQLException e) {throw new RuntimeException(e);}
 
@@ -52,7 +52,7 @@ public class AddCategoryController implements Initializable {
             } else {
                 try {
                     Category c = new Category(nameField.getText());
-                    model.createCategory(c);
+                    model.createCategory(c);  //Creating category in the database
 
                     nameField.clear();
                 } catch (SQLException e) {
@@ -73,7 +73,7 @@ public class AddCategoryController implements Initializable {
                 Category selectedItem = categoryList.getSelectionModel().getSelectedItem();
 
                 try {
-                    model.deleteCategory(selectedItem);
+                    model.deleteCategory(selectedItem); //Deleting category from the database
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }

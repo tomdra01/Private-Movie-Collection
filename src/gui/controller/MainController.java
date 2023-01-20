@@ -43,7 +43,7 @@ public class MainController implements Initializable {
      * Setting the model.
      */
     public void setModel(MainModel model) {
-        this.model = model;
+        this.model = model; //Model
 
         try {model.fetchAllMovies(); model.fetchAllCategories();} catch (SQLException e) {throw new RuntimeException(e);}
         movieTable.setItems(model.getMovies());
@@ -74,7 +74,7 @@ public class MainController implements Initializable {
         //Watch button
         if (watchButton!=null) watchButton.setOnAction(event -> {
             if (movieTable.getSelectionModel().isEmpty()){
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "No movie selected");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "No movie selected"); //Alert
 
                 alert.setTitle("Message");
                 alert.setHeaderText("Something went wrong");
@@ -85,7 +85,7 @@ public class MainController implements Initializable {
                     Movie selectedItem = movieTable.getSelectionModel().getSelectedItem();
 
                     selectedItem.setLastView(LocalDate.now());
-                    model.updateDate(selectedItem);
+                    model.updateDate(selectedItem); //Updating lastView after opening movie
 
                     File movieFile = new File(selectedItem.getFileLink());
                     Desktop.getDesktop().open(movieFile);
@@ -100,7 +100,7 @@ public class MainController implements Initializable {
         //Rating button
         if (ratingButton!=null) ratingButton.setOnAction(event -> {
             if (movieTable.getSelectionModel().isEmpty()){
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "No movie selected");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "No movie selected"); //Alert
 
                 alert.setTitle("Message");
                 alert.setHeaderText("Something went wrong");
@@ -152,7 +152,7 @@ public class MainController implements Initializable {
         //Remove button
         if (removeButton!=null) removeButton.setOnAction(event -> {
             if (movieTable.getSelectionModel().isEmpty()){
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "No movie selected");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "No movie selected"); //Alert
 
                 alert.setTitle("Message");
                 alert.setHeaderText("Something went wrong");
@@ -161,7 +161,7 @@ public class MainController implements Initializable {
             else {
                 Movie selectedItem = movieTable.getSelectionModel().getSelectedItem();
                 try {
-                    model.deleteMovie(selectedItem);
+                    model.deleteMovie(selectedItem); //Deleting movie from the database
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
@@ -173,7 +173,7 @@ public class MainController implements Initializable {
         if (filterButton!=null) filterButton.setOnAction(event -> {
             if (filterBox.getCheckModel().isEmpty()) {
                 try {
-                    model.fetchAllMovies();
+                    model.fetchAllMovies(); //Fetching all movies
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
@@ -195,6 +195,9 @@ public class MainController implements Initializable {
         lastViewColumn.setCellValueFactory((new PropertyValueFactory<>("lastView")));
     }
 
+    /**
+     * Search while filter is active
+     */
     private void searchAndFilter() {
         if (filterBox.getCheckModel().getCheckedItems().isEmpty()) {
             try {

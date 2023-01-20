@@ -56,7 +56,7 @@ public class WarningController implements Initializable {
         //Remove button
         if (removeButton!=null) removeButton.setOnAction(event -> {
             if (badMoviesTable.getSelectionModel().isEmpty()){
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "No movie selected");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "No movie selected"); //Alert
 
                 alert.setTitle("Message");
                 alert.setHeaderText("Something went wrong");
@@ -65,7 +65,7 @@ public class WarningController implements Initializable {
             else {
                 Movie selectedItem = badMoviesTable.getSelectionModel().getSelectedItem();
                 try {
-                    model.deleteMovie(selectedItem);
+                    model.deleteMovie(selectedItem); //Deletes bad movie from the database
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
@@ -86,7 +86,7 @@ public class WarningController implements Initializable {
      * Initialize method for the WarningController.
      */
     public void initialize(URL location, ResourceBundle resources) {
-        model = new MainModel();
+        model = new MainModel(); //New model
         buttonHandler();
 
         try {model.fetchBadMovies();} catch (SQLException e) {throw new RuntimeException(e);}
