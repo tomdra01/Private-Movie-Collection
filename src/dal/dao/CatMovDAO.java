@@ -16,6 +16,12 @@ public class CatMovDAO {
         databaseConnector = new DatabaseConnector();
     }
 
+    /**
+     * Gets all movies filtered by category id.
+     * @param id
+     * @return Returns a list of filteredMovies
+     * @throws SQLException
+     */
     public List<Movie> filter(int id) throws SQLException {
         List<Movie> filterMovies = new ArrayList<>();
         try (Connection con = databaseConnector.getConnection()) {

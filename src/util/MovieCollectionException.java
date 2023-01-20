@@ -11,8 +11,8 @@ public class MovieCollectionException extends Exception{
 
     /**
      * MovieCollectionException
-     * @param message
-     * @param e
+     * @param message Gets the message.
+     * @param e Exception.
      */
     public MovieCollectionException(String message, SQLException e) {
         super(message, e);

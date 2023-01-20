@@ -45,7 +45,11 @@ public class MovieDAO {
         return allMovies;
     }
 
-
+    /**
+     * Gets all bad movies from the database.
+     * @return Returns a list of badMovies.
+     * @throws SQLException
+     */
     public List<Movie> getBadMovies() throws SQLException {
         List<Movie> badMovies = new ArrayList<>();
         try (Connection con = databaseConnector.getConnection()) {
